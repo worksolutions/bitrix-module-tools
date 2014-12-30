@@ -12,6 +12,7 @@ if (!Module::getInstance()->getUser()->IsAdmin()) {
 
 /** @var Localization $localization */
 $localization = Module::getInstance()->getLocalization('menu');
+$inputUri = '/bitrix/admin/ws_tools.php?q=';
 
 return array(
     array(
@@ -22,6 +23,12 @@ return array(
         'module_id' => Module::MODULE_ID,
         'icon' => '',
         'items_id' => Module::ITEMS_ID,
+        'items' => array(
+            array(
+                'text' => $localization->getDataByPath('conversionPropertiesIB'),
+                'url' => $inputUri.'conversion',
+            ),
+        )
     )
 );
 

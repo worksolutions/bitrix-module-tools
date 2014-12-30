@@ -35,4 +35,13 @@ class Localization {
 
         return $this->_data;
     }
+
+    /**
+     * @param $path
+     * @return Localization
+     * @throws \Bitrix\Main\DB\Exception
+     */
+    public function fork($path) {
+        return new static($this->_getData()->get($path));
+    }
 }

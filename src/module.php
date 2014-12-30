@@ -16,9 +16,11 @@ class Module {
 
     const MODULE_ID = 'ws.tools';
     const ITEMS_ID = 'ws_tools_menu';
+    const MODULE_NAME = ' ws.tools';
 
     private $localizePath = null;
     private $localizations = array();
+    private static  $name = self::MODULE_NAME;
 
     private function __construct() {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
@@ -68,5 +70,13 @@ class Module {
     public function getUser() {
         global $USER;
         return $USER;
+    }
+
+    static public function getName($stripDots = false) {
+        $name = static::$name;
+        if ($stripDots) {
+            $name = str_replace('.', '_', $name);
+        }
+        return $name;
     }
 } 

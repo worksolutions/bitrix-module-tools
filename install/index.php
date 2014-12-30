@@ -25,6 +25,13 @@ class ws_tools extends CModule {
         include(dirname(__FILE__) . "/version.php");
         $this->MODULE_VERSION = $arModuleVersion["VERSION"];
         $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
+
+        $localization = \WS\Tools\Module::getInstance()->getLocalization('info');
+        $this->MODULE_NAME = $localization->getDataByPath("name");
+        $this->MODULE_DESCRIPTION = $localization->getDataByPath("description");
+        $this->PARTNER_NAME = GetMessage('PARTNER_NAME');
+        $this->PARTNER_NAME = $localization->getDataByPath("partner.name");
+        $this->PARTNER_URI = 'http://worksolutions.ru';
     }
 
     function InstallFiles() {
