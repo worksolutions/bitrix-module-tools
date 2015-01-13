@@ -4,4 +4,3 @@
  */
 
 require  $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/ws.tools/admin/controller.php';
-
