@@ -1,10 +1,10 @@
 <?php
 use Bitrix\Main\Application;
 
-require_once __DIR__ . '/../src/module.php';
-require_once __DIR__ . '/../src/localization.php';
-require_once __DIR__ . '/../src/module.php';
-require_once __DIR__ . '/../src/options.php';
+require_once __DIR__ . '/../lib/module.php';
+require_once __DIR__ . '/../lib/localization.php';
+require_once __DIR__ . '/../lib/module.php';
+require_once __DIR__ . '/../lib/options.php';
 
 
 /**

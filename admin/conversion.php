@@ -4,8 +4,6 @@
  */
 
 use WS\Tools\Conversion\ConversionPropertyIBlock;
-
-require_once __DIR__ . '/../src/Conversion/conversion.php';
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
 
 /** @var $localization \WS\Migrations\Localization */
