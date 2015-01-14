@@ -79,4 +79,15 @@ class Module {
         }
         return $name;
     }
-} 
+
+    /**
+     * @return ClassLoader
+     */
+    public function classLoader() {
+        return ClassLoader::getInstance();
+    }
+
+    public function eventManager() {
+
+    }
+}
