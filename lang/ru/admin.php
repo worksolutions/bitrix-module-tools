@@ -4,6 +4,6 @@
  */
 return array(
     'conversion' => array(
-        'title' => 'Страница'
+        'title' => 'Конвертация'
     ),
 );
