@@ -31,6 +31,7 @@ class EventType {
 
     /**
      * @param $code
+     * @return \WS\Tools\Events\EventType
      * @throws \Exception
      */
     static public function create($code) {
@@ -38,6 +39,7 @@ class EventType {
         if (!$params) {
             throw new \Exception();
         }
+        return static::createByParams($params[0], $params[1]);
     }
 
     /**
