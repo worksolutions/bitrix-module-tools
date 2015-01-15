@@ -5,6 +5,105 @@
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
 
+$conversionProperty = function ($idProperty, $idIBlock, $type) {
+    $propertyValues = array();
+    $result = CIBlockElement::GetList(array(), array('IBLOCK_ID' => $idIBlock), null, null, array('ID'));
+    $variants = array();
+    while ($element = $result->Fetch()) {
+        $propResult = CIBlockElement::GetProperty($idIBlock, $element['ID'], '', '', array('ID' => $idProperty));
+        while ($property = $propResult->Fetch()) {
+            $propertyValues[] = array(
+                'id_element' => (int) $element['ID'],
+                'id_property' => (int) $property['ID'],
+                'value' => $property['VALUE']
+            );
+
+            $variants[] = $property['VALUE'];
+        }
+    }
+
+    $variants = array_filter(array_unique($variants));
+
+    $prop = new CIBlockProperty();
+    $prop->Update($idProperty, array('PROPERTY_TYPE' => $type));
+    $propertyData = CIBlockProperty::GetByID($idProperty, $idIBlock)->Fetch();
+
+    $list = array();
+
+    switch ($type) {
+        case "L": // list
+            /** @var CDatabase $DB */
+            global $DB;
+            foreach ($variants as $variant) {
+                $lastId = $list[$variant] = CIBlockPropertyEnum::Add(array(
+                    'PROPERTY_ID' => $idProperty,
+                    'VALUE' => $variant,
+                ));
+                if (!$lastId) {
+                    throw new Exception($DB->db_Error);
+                }
+            }
+            break;
+        case "E" : // Привязка к элементу
+            $arSourceIblockData = CIBlock::GetArrayByID($idIBlock);
+
+            $sites = array();
+            $rsSites = \Bitrix\Main\SiteTable::getList();
+            while ($arSite = $rsSites->fetch()) {
+                $sites[] = $arSite['LID'];
+            }
+            $iblock = new CIBlock();
+            $handbookIblockId = $iblock->Add(array(
+                "ACTIVE" => 'Y',
+                "NAME" => $propertyData['NAME'],
+                "SITE_ID" => $sites,
+                "IBLOCK_TYPE_ID" => $arSourceIblockData['IBLOCK_TYPE_ID']
+            ));
+            if (!$handbookIblockId) {
+                throw new Exception($iblock->LAST_ERROR);
+            }
+
+            $iblockElement = new CIBlockElement();
+            foreach ($variants as $variant) {
+                $lastId = $list[$variant] = $iblockElement->Add(array(
+                    "ACTIVE" => "Y",
+                    'IBLOCK_ID' => $handbookIblockId,
+                    'NAME' => $variant
+                ));
+                if (!$lastId) {
+                    throw new Exception($iblockElement->LAST_ERROR);
+                }
+            }
+            break;
+
+    }
+
+    $iblockElement = new CIBlockElement();
+    $valuesToElements = array();
+    foreach ($propertyValues as $propertyValue) {
+        $variantIdId = $list[$propertyValue['value']];
+        $valuesToElements[$propertyValue['id_element']][] = $variantIdId;
+    }
+    foreach ($valuesToElements as $elementId => $elementValues) {
+        $iblockElement->SetPropertyValuesEx($elementId, $idIBlock, array($idProperty => $elementValues));
+    }
+    return true;
+};
+
+if ($_POST['apply'] == 'Применить') {
+
+    $iblockID = intval($_POST['selectIblocks']);
+    $propertyID = intval($_POST['selectProperties']);
+    $newTypeIBlock = $_POST['new-type-property-info-block'];
+
+    $conversionProperty($propertyID, $iblockID, $newTypeIBlock) && CAdminNotify::Add(array(
+        'MESSAGE' => 'Конвертация прошла успешно',
+        'TAG' => 'save_property_notify',
+        'MODULE_ID' => 'ws.tools',
+        'ENABLE_CLOSE' => 'Y',
+    ));;
+}
+
 $jsParams = array();
 
 $types = array();
@@ -36,9 +135,10 @@ $jsParams['iblocks'] = array(
 );
 
 $properties = array();
-$rsProperties = \Bitrix\Iblock\PropertyTable::getList(array(
+    $rsProperties = \Bitrix\Iblock\PropertyTable::getList(array(
     'filter' => array(
-        'PROPERTY_TYPE' => array('S', 'N')
+        'PROPERTY_TYPE' => \Bitrix\Iblock\PropertyTable::TYPE_STRING,
+        'USER_TYPE' => NULL
     )
 ));
 while ($property = $rsProperties->fetch()) {
@@ -58,6 +158,10 @@ $jsParams['properties'] = array(
 $localization;
 
 ?>
+<form method="POST"
+      action="<?= $APPLICATION->GetCurUri()?>"
+      ENCTYPE="multipart/form-data"
+      name="apply">
 <?php
 $form = new CAdminForm('ws_tools_conversion', array(
     array(
@@ -76,16 +180,16 @@ $form->AddDropDownField('selectIblocks', 'Инфоблок', '', array());
 $form->AddDropDownField('selectProperties', 'Свойство Инфоблока', '', array());
 
 $form->AddSection('section-appointment', 'Назначение');
-$form->AddDropDownField('new-type-property-info-block', 'Тип', '', array('Список', 'Привязка к эементам'));
+$form->AddDropDownField('new-type-property-info-block', 'Тип', '', array('L' => 'Список', 'E' => 'Привязка к эементам'));
 
-$form->Buttons(array());
+$form->Buttons(array('btnSave' => false));
 
 $form->EndCustomField('form');
 
 $form->EndTab();
 $form->Show();
-
 ?>
+</form>
 
 <script type="text/javascript">
     (function (params) {
