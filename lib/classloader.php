@@ -10,22 +10,11 @@ use Bitrix\Main\LoaderException;
 class ClassLoader {
     private $_folderPaths = array();
 
-    private function __construct() {
+    public function __construct() {
         if (!function_exists('spl_autoload_register')) {
             throw new LoaderException('function `spl_autoload_register` not exists');
         }
-        \spl_autoload_register(array(self::getInstance(), 'load'));
-    }
-
-    /**
-     * @return static
-     */
-    static public function getInstance() {
-        static $self;
-        if ($self === null) {
-            $self = new static;
-        }
-        return $self;
+        \spl_autoload_register(array($this, 'load'));
     }
 
     /**
@@ -61,6 +50,7 @@ class ClassLoader {
             return false;
         }
         include $file;
+        return true;
     }
 
     /**

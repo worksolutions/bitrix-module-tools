@@ -5,7 +5,8 @@
 
 namespace WS\Tools;
 use Bitrix\Main\Application;
-use Bitrix\Main\DB\Exception;
+use WS\Tools\Events\EventsManager;
+
 /**
  * Class Module
  * namespace WS\Tools
@@ -26,6 +27,8 @@ class Module {
 
     private function __construct() {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
+        $this->_services['eventManager'] = new EventsManager();
+        $this->_services['classLoader'] = new ClassLoader();
     }
 
     /**
@@ -48,14 +51,14 @@ class Module {
 
     /**
      * @param $path
+     * @throws \Exception
      * @return mixed
-     * @throws Exception
      */
     public function getLocalization($path) {
         if(!$this->localizations[$path]) {
             $realPath = realpath($this->localizePath.'/'.str_replace('.', '/',$path).'.php');
             if(!file_exists($realPath)) {
-                throw new Exception('Exception '.__CLASS__ . ' method _getLocalization message - файл не найден');
+                throw new \Exception('Exception '.__CLASS__ . ' method _getLocalization message - файл не найден');
             }
 
             $data = include $realPath;
@@ -83,13 +86,37 @@ class Module {
     }
 
     /**
+     * @param $name
+     * @return Object
+     */
+    public function getService($name) {
+        if (!$this->_services[$name]) {
+            $this->_services[$name] = $this->createService($name);
+        }
+        return $this->_services[$name];
+    }
+
+    /**
      * @return ClassLoader
      */
     public function classLoader() {
-        return ClassLoader::getInstance();
+        return $this->getService('classLoader');
     }
 
+    /**
+     * @return EventsManager
+     */
     public function eventManager() {
+        return $this->getService('eventManager');
+    }
 
+    /**
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
+    private function createService($name) {
+        throw new \Exception('Method not realized');
+        return $service;
     }
 }
