@@ -22,6 +22,8 @@ class Module {
     private $localizations = array();
     private static  $name = self::MODULE_NAME;
 
+    private $_services = array();
+
     private function __construct() {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
     }

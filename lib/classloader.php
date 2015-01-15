@@ -14,7 +14,7 @@ class ClassLoader {
         if (!function_exists('spl_autoload_register')) {
             throw new LoaderException('function `spl_autoload_register` not exists');
         }
-        spl_autoload_register(array(self::getInstance(), 'load'));
+        \spl_autoload_register(array(self::getInstance(), 'load'));
     }
 
     /**
