@@ -4,6 +4,6 @@
  */
 
 return array(
-    'title' => 'Инструменты WS',
+    'title' => 'WS Tools',
     'conversionPropertiesIB' => 'Конвертация свойств ИБ'
 );

@@ -5,7 +5,7 @@
 
 $fileName = __DIR__.'/version.php';
 
-$arModuleVersion = [
+$arModuleVersion = array(
     'VERSION' => '1.0.0',
-    'VERSION_DATE' => date('Y-m-d', filemtime($fileName)),
-];
+    'VERSION_DATE' => date('Y-m-d', filemtime($fileName))
+);
