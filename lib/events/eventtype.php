@@ -286,6 +286,174 @@ class EventType {
      */
     const MAIN_USER_LOGIN_EXTERNAL = 'main-user-login-external';
 
+    //--------------------------- Информационные блоки ------------------------------//
+
+    /**
+     * Событие "OnAfterIBlockAdd" вызывается после попытки добавления
+     * нового информационного блока методом CIBlock::Add.
+     */
+    const IBLOCK_AFTER_IBLOCK_ADD = 'iblock-after-iblock-add';
+
+    /**
+     * Событие "OnAfterIBlockElementAdd" вызывается после попытки добавления
+     * нового элемента информационного блока методом CIBlockElement::Add.
+     */
+    const IBLOCK_AFTER_IBLOCK_ELEMENT_ADD = 'iblock-after-iblock-element-add';
+
+    /**
+     * Событие "OnAfterIBlockElementDelete" вызывается после того,
+     * как элемент и вся связанная с ним информация были удалены из базы данных.
+     */
+    const IBLOCK_AFTER_IBLOCK_ELEMENT_DELETE = 'iblock-after-iblock-element-delete';
+
+    /**
+     * Событие "OnAfterIBlockElementSetPropertyValues" вызывается после попытки сохранения
+     * значений всех свойств элемента инфоблока методом CIBlockElement::SetPropertyValues.
+     */
+    const IBLOCK_AFTER_IBLOCK_ELEMENT_SET_PROPERTY_VALUES = 'iblock-after-iblock-element-set-property-values';
+
+    /**
+     * Событие "OnAfterIBlockElementSetPropertyValuesEx" вызывается после попытки сохранения
+     * значений свойств элемента инфоблока методом CIBlockElement::SetPropertyValuesEx.
+     */
+    const IBLOCK_AFTER_IBLOCK_ELEMENT_SET_PROPERTY_VALUES_EX = 'iblock-after-iblock-element-set-property-values-ex';
+
+    /**
+     * Событие "OnAfterIBlockElementUpdate" вызывается после
+     * попытки изменения элемента информационного блока методом CIBlockElement::Update.
+     */
+    const IBLOCK_AFTER_IBLOCK_ELEMENT_ELEMENT_UPDATE = 'iblock-after-iblock-element-element-update';
+
+    /**
+     * Событие "OnAfterIBlockPropertyAdd" вызывается после попытки добавления
+     * нового свойства информационного блока методом CIBlockProperty::Add.
+     */
+    const IBLOCK_AFTER_IBLOCK_PROPERTY_ADD = 'iblock-after-iblock-property-add';
+
+    /**
+     * Событие "OnAfterIBlockPropertyUpdate" вызывается после попытки изменения
+     * свойства информационного блока методом CIBlockProperty::Update.
+     */
+    const IBLOCK_AFTER_IBLOCK_PROPERTY_UPDATE = 'iblock-after-iblock-property-update';
+
+    /**
+     * Событие "OnAfterIBlockSectionAdd" вызывается после попытки добавления
+     * нового раздела информационного блока методом CIBlockSection::Add.
+     */
+    const IBLOCK_AFTER_IBLOCK_SECTION_ADD = 'iblock-after-iblock-section-add';
+
+    /**
+     * Событие "OnAfterIBlockSectionUpdate" вызывается после попытки
+     * изменения раздела информационного блока методом CIBlockSection::Update.
+     */
+    const IBLOCK_AFTER_IBLOCK_SECTION_UPDATE = 'iblock-after-iblock-section-update';
+
+    /**
+     * Событие "OnAfterIBlockUpdate" вызывается после попытки изменения информационного
+     * блока методом CIBlock::Update.
+     */
+    const IBLOCK_AFTER_IBLOCK_UPDATE = 'iblock-after-iblock-update';
+
+    /**
+     * Событие вызывается в методе CIBlock::Add до вставки информационного блока,
+     * и может быть использовано для отмены вставки или переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_ADD = 'iblock-before-iblock-add';
+
+    /**
+     * Вызывается перед удалением информационного блока.
+     */
+    const IBLOCK_BEFORE_IBLOCK_DELETE = 'iblock-before-iblock-delete';
+
+    /**
+     * Событие вызывается в методе CIBlockElement::Add до вставки элемента информационного блока,
+     * и может быть использовано для отмены вставки или переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_ELEMENT_ADD = 'iblock-before-iblock-element-add';
+
+    /**
+     * Событие "OnBeforeIBlockElementDelete" вызывается перед удалением элемента методом CIBlockElement::Delete.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление.
+     */
+    const IBLOCK_BEFORE_IBLOCK_ELEMENT_DELETE = 'iblock-before-iblock-element-delete';
+
+    /**
+     * Событие вызывается в методе CIBlockElement::Update до изменения элемента информационного блока,
+     * и может быть использовано для отмены изменения или для переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_ELEMENT_UPDATE = 'iblock-before-iblock-element-update';
+
+    /**
+     * Событие вызывается в методе CIBlockProperty::Add до вставки свойства в инфоблок,
+     * и может быть использовано для отмены вставки или переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_PROPERTY_ADD = 'iblock-before-iblock-property-add';
+
+    /**
+     * Событие "OnBeforeIBlockPropertyDelete" вызывается перед удалением свойства методом CIBlockProperty::Delete.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление.
+     */
+    const IBLOCK_BEFORE_IBLOCK_PROPERTY_DELETE = 'iblock-before-iblock-property-delete';
+
+    /**
+     * Событие вызывается в методе CIBlockProperty::Update до изменения свойства информационного блока,
+     * и может быть использовано для отмены изменения или для переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_PROPERTY_UPDATE = 'iblock-before-iblock-property-update';
+
+    /**
+     * Событие вызывается в методе CIBlockSection::Add до вставки информационного блока,
+     * и может быть использовано для отмены вставки или переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_SECTION_ADD = 'iblock-before-iblock-section-add';
+
+    /**
+     * Событие "OnBeforeIBlockSectionDelete" вызывается перед удалением раздела методом CIBlockSection::Delete.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление.
+     */
+    const IBLOCK_BEFORE_IBLOCK_SECTION_DELETE = 'iblock-before-iblock-section-delete';
+
+    /**
+     * Событие вызывается в методе CIBlockSection::Update до изменения раздела информационного блока,
+     * и может быть использовано для отмены изменения или для переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_SECTION_UPDATE = 'iblock-before-iblock-section-update';
+
+    /**
+     * Событие вызывается в методе CIBlock::Update до изменения информационного блока,
+     * и может быть использовано для отмены изменения или переопределения некоторых полей.
+     */
+    const IBLOCK_BEFORE_IBLOCK_UPDATE = 'iblock-before-iblock-update';
+
+    /**
+     * Вызывается в момент удаления информационного блока.
+     */
+    const IBLOCK_DELETE = 'iblock-delete';
+
+    /**
+     * Вызывается в момент удаления элемента информационного блока.
+     */
+    const IBLOCK_ELEMENT_DELETE = 'iblock-element-delete';
+
+    /**
+     * Событие вызывается при построении списка пользовательских свойств.
+     */
+    const IBLOCK_PROPERTY_BUILD_LIST = 'iblock-property-build-list';
+
+    /**
+     * Событие вызывается в методе CIBlockElement::Add до добавления элемента инфоблока
+     * перед проверкой правильности заполнения полей,
+     * и может быть использовано для отмены выполнения других обработчиков событий.
+     */
+    const IBLOCK_START_IBLOCK_ELEMENT_ADD = 'iblock-start-iblock-element-add';
+
+    /**
+     * Событие вызывается в методе CIBlockElement::Update до изменения элемента информационного блока
+     * перед проверкой правильности заполнения полей,
+     * и может быть использовано для отмены изменения или для переопределения некоторых полей.
+     */
+    const IBLOCK_START_IBLOCK_ELEMENT_UPDATE = 'iblock-start-iblock-element-update';
+
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
         self::MAIN_ADMIN_CONTEXT_MENU_SHOW => array('main', 'OnAdminContextMenuShow'),
@@ -336,6 +504,35 @@ class EventType {
         self::MAIN_SITE_DELETE => array('main','OnSiteDelete'),
         self::MAIN_USER_DELETE => array('main','OnUserDelete'),
         self::MAIN_USER_LOGIN_EXTERNAL => array('main','OnUserLoginExternal'),
+
+        self::IBLOCK_AFTER_IBLOCK_ADD => array('iblock','OnAfterIBlockAdd'),
+        self::IBLOCK_AFTER_IBLOCK_ELEMENT_ADD => array('iblock','OnAfterIBlockElementAdd'),
+        self::IBLOCK_AFTER_IBLOCK_ELEMENT_DELETE => array('iblock','OnAfterIBlockElementDelete'),
+        self::IBLOCK_AFTER_IBLOCK_ELEMENT_SET_PROPERTY_VALUES => array('iblock','OnAfterIBlockElementSetPropertyValues'),
+        self::IBLOCK_AFTER_IBLOCK_ELEMENT_SET_PROPERTY_VALUES_EX => array('iblock','OnAfterIBlockElementSetPropertyValuesEx'),
+        self::IBLOCK_AFTER_IBLOCK_ELEMENT_ELEMENT_UPDATE => array('iblock','OnAfterIBlockElementUpdate'),
+        self::IBLOCK_AFTER_IBLOCK_PROPERTY_ADD => array('iblock','OnAfterIBlockPropertyAdd'),
+        self::IBLOCK_AFTER_IBLOCK_PROPERTY_UPDATE => array('iblock','OnAfterIBlockPropertyUpdate'),
+        self::IBLOCK_AFTER_IBLOCK_SECTION_ADD => array('iblock','OnAfterIBlockSectionAdd'),
+        self::IBLOCK_AFTER_IBLOCK_SECTION_UPDATE => array('iblock','OnAfterIBlockSectionUpdate'),
+        self::IBLOCK_AFTER_IBLOCK_UPDATE => array('iblock','OnAfterIBlockUpdate'),
+        self::IBLOCK_BEFORE_IBLOCK_ADD => array('iblock','OnBeforeIBlockAdd'),
+        self::IBLOCK_BEFORE_IBLOCK_DELETE => array('iblock','OnBeforeIBlockDelete'),
+        self::IBLOCK_BEFORE_IBLOCK_ELEMENT_ADD => array('iblock','OnBeforeIBlockElementAdd'),
+        self::IBLOCK_BEFORE_IBLOCK_ELEMENT_DELETE => array('iblock','OnBeforeIBlockElementDelete'),
+        self::IBLOCK_BEFORE_IBLOCK_ELEMENT_UPDATE => array('iblock','OnBeforeIBlockElementUpdate'),
+        self::IBLOCK_BEFORE_IBLOCK_PROPERTY_ADD => array('iblock','OnBeforeIBlockPropertyAdd'),
+        self::IBLOCK_BEFORE_IBLOCK_PROPERTY_DELETE => array('iblock','OnBeforeIBlockPropertyDelete'),
+        self::IBLOCK_BEFORE_IBLOCK_PROPERTY_UPDATE => array('iblock','OnBeforeIBlockPropertyUpdate'),
+        self::IBLOCK_BEFORE_IBLOCK_SECTION_ADD => array('iblock','OnBeforeIBlockSectionAdd'),
+        self::IBLOCK_BEFORE_IBLOCK_SECTION_DELETE => array('iblock','OnBeforeIBlockSectionDelete'),
+        self::IBLOCK_BEFORE_IBLOCK_SECTION_UPDATE => array('iblock','OnBeforeIBlockSectionUpdate'),
+        self::IBLOCK_BEFORE_IBLOCK_UPDATE => array('iblock','OnBeforeIBlockUpdate'),
+        self::IBLOCK_DELETE => array('iblock','OnIBlockDelete'),
+        self::IBLOCK_ELEMENT_DELETE => array('iblock','OnIBlockElementDelete'),
+        self::IBLOCK_PROPERTY_BUILD_LIST => array('iblock',' OnIBlockPropertyBuildList'),
+        self::IBLOCK_START_IBLOCK_ELEMENT_ADD => array('iblock',' OnStartIBlockElementAdd'),
+        self::IBLOCK_START_IBLOCK_ELEMENT_UPDATE => array('iblock',' OnStartIBlockElementUpdate'),
     );
 
     private $_module, $_subject;
