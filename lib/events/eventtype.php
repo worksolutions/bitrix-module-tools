@@ -1167,6 +1167,61 @@ class EventType {
      */
     const CATALOG_COUPON_UPDATE = 'catalog-coupon-update';
 
+    /**
+     * Событие, вызываемое в случае успешного добавления скидки.
+     */
+    const CATALOG_DISCOUNT_ADD = 'catalog-discount-add';
+
+    /**
+     * Событие,  вызываемое при удалении существующей скидки.
+     */
+    const CATALOG_DISCOUNT_DELETE = 'catalog-discount-delete';
+
+    /**
+     * Событие,  вызываемое при обновлении существующей скидки.
+     */
+    const CATALOG_DISCOUNT_UPDATE = 'catalog-discount-update';
+
+    /**
+     * Событие, вызываемое в функции CatalogGenerateCoupon(). Позволяет заменить стандартный метод генерации кода купона.
+     */
+    const CATALOG_DISCOUNT_COUPON = 'catalog-discount-coupon';
+
+    /**
+     * Событие, вызываемое в функции CatalogGenerateCoupon(). Позволяет заменить стандартный метод генерации кода купона.
+     */
+    const CATALOG_GENERATE_COUPON = 'catalog-discount-coupon';
+
+    /**
+     * Событие, вызываемое в методе CCatalogDiscount::GetDiscount. Позволяет заменить стандартный метод выбора скидок.
+     */
+    const CATALOG_GET_DISCOUNT = 'catalog-get-discount';
+
+    /**
+     * Событие, вызываемое при вычислении скидки на цену с кодом productPriceID товара для пользователя, принадлежащего к группам пользователей arUserGroups. Позволяет изменить логику работы метода CCatalogDiscount::GetDiscountByPrice.
+     */
+    const CATALOG_GET_DISCOUNT_BY_PRICE = 'catalog-get-discount-by-price';
+
+    /**
+     * Событие, вызываемое при вычислении скидки на товар с кодом productID для пользователя, принадлежащего к группам пользователей arUserGroups.
+     */
+    const CATALOG_GET_DISCOUNT_BY_PRODUCT = 'catalog-get-discount-by-product';
+
+    /**
+     * Событие, вызываемое перед окончанием работы метода CCatalogDiscount::GetDiscount. Позволяет выполнить некоторые действия над полученными результатами работы этого метода.
+     */
+    const CATALOG_GET_DISCOUNT_RESULT = 'catalog-get-discount-result';
+
+    /**
+     * Событие, вызываемое в методе CCatalogProduct::GetNearestQuantityPrice. Позволяет заменить стандартный метод поиска количества товара, доступного для покупки.
+     */
+    const CATALOG_GET_NEAREST_QUANTITY_PRICE = 'catalog-get-nearest-quantity-price';
+
+    /**
+     * Событие, вызываемое перед окончанием работы метода CCatalogProduct::GetNearestQuantityPrice. Позволяет выполнить некоторые действия над полученным результатом работы этого метода.
+     */
+    const CATALOG_GET_NEAREST_QUANTITY_PRICE_RESULT = 'catalog-get-nearest-quantity-price-result';
+
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
         self::MAIN_ADMIN_CONTEXT_MENU_SHOW => array('main', 'OnAdminContextMenuShow'),
@@ -1395,7 +1450,17 @@ class EventType {
         self::CATALOG_COUPON_ADD => array('catalog', 'OnCouponAdd'),
         self::CATALOG_COUPON_DELETE => array('catalog', 'OnCouponDelete'),
         self::CATALOG_COUPON_UPDATE => array('catalog', 'OnCouponUpdate'),
-
+        self::CATALOG_DISCOUNT_ADD => array('catalog', 'OnDiscountAdd'),
+        self::CATALOG_DISCOUNT_DELETE => array('catalog', 'OnDiscountDelete'),
+        self::CATALOG_DISCOUNT_UPDATE => array('catalog', 'OnDiscountUpdate'),
+        self::CATALOG_DISCOUNT_COUPON => array('catalog', 'OnDiscountCoupon'),
+        self::CATALOG_GENERATE_COUPON => array('catalog', 'OnGenerateCoupon'),
+        self::CATALOG_GET_DISCOUNT => array('catalog', 'OnGetDiscount'),
+        self::CATALOG_GET_DISCOUNT_BY_PRICE => array('catalog', 'OnGetDiscountByPrice'),
+        self::CATALOG_GET_DISCOUNT_BY_PRODUCT => array('catalog', 'OnGetDiscountByProduct'),
+        self::CATALOG_GET_DISCOUNT_RESULT => array('catalog', 'OnGetDiscountResult'),
+        self::CATALOG_GET_NEAREST_QUANTITY_PRICE => array('catalog', 'OnGetNearestQuantityPrice'),
+        self::CATALOG_GET_NEAREST_QUANTITY_PRICE_RESULT => array('catalog', 'OnGetNearestQuantityPriceResult'),
     );
 
     private $_module, $_subject;
