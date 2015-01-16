@@ -6,7 +6,7 @@ bitrix-ws-tools
 
 ##Установка
 ```
-/bitrix/admin/update_system_partner.php?addmodule=ws.migrations
+/bitrix/admin/update_system_partner.php?addmodule=ws.tools
 ```
 
 ##Возможности модуля
