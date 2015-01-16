@@ -8,6 +8,8 @@ namespace WS\Tools\Events;
 
 class EventType {
 
+    //--------------------------- Главный модуль ------------------------------//
+
     /**
      * Загрузка страницы
      */
@@ -454,6 +456,407 @@ class EventType {
      */
     const IBLOCK_START_IBLOCK_ELEMENT_UPDATE = 'iblock-start-iblock-element-update';
 
+    //--------------------------- Интернет магазин ------------------------------//
+
+    //---------------- События, связанные с изменением типов плательщиков -----------------//
+    /**
+     * Вызывается перед добавлением типа плательщика, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_PERSON_TYPE_ADD = 'sale-before-person-type-add';
+
+    /**
+     * Вызывается перед изменением типа плательщика, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_PERSON_TYPE_UPDATE = 'sale-before-person-type-update';
+
+    /**
+     * Вызывается после добавления типа плательщика.
+     */
+    const SALE_PERSON_TYPE_ADD = 'sale-person-type-add';
+
+    /**
+     * Вызывается после изменения типа плательщика.
+     */
+    const SALE_PERSON_TYPE_UPDATE = 'sale-person-type-update';
+
+    /**
+     * Вызывается перед удалением типа плательщика, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_PERSON_TYPE_DELETE = 'sale-before-person-type-delete';
+
+    /**
+     * Вызывается после удаления типа плательщика
+     */
+    const SALE_PERSON_TYPE_DELETE = 'sale-person-type-delete';
+
+    //---------------- События, связанные с местоположениями -----------------//
+
+    /**
+     * Вызывается после добавления города.
+     */
+    const SALE_CITY_ADD = 'sale-city-add';
+
+    /**
+     * Вызывается после удаления города.
+     */
+    const SALE_CITY_DELETE = 'sale-city-delete';
+
+    /**
+     * Вызывается после изменения города.
+     */
+    const SALE_CITY_UPDATE = 'sale-city-update';
+
+    /**
+     * Вызывается перед добавлением города
+     */
+    const SALE_BEFORE_CITY_ADD = 'sale-before-city-add';
+
+    /**
+     * Вызывается перед удалением города.
+     */
+    const SALE_BEFORE_CITY_DELETE = 'sale-before-city-delete';
+
+    /**
+     * Вызывается перед обновлением города
+     */
+    const SALE_BEFORE_CITY_UPDATE = 'sale-before-city-update';
+
+    /**
+     * Вызывается после удаления региона.
+     */
+    const SALE_REGION_DELETE = 'sale-region-delete';
+
+    /**
+     * Вызывается до удаления региона, может быть использовано для отмены удаления.
+     */
+    const SALE_BEFORE_REGION_DELETE = 'sale-before-region-delete';
+
+    /**
+     * Вызывается после обновления региона.
+     */
+    const SALE_REGION_UPDATE = 'sale-region-update';
+
+    /**
+     * Вызывается до обновления региона, может быть использовано для отмены или модификации данных
+     */
+    const SALE_BEFORE_REGION_UPDATE = 'sale-before-region-update';
+
+    /**
+     * Вызывается перед добавлением региона.
+     */
+    const SALE_BEFORE_REGION_ADD = 'sale-before-region-add';
+
+    /**
+     * Вызывается после добавлением региона
+     */
+    const SALE_REGION_ADD = 'sale-region-add';
+
+    /**
+     * Вызывается после добавления страны
+     */
+    const SALE_COUNTRY_ADD = 'sale-country-add';
+
+    /**
+     * Вызывается после удаления страны.
+     */
+    const SALE_COUNTRY_DELETE = 'sale-country-delete';
+
+    /**
+     * Вызывается после изменения страны
+     */
+    const SALE_COUNTRY_UPDATE = 'sale-country-update';
+
+    /**
+     * Вызывается перед добавлением страны.
+     */
+    const SALE_BEFORE_COUNTRY_ADD = 'sale-before-country-add';
+
+    /**
+     * Вызывается перед удалением страны.
+     */
+    const SALE_BEFORE_COUNTRY_DELETE = 'sale-before-country-delete';
+
+    /**
+     * Вызывается перед обновлением страны.
+     */
+    const SALE_BEFORE_COUNTRY_UPDATE = 'sale-before-country-update';
+
+    /**
+     * Вызывается после удаления местоположения
+     */
+    const SALE_LOCATION_DELETE = 'sale-location-delete';
+
+    /**
+     * Вызывается после удаления всех местоположений.
+     */
+    const SALE_LOCATION_DELETE_ALL = 'sale-location-delete-all';
+
+    /**
+     * Вызывается после добавления местоположения
+     */
+    const SALE_LOCATION_ADD = 'sale-location-add';
+
+    /**
+     * Вызывается после обновления местоположения.
+     */
+    const SALE_LOCATION_UPDATE = 'sale-location-update';
+
+    /**
+     * Вызывается перед добавлением местоположения
+     */
+    const SALE_BEFORE_LOCATION_ADD = 'sale-before-location-add';
+
+    /**
+     * Вызывается перед удалением местоположения.
+     */
+    const SALE_BEFORE_LOCATION_DELETE = 'sale-before-location-delete';
+
+    /**
+     * Вызывается перед удалением всех местоположений.
+     */
+    const SALE_BEFORE_LOCATION_DELETE_ALL = 'sale-before-location-delete_all';
+
+    /**
+     * Вызывается перед изменением местоположения.
+     */
+    const SALE_BEFORE_LOCATION_UPDATE = 'sale-before-location-update';
+
+    /**
+     * Вызывается после добавления группы местоположений
+     */
+    const SALE_LOCATION_GROUP_ADD = 'sale-location-group-add';
+
+    /**
+     * Вызывается после удаления группы местоположений.
+     */
+    const SALE_LOCATION_GROUP_DELETE = 'sale-location-group-delete';
+
+    /**
+     * Вызывается после после группы местоположений
+     */
+    const SALE_LOCATION_GROUP_UPDATE = 'sale-location-group-update';
+
+    /**
+     * Вызывается перед добавлением группы местоположений.
+     */
+    const SALE_BEFORE_LOCATION_GROUP_ADD = 'sale-before-location-group-add';
+
+    /**
+     * Вызывается перед удалением группы местоположений.
+     */
+    const SALE_BEFORE_LOCATION_GROUP_DELETE = 'sale-before-location-group-delete';
+
+    /**
+     * Вызывается перед изменением группы местоположений.
+     */
+    const SALE_BEFORE_LOCATION_GROUP_UPDATE = 'sale-before-location-group-update';
+
+    //---------------- События, связанные с изменением заказов -----------------//
+
+    /**
+     * Вызывается перед добавлением заказа, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_ORDER_ADD = 'sale-before-order-add';
+
+    /**
+     * Вызывается после добавления заказа.
+     */
+    const SALE_ORDER_ADD = 'sale-order-add';
+
+    /**
+     * Вызывается перед изменением заказа, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_ORDER_UPDATE = 'sale-before-order-update';
+
+    /**
+     * Вызывается после изменения заказа.
+     */
+    const SALE_ORDER_UPDATE = 'sale-order-update';
+
+    /**
+     * Вызывается перед удалением заказа, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_ORDER_DELETE = 'sale-before-order-delete';
+
+    /**
+     * Вызывается после удаления заказа
+     */
+    const SALE_ORDER_DELETE = 'sale-order-delete';
+
+    /**
+     * Вызывается после калькуляции заказа. В событии передается &arOrder, те можно вносить правки в массив
+     * заказа в обработчике события.
+     */
+    const SALE_CALCULATE_ORDER = 'sale-calculate-order';
+
+    /**
+     * Вызывается после расчёта скидки на заказ.
+     */
+    const SALE_CALCULATE_ORDER_DISCOUNT = 'sale-calculate-order-discount';
+
+    /**
+     * Вызывается после расчёта доставки.
+     */
+    const SALE_CALCULATE_ORDER_DELIVERY = 'sale-calculate-order-delivery';
+
+    /**
+     * Вызывается после расчёта налога на доставку.
+     */
+    const SALE_CALCULATE_ORDER_DELIVERY_TAX = 'sale-calculate-order-delivery-tax';
+
+    /**
+     * Вызывается после определения платёжной системы.
+     */
+    const SALE_CALCULATE_ORDER_PAY_SYSTEM = 'sale-calculate-order-pay-system';
+
+    /**
+     * Вызывается после определения типа плательщика.
+     */
+    const SALE_CALCULATE_ORDER_PERSON_TYPE = 'sale-calculate-order-person-type';
+
+    /**
+     * Вызывается после формирования свойств плательщика.
+     */
+    const SALE_CALCULATE_ORDER_PROPS = 'sale-calculate-order-props';
+
+    /**
+     * Вызывается после формирования массива заказа из корзины.
+     */
+    const SALE_CALCULATE_ORDER_SHOPPING_CART = 'sale_calculate_order_shopping_cart';
+
+    /**
+     * Вызывается после определения налогов.
+     */
+    const SALE_CALCULATE_ORDER_SHOPPING_CART_TAX = 'sale-calculate-order-shopping-cart-tax';
+
+    //---------------- События, связанные с изменением статусов заказа -----------------//
+
+    /**
+     * Вызывается перед добавлением статуса заказа, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_STATUS_ADD = 'sale-before-status-add';
+
+    /**
+     * Вызывается после добавления статуса заказа.
+     */
+    const SALE_STATUS_ADD = 'sale-status-add';
+
+    /**
+     * Вызывается перед изменением статуса заказа, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_STATUS_UPDATE = 'sale-before-status-update';
+
+    /**
+     * Вызывается после изменения статуса заказа.
+     */
+    const SALE_STATUS_UPDATE = 'sale-status-update';
+
+    /**
+     * Вызывается перед удалением статуса заказа, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_STATUS_DELETE = 'sale-before-status-delete';
+
+    /**
+     * Вызывается после удаления статуса заказа
+     */
+    const SALE_STATUS_DELETE = 'sale-status-delete';
+
+    //---------------- События, связанные с изменением аффилиатов -----------------//
+
+    /**
+     * Вызывается до добавления аффилиата.
+     */
+    const SALE_BEFORE_B_AFFILIATE_ADD = 'sale-before-b-affiliate-add';
+
+    /**
+     * Вызывается после добавления аффилиата.
+     */
+    const SALE_AFTER_B_AFFILIATE_ADD = 'sale-after-b-affiliate-add';
+
+    /**
+     * Вызывается до обновления
+     */
+    const SALE_BEFORE_AFFILIATE_UPDATE = 'sale-before-affiliate-update';
+
+    /**
+     * Вызывается после обновления
+     */
+    const SALE_AFTER_AFFILIATE_UPDATE = 'sale-after-affiliate-update';
+    const SALE_BEFORE_AFFILIATE_DELETE = 'sale-before-affiliate-delete';
+    const SALE_AFTER_AFFILIATE_DELETE = 'sale-after-affiliate-delete';
+    const SALE_BEFORE_AFFILIATE_CALCULATE = 'sale-before-affiliate-calculate';
+    const SALE_AFTER_AFFILIATE_CALCULATE = 'sale-after-affiliate-calculate';
+    const SALE_BEFORE_PAY_AFFILIATE = 'sale-before-pay-affiliate';
+    const SALE_AFTER_PAY_AFFILIATE = 'sale-after-pay-affiliate';
+    const SALE_BEFORE_AFFILIATE_PLAN_ADD = 'sale-before-affiliate-plan-add';
+    const SALE_AFTER_AFFILIATE_PLAN_ADD = 'sale-after-affiliate-plan-add';
+    const SALE_BEFORE_AFFILIATE_PLAN_UPDATE = 'sale-before-affiliate-plan-update';
+    const SALE_AFTER_AFFILIATE_PLAN_UPDATE = 'sale-after-affiliate-plan-update';
+    const SALE_BEFORE_AFFILIATE_PLAN_DELETE = 'sale-before-affiliate-plan-delete';
+    const SALE_AFTER_AFFILIATE_PLAN_DELETE = 'sale-after-affiliate-plan-delete';
+
+
+    //---------------- События, связанные с изменением состояния заказов -----------------//
+
+    /**
+     * Вызывается перед изменением флага оплаты заказа, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_PAY_ORDER = 'sale-before-pay-order';
+
+    /**
+     * Вызывается после изменения флага оплаты заказа.
+     */
+    const SALE_PAY_ORDER = 'sale-pay-order';
+
+    /**
+     * Вызывается перед изменением флага разрешения доставки заказа, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_DELIVERY_ORDER = 'sale-before-delivery-order';
+
+    /**
+     * Вызывается после изменения флага разрешения доставки заказа.
+     */
+    const SALE_DELIVERY_ORDER = 'sale-delivery-order';
+
+    /**
+     * Вызывается перед изменением флага отмены заказа, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_CANCEL_ORDER = 'sale-before-cancel-order';
+
+    /**
+     * Вызывается после изменения флага отмены заказа.
+     */
+    const SALE_CANCEL_ORDER_ORDER = 'sale-cancel-order-order';
+
+    /**
+     * Вызывается перед изменением статуса заказа, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_STATUS_ORDER = 'sale-before-status-order';
+
+    /**
+     * Вызывается после изменения статуса заказа.
+     */
+    const SALE_STATUS_ORDER = 'sale-status-order';
+
+    //---------------- События, связанные с изменением состояния заказов -----------------//
+
+    /**
+     * Вызывается перед добавлением записи в корзину,
+     * может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_BASKET_ADD = 'sale-before-basket-add';
+
+    /**
+     * Вызывается после добавления записи в корзину.
+     */
+    const SALE_BASKET_ADD = 'sale-basket-add';
+
+    /**
+     * Вызывается перед изменением записи в корзине, может быть использовано для отмены или модификации данных.
+     */
+    const SALE_BEFORE_BASKET_UPDATE = 'sale-before-basket-update';
+
+
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
         self::MAIN_ADMIN_CONTEXT_MENU_SHOW => array('main', 'OnAdminContextMenuShow'),
@@ -530,9 +933,102 @@ class EventType {
         self::IBLOCK_BEFORE_IBLOCK_UPDATE => array('iblock','OnBeforeIBlockUpdate'),
         self::IBLOCK_DELETE => array('iblock','OnIBlockDelete'),
         self::IBLOCK_ELEMENT_DELETE => array('iblock','OnIBlockElementDelete'),
-        self::IBLOCK_PROPERTY_BUILD_LIST => array('iblock',' OnIBlockPropertyBuildList'),
-        self::IBLOCK_START_IBLOCK_ELEMENT_ADD => array('iblock',' OnStartIBlockElementAdd'),
-        self::IBLOCK_START_IBLOCK_ELEMENT_UPDATE => array('iblock',' OnStartIBlockElementUpdate'),
+        self::IBLOCK_PROPERTY_BUILD_LIST => array('iblock','OnIBlockPropertyBuildList'),
+        self::IBLOCK_START_IBLOCK_ELEMENT_ADD => array('iblock','OnStartIBlockElementAdd'),
+        self::IBLOCK_START_IBLOCK_ELEMENT_UPDATE => array('iblock','OnStartIBlockElementUpdate'),
+
+        self::SALE_BEFORE_PERSON_TYPE_ADD => array('sale','OnBeforePersonTypeAdd'),
+        self::SALE_PERSON_TYPE_ADD => array('sale','OnPersonTypeAdd'),
+        self::SALE_BEFORE_PERSON_TYPE_UPDATE => array('sale','OnBeforePersonTypeUpdate'),
+        self::SALE_PERSON_TYPE_UPDATE => array('sale','OnPersonTypeUpdate'),
+        self::SALE_BEFORE_PERSON_TYPE_DELETE => array('sale','OnBeforePersonTypeDelete'),
+        self::SALE_PERSON_TYPE_DELETE => array('sale','OnPersonTypeDelete'),
+
+        self::SALE_CITY_ADD => array('sale','OnCityAdd'),
+        self::SALE_CITY_DELETE => array('sale','OnCityDelete'),
+        self::SALE_CITY_UPDATE => array('sale','OnCityUpdate'),
+        self::SALE_BEFORE_CITY_ADD => array('sale','OnBeforeCityAdd'),
+        self::SALE_BEFORE_CITY_DELETE => array('sale','OnBeforeCityDelete'),
+        self::SALE_BEFORE_CITY_UPDATE => array('sale','OnBeforeCityUpdate'),
+        self::SALE_REGION_DELETE => array('sale','OnRegionDelete'),
+        self::SALE_BEFORE_REGION_DELETE => array('sale','OnBeforeRegionDelete'),
+        self::SALE_REGION_UPDATE => array('sale','OnRegionUpdate'),
+        self::SALE_BEFORE_REGION_UPDATE => array('sale','OnBeforeRegionUpdate'),
+        self::SALE_BEFORE_REGION_ADD => array('sale','OnBeforeRegionAdd'),
+        self::SALE_REGION_ADD => array('sale','OnRegionAdd'),
+        self::SALE_COUNTRY_ADD => array('sale','OnCountryAdd'),
+        self::SALE_COUNTRY_DELETE => array('sale','OnCountryDelete'),
+        self::SALE_COUNTRY_UPDATE => array('sale','OnCountryUpdate'),
+        self::SALE_BEFORE_COUNTRY_ADD => array('sale','OnBeforeCountryAdd'),
+        self::SALE_BEFORE_COUNTRY_DELETE => array('sale','OnBeforeCountryDelete'),
+        self::SALE_BEFORE_COUNTRY_UPDATE => array('sale','OnBeforeCountryUpdate'),
+        self::SALE_LOCATION_DELETE => array('sale','OnLocationDelete'),
+        self::SALE_LOCATION_DELETE_ALL => array('sale','OnLocationDeleteAll'),
+        self::SALE_LOCATION_ADD => array('sale','OnLocationAdd'),
+        self::SALE_LOCATION_UPDATE => array('sale','OnLocationUpdate'),
+        self::SALE_BEFORE_LOCATION_ADD => array('sale','OnBeforeLocationAdd'),
+        self::SALE_BEFORE_LOCATION_DELETE => array('sale','OnBeforeLocationDelete'),
+        self::SALE_BEFORE_LOCATION_DELETE_ALL => array('sale','OnBeforeLocationDeleteAll'),
+        self::SALE_BEFORE_LOCATION_UPDATE => array('sale','OnBeforeLocationUpdate'),
+        self::SALE_LOCATION_GROUP_ADD => array('sale','OnLocationGroupAdd'),
+        self::SALE_LOCATION_GROUP_DELETE => array('sale','OnLocationGroupDelete'),
+        self::SALE_LOCATION_GROUP_UPDATE => array('sale','OnLocationGroupUpdate'),
+        self::SALE_BEFORE_LOCATION_GROUP_ADD => array('sale','OnBeforeLocationGroupAdd'),
+        self::SALE_BEFORE_LOCATION_GROUP_DELETE => array('sale','OnBeforeLocationGroupDelete'),
+        self::SALE_BEFORE_LOCATION_GROUP_UPDATE => array('sale','OnBeforeLocationGroupUpdate'),
+
+        self::SALE_BEFORE_ORDER_ADD => array('sale','OnBeforeOrderAdd'),
+        self::SALE_ORDER_ADD => array('sale','OnOrderAdd'),
+        self::SALE_BEFORE_ORDER_UPDATE => array('sale','OnBeforeOrderUpdate'),
+        self::SALE_ORDER_UPDATE => array('sale','OnOrderUpdate'),
+        self::SALE_BEFORE_ORDER_DELETE => array('sale','OnBeforeOrderDelete'),
+        self::SALE_ORDER_DELETE => array('sale','OnOrderDelete'),
+        self::SALE_CALCULATE_ORDER => array('sale','OnSaleCalculateOrder'),
+        self::SALE_CALCULATE_ORDER_DISCOUNT => array('sale','OnSaleCalculateOrderDiscount'),
+        self::SALE_CALCULATE_ORDER_DELIVERY => array('sale','OnSaleCalculateOrderDelivery'),
+        self::SALE_CALCULATE_ORDER_DELIVERY_TAX => array('sale','OnSaleCalculateOrderDeliveryTax'),
+        self::SALE_CALCULATE_ORDER_PAY_SYSTEM => array('sale','OnSaleCalculateOrderPaySystem'),
+        self::SALE_CALCULATE_ORDER_PERSON_TYPE => array('sale','OnSaleCalculateOrderPersonType'),
+        self::SALE_CALCULATE_ORDER_PROPS => array('sale','OnSaleCalculateOrderProps'),
+        self::SALE_CALCULATE_ORDER_SHOPPING_CART => array('sale','OnSaleCalculateOrderShoppingCart'),
+        self::SALE_CALCULATE_ORDER_SHOPPING_CART_TAX => array('sale','OnSaleCalculateOrderShoppingCartTax'),
+
+        self::SALE_BEFORE_STATUS_ADD => array('sale','OnBeforeStatusAdd'),
+        self::SALE_STATUS_ADD => array('sale','OnStatusAdd'),
+        self::SALE_BEFORE_STATUS_UPDATE => array('sale','OnBeforeStatusUpdate'),
+        self::SALE_STATUS_UPDATE => array('sale','OnStatusUpdate'),
+        self::SALE_BEFORE_STATUS_DELETE => array('sale','OnBeforeStatusDelete'),
+        self::SALE_STATUS_DELETE => array('sale','OnStatusDelete'),
+        self::SALE_BEFORE_B_AFFILIATE_ADD => array('sale','OnBeforeBAffiliateAdd'),
+        self::SALE_AFTER_B_AFFILIATE_ADD => array('sale','OnAfterBAffiliateAdd'),
+        self::SALE_BEFORE_AFFILIATE_UPDATE => array('sale','OnBeforeAffiliateUpdate'),
+        self::SALE_AFTER_AFFILIATE_UPDATE => array('sale','OnAfterAffiliateUpdate'),
+        self::SALE_BEFORE_AFFILIATE_DELETE => array('sale','OnBeforeAffiliateDelete'),
+        self::SALE_AFTER_AFFILIATE_DELETE => array('sale','OnAfterAffiliateDelete'),
+        self::SALE_BEFORE_AFFILIATE_CALCULATE => array('sale','OnBeforeAffiliateCalculate'),
+        self::SALE_AFTER_AFFILIATE_CALCULATE => array('sale','OnAfterAffiliateCalculate'),
+        self::SALE_BEFORE_PAY_AFFILIATE => array('sale','OnBeforePayAffiliate'),
+        self::SALE_AFTER_PAY_AFFILIATE => array('sale','OnAfterPayAffiliate'),
+        self::SALE_BEFORE_AFFILIATE_PLAN_ADD => array('sale','OnBeforeAffiliatePlanAdd'),
+        self::SALE_AFTER_AFFILIATE_PLAN_ADD => array('sale','OnAfterAffiliatePlanAdd'),
+        self::SALE_BEFORE_AFFILIATE_PLAN_UPDATE => array('sale','OnBeforeAffiliatePlanUpdate'),
+        self::SALE_AFTER_AFFILIATE_PLAN_UPDATE => array('sale','OnAfterAffiliatePlanUpdate'),
+        self::SALE_BEFORE_AFFILIATE_PLAN_DELETE => array('sale','OnBeforeAffiliatePlanDelete'),
+        self::SALE_AFTER_AFFILIATE_PLAN_DELETE => array('sale','OnAfterAffiliatePlanDelete'),
+
+        self::SALE_BEFORE_PAY_ORDER => array('sale','OnSaleBeforePayOrder'),
+        self::SALE_PAY_ORDER => array('sale','OnSalePayOrder'),
+        self::SALE_BEFORE_DELIVERY_ORDER => array('sale','OnSaleBeforeDeliveryOrder'),
+        self::SALE_DELIVERY_ORDER => array('sale','OnSaleDeliveryOrder'),
+        self::SALE_BEFORE_CANCEL_ORDER => array('sale','OnSaleBeforeCancelOrder'),
+        self::SALE_CANCEL_ORDER_ORDER => array('sale','OnSaleCancelOrder'),
+        self::SALE_BEFORE_STATUS_ORDER => array('sale','OnSaleBeforeStatusOrder'),
+        self::SALE_STATUS_ORDER => array('sale','OnSaleStatusOrder'),
+
+        self::SALE_BEFORE_BASKET_ADD => array('sale','OnBeforeBasketAdd'),
+        self::SALE_BASKET_ADD => array('sale','OnBasketAdd'),
+        self::SALE_BEFORE_BASKET_UPDATE => array('sale','OnBeforeBasketUpdate'),
+
     );
 
     private $_module, $_subject;
