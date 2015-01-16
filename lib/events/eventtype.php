@@ -8,55 +8,283 @@ namespace WS\Tools\Events;
 
 class EventType {
 
+    /**
+     * Загрузка страницы
+     */
     const MAIN_PAGE_START = 'main-page-start';
+
+    /**
+     * Событие позволяет модифицировать или добавить собственные кнопки на панель
+     */
     const MAIN_ADMIN_CONTEXT_MENU_SHOW = 'main-admin-context-menu-show';
-    const MAIN_ADMIN_LIST_DISPLAY = 'main_admin_list_display';
-    const MAIN_ADMIN_TAB_CONTROL_BEGIN = 'main_admin_tab_control_begin';
-    const MAIN_AFTER_AJAX_RESPONSE = 'main_after_ajax_response';
-    const MAIN_AFTER_EPILOG = 'main_after_epilog';
-    const MAIN_AFTER_GROUP_ADD = 'main_after_group_add';
-    const MAIN_AFTER_GROUP_UPDATE = 'main_after_group_update';
-    const MAIN_AFTER_USER_ADD = 'main_after_user_add';
-    const MAIN_AFTER_USER_AUTHORIZE = 'main_after_user_authorize';
-    const MAIN_AFTER_USER_LOGIN = 'main_after_user_login';
-    const MAIN_AFTER_USER_LOGIN_BY_HASH = 'main_after_user_login_by_hash';
-    const MAIN_AFTER_USER_LOGOUT = 'main_after_user_logout';
-    const MAIN_AFTER_USER_REGISTER = 'main_after_user_register';
-    const MAIN_AFTER_USER_SIMPLE_REGISTER = 'main_after_user_simple_register';
-    const MAIN_AFTER_USER_UPDATE = 'main_after_user_update';
-    const MAIN_BEFORE_CHANGE_FILE = 'main_before_change_file';
-    const MAIN_BEFORE_EVENT_ADD = 'main_before_event_add';
-    const MAIN_BEFORE_EVENT_MESSAGE_DELETE = 'main_before_event_message_delete';
-    const MAIN_BEFORE_EVENT_SEND = 'main_before_event_send';
-    const MAIN_BEFORE_GROUP_ADD = 'main_before_group_add';
-    const MAIN_BEFORE_GROUP_DELETE = 'main_before_group_delete';
-    const MAIN_BEFORE_GROUP_UPDATE = 'main_before_group_update';
-    const MAIN_BEFORE_LANGUAGE_DELETE = 'main_before_language_delete';
-    const MAIN_BEFORE_PROLOG = 'main_before_prolog';
-    const MAIN_BEFORE_SITE_DELETE = 'main_before_site_delete';
-    const MAIN_BEFORE_USER_ADD = 'main_before_user_add';
-    const MAIN_BEFORE_USER_DELETE = 'main_before_user_delete';
-    const MAIN_BEFORE_USER_LOGIN = 'main_before_user_login';
-    const MAIN_BEFORE_USER_LOGIN_BY_HASH = 'main_before_user_login_by_hash';
-    const MAIN_BEFORE_USER_LOGOUT = 'main_before_user_logout';
-    const MAIN_BEFORE_USER_REGISTER = 'main_before_user_register';
-    const MAIN_BEFORE_USER_SIMPLE_REGISTER = 'main_before_user_simple_register';
-    const MAIN_BEFORE_USER_UPDATE = 'main_before_user_update';
-    const MAIN_BUILD_GLOBAL_MENU = 'main_build_global_menu';
-    const MAIN_CHANGE_PERMISSIONS = 'main_change_permissions';
-    const MAIN_END_BUFFER_CONTENT = 'main_end_buffer_content';
-    const MAIN_EPILOG = 'main_epilog';
-    const MAIN_EVENT_MESSAGE_DELETE = 'main_event_message_delete';
-    const MAIN_EXTERNAL_AUTH_LIST = 'main_external_auth_list';
-    const MAIN_FILE_DELETE = 'main_file_delete';
-    const MAIN_GROUP_DELETE = 'main_group_delete';
-    const MAIN_LANGUAGE_DELETE = 'main_language_delete';
-    const MAIN_PANEL_CREATE = 'main_panel_create';
-    const MAIN_PROLOG = 'main_prolog';
-    const MAIN_SEND_USER_INFO = 'main_send_user_info';
-    const MAIN_SITE_DELETE = 'main_site_delete';
-    const MAIN_USER_DELETE = 'main_user_delete';
-    const MAIN_USER_LOGIN_EXTERNAL = 'main_user_login_external';
+
+    /**
+     *  Событие позволяет модифицировать объект списка, в частности,
+     * добавить произвольные групповые действия над элементами списка,
+     * добавить команды в меню действий элемента списка и т.п.
+     */
+    const MAIN_ADMIN_LIST_DISPLAY = 'main-admin-list-display';
+
+    /**
+     * Событие позволяет изменить или добавить собственные вкладки формы редактирования
+     */
+    const MAIN_ADMIN_TAB_CONTROL_BEGIN = 'main-admin-tab-control-begin';
+
+    const MAIN_AFTER_AJAX_RESPONSE = 'main-after-ajax-response';
+
+    /**
+     * Событие "OnAfterEpilog" возникает в конце выполняемой части эпилога сайта (после события OnEpilog).
+     */
+    const MAIN_AFTER_EPILOG = 'main-after-epilog';
+
+    /**
+     * Событие вызывается в методе CGroup::Add после добавления группы,
+     * и может быть использовано для действий, связанных с группой.
+     */
+    const MAIN_AFTER_GROUP_ADD = 'main-after-group-add';
+
+    /**
+     * Событие вызывается в методе CGroup::Update после изменения полей группы,
+     * и может быть использовано для дополнительных действий, связанных с группой.
+     */
+    const MAIN_AFTER_GROUP_UPDATE = 'main-after-group-update';
+
+    /**
+     * Событие "OnAfterUserAdd" вызывается после попытки добавления нового пользователя методом CUser::Add.
+     */
+    const MAIN_AFTER_USER_ADD = 'main-after-user-add';
+
+    /**
+     * Обработчик события будет вызван из метода CUser::Authorize после авторизации пользователя,
+     * передавая в параметре user_fields массив всех полей авторизованного пользователя.
+     */
+    const MAIN_AFTER_USER_AUTHORIZE = 'main-after-user-authorize';
+
+    /**
+     * Событие "OnAfterUserLogin" вызывается в методе CUser::Login после попытки авторизовать пользователя,
+     * проверив имя входа arParams['LOGIN'] и пароль arParams['PASSWORD'].
+     */
+    const MAIN_AFTER_USER_LOGIN = 'main-after-user-login';
+
+    /**
+     * Событие "OnAfterUserLoginByHash" вызывается в методе CUser::LoginByHash()
+     * после проверки имени входа arParams['LOGIN'] и хеша от пароля arParams['HASH']
+     * и попытки авторизовать пользователя. В параметре arParams['USER_ID'] будет передан
+     * код пользователя которого удалось авторизовать, а также массив с сообщением об ошибке arParams['RESULT_MESSAGE'].
+     */
+    const MAIN_AFTER_USER_LOGIN_BY_HASH = 'main-after-user-login-by-hash';
+
+    /**
+     * Событие "OnAfterUserLogout" вызывается после завершения авторизации пользователя.
+     */
+    const MAIN_AFTER_USER_LOGOUT = 'main-after-user-logout';
+
+    /**
+     * Событие "OnAfterUserRegister" вызывается после попытки регистрации нового пользователя методом CUser::Register.
+     */
+    const MAIN_AFTER_USER_REGISTER = 'main-after-user-register';
+
+    /**
+     * Событие "OnAfterUserSimpleRegister" вызывается после попытки упрощённой регистрации
+     * нового пользователя методом CUser::SimpleRegister.
+     */
+    const MAIN_AFTER_USER_SIMPLE_REGISTER = 'main-after-user-simple-register';
+
+    /**
+     * Событие OnAfterUserUpdate вызывается после попытки
+     * изменения свойств пользователя методом CUser::Update.
+     */
+    const MAIN_AFTER_USER_UPDATE = 'main-after-user-update';
+
+    /**
+     * Событие "OnBeforeChangeFile" вызывается при изменении файла методом $APPLICATION->SaveFileContent,
+     * перед его сохранением. Контент в событие передается по ссылке.
+     */
+    const MAIN_BEFORE_CHANGE_FILE = 'main-before-change-file';
+
+    /**
+     * Событие OnBeforeEventAdd вызывается в момент добавление почтового события в таблицу b_event.
+     * Как правило, задача обработчика данного события - изменить или добавить какое-либо значение,
+     * передаваемое в макросы почтового шаблона.
+     */
+    const MAIN_BEFORE_EVENT_ADD = 'main-before-event-add';
+
+    /**
+     * Событие "OnBeforeEventMessageDelete" вызывается перед удалением почтового шаблона.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление почтового шаблона.
+     */
+    const MAIN_BEFORE_EVENT_MESSAGE_DELETE = 'main-before-event-message-delete';
+
+    const MAIN_BEFORE_EVENT_SEND = 'main-before-event-send';
+
+    /**
+     * Событие вызывается в методе CGroup::Add до добавления группы,
+     * и может быть использовано для отмены добавления или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_GROUP_ADD = 'main-before-group-add';
+
+    /**
+     * Событие "OnBeforeGroupDelete" вызывается перед удалением группы пользователей.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление группы пользователей.
+     */
+    const MAIN_BEFORE_GROUP_DELETE = 'main-before-group-delete';
+
+    /**
+     * Событие вызывается в методе CGroup::Update до изменения полей группы,
+     * и может быть использовано для отмены изменения или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_GROUP_UPDATE = 'main-before-group-update';
+
+    /**
+     * Событие "OnBeforeLanguageDelete" вызывается перед удалением языка.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление языка.
+     */
+    const MAIN_BEFORE_LANGUAGE_DELETE = 'main-before-language-delete';
+
+    /**
+     * Событие "OnBeforeProlog" вызывается в выполняемой части пролога сайта (после события OnPageStart).
+     */
+    const MAIN_BEFORE_PROLOG = 'main-before-prolog';
+
+    /**
+     * Событие "OnBeforeSiteDelete" вызывается перед удалением сайта.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление сайта.
+     */
+    const MAIN_BEFORE_SITE_DELETE = 'main-before-site-delete';
+
+    /**
+     * Событие вызывается в методе CUser::Add до вставки нового пользователя,
+     * и может быть использовано для отмены вставки или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_USER_ADD = 'main-before-user-add';
+
+    /**
+     * Событие "OnBeforeUserDelete" вызывается перед удалением пользователя.
+     * Как правило задачи обработчика данного события - разрешить или запретить удаление пользователя.
+     */
+    const MAIN_BEFORE_USER_DELETE = 'main-before-user-delete';
+
+    /**
+     * Событие "OnBeforeUserLogin" вызывается в методе CUser::Login до проверки имени входа arParams['LOGIN']
+     * и пароля arParams['PASSWORD'] и попытки авторизовать пользователя,
+     * и может быть использовано для прекращения процесса проверки или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_USER_LOGIN = 'main-before-user-login';
+
+    /**
+     * Событие "OnBeforeUserLoginByHash" вызывается в методе CUser::LoginByHash()
+     * до проверки имени входа arParams['LOGIN'], хеша от пароля arParams['HASH'] и попытки авторизовать пользователя.
+     */
+    const MAIN_BEFORE_USER_LOGIN_BY_HASH = 'main-before-user-login-by-hash';
+
+    /**
+     * Вызывается перед завершением сеанса авторизации пользователя методом CUser::Logout
+     * и может быть использовано для отмены завершения сеанса.
+     */
+    const MAIN_BEFORE_USER_LOGOUT = 'main-before-user-logout';
+
+    /**
+     * Событие "OnBeforeUserRegister" вызывается до попытки регистрации нового пользователя методом CUser::Register
+     * и может быть использовано для прекращения процесса регистрации или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_USER_REGISTER = 'main-before-user-register';
+
+    /**
+     * Событие "OnBeforeUserSimpleRegister" вызывается до попытки упрощённой регистрации нового пользователя
+     * методом CUser::SimpleRegister и может быть использовано для прекращения
+     * процесса регистрации или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_USER_SIMPLE_REGISTER = 'main-before-user-simple-register';
+
+    /**
+     * Событие вызывается в методе CUser::Update до изменения параметров пользователя,
+     * и может быть использовано для отмены изменения или переопределения некоторых полей.
+     */
+    const MAIN_BEFORE_USER_UPDATE = 'main-before-user-update';
+
+    const MAIN_BUILD_GLOBAL_MENU = 'main-build-global-menu';
+
+    /**
+     * Событие "OnChangePermissions" вызывается при изменении прав доступа к файлу
+     * или папке методом $APPLICATION->SetFileAccessPermission.
+     */
+    const MAIN_CHANGE_PERMISSIONS = 'main-change-permissions';
+
+    const MAIN_END_BUFFER_CONTENT = 'main-end-buffer-content';
+
+    /**
+     * Событие "OnEpilog" вызывается в конце визуальной части эпилога сайта.
+     */
+    const MAIN_EPILOG = 'main-epilog';
+
+    /**
+     * Событие "OnEventMessageDelete" вызывается во время удаления почтового шаблона.
+     * Как правило задачи обработчика данного события - очистить базу данных от записей связанных
+     * с удаляемым почтовым шаблоном.
+     */
+    const MAIN_EVENT_MESSAGE_DELETE = 'main-event-message-delete';
+
+    /**
+     * Событие "OnExternalAuthList" вызывается для получения списка источников
+     * внешней авторизации при вызове метода CUser::GetExternalAuthList.
+     */
+    const MAIN_EXTERNAL_AUTH_LIST = 'main-external-auth-list';
+
+    /**
+     * Событие может использоваться для удаления производной от файла информации
+     * (созданных при загрузке картинки эскизов и т.п.).
+     */
+    const MAIN_FILE_DELETE = 'main-file-delete';
+
+    /**
+     * Событие "OnGroupDelete" вызывается в момент удаления группы пользователей.
+     * Как правило задачи обработчика данного события - очистить базу данных от записей связанных
+     * с удаляемой группой пользователей.
+     */
+    const MAIN_GROUP_DELETE = 'main-group-delete';
+
+    /**
+     * Событие "OnLanguageDelete" вызывается во время удаления языка.
+     * Как правило задачи обработчика данного события - очистить базу данных
+     * от записей связанных с удаляемым языком.
+     */
+    const MAIN_LANGUAGE_DELETE = 'main-language-delete';
+
+    /**
+     * Событие "OnPanelCreate" вызывается в момент сбора данных для построения панели управления в публичной части сайта.
+     * Как правило задачи обработчика данного события - добавлять свои кнопки в панель управления сайтом.
+     */
+    const MAIN_PANEL_CREATE = 'main-panel-create';
+
+    /**
+     * Событие "OnProlog" вызывается в начале визуальной части пролога сайта.
+     */
+    const MAIN_PROLOG = 'main-prolog';
+
+    /**
+     * Событие "OnSendUserInfo" вызывается в методе CUser::SendUserInfo и
+     * предназначено для возможности переопределения параметров для отправки почтового события USER_INFO.
+     */
+    const MAIN_SEND_USER_INFO = 'main-send-user-info';
+
+    /**
+     * Событие "OnSiteDelete" вызывается во время удаления сайта.
+     * Как правило задачи обработчика данного события - очистить базу данных
+     * от записей связанных с удаляемым сайтом.
+     */
+    const MAIN_SITE_DELETE = 'main-site-delete';
+
+    /**
+     * Событие "OnUserDelete" вызывается в момент удаления пользователя.
+     * Как правило задачи обработчика данного события - очистить базу данных
+     * от записей связанных с удаляемым пользователем.
+     */
+    const MAIN_USER_DELETE = 'main-user-delete';
+
+    /**
+     * Событие OnUserLoginExternal предназначено для возможности проверки имени входа и пароля во внешнем источнике.
+     */
+    const MAIN_USER_LOGIN_EXTERNAL = 'main-user-login-external';
 
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
