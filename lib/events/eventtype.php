@@ -856,6 +856,162 @@ class EventType {
      */
     const SALE_BEFORE_BASKET_UPDATE = 'sale-before-basket-update';
 
+    /**
+     * Вызывается после изменения записи в корзине.
+     */
+    const SALE_BASKET_UPDATE = 'sale-basket-update';
+
+    /**
+     * Вызывается перед изменением корзины после проверки массива $arFields.
+     */
+    const SALE_BEFORE_BASKET_UPDATE_AFTER_CHECK = 'sale-before-basket-update-after-check';
+
+    /**
+     * Вызывается перед удалением записи из корзины, может быть использовано для отмены.
+     */
+    const SALE_BEFORE_BASKET_DELETE = 'sale-before-basket-delete';
+
+    /**
+     * Вызывается после удаления записи из корзины
+     */
+    const SALE_BASKET_DELETE = 'sale-basket-delete';
+
+    /**
+     * Добавляет переданные купоны. Событие является системным.
+     */
+    const SALE_SET_COUPON_LIST = 'sale-set-coupon-list';
+
+    /**
+     * Удаляет из списка переданные купоны. Событие является системным.
+     */
+    const SALE_CLEAR_COUPON_LIST = 'sale-clear-coupon-list';
+
+    /**
+     * Полностью удаляет список купонов. Событие является системным.
+     */
+    const SALE_DELETE_COUPON_LIST = 'sale-delete-coupon-list';
+
+    //---------------- События, связанные с отправкой почтовых шаблонов -----------------//
+
+    /**
+     * Вызывается перед отправкой письма о новом заказе, может быть использовано для модификации данных,
+     * изменения идентификатора типа почтового события,
+     * по которому будет осуществлена отправка, и отмены отправки письма.
+     */
+    const SALE_ORDER_NEW_SEND_EMAIL = 'sale-order-new-send-email';
+
+    /**
+     * Вызывается перед отправкой письма о разрешении доставки заказа, может быть использовано для модификации данных,
+     * изменения идентификатора типа почтового события,
+     * по которому будет осуществлена отправка, и отмены отправки письма.
+     */
+    const SALE_ORDER_DELIVER_SEND_EMAIL = 'sale-order-deliver-send-email';
+
+    /**
+     * Вызывается перед отправкой письма об оплате заказа, может быть использовано для модификации данных,
+     * изменения идентификатора типа почтового события, по которому будет осуществлена отправка,
+     * и отмены отправки письма.
+     */
+    const SALE_ORDER_PAY_SEND_EMAIL = 'sale-order-pay-send-email';
+
+    /**
+     * Вызывается перед отправкой письма об отмене заказа, может быть использовано для модификации данных,
+     * изменения идентификатора типа почтового события, по которому будет осуществлена отправка,
+     * и отмены отправки письма.
+     */
+    const SALE_ORDER_CANCEL_SEND_EMAIL = 'sale-order-cancel-send-email';
+
+    /**
+     * Вызывается в момент формирования письма клиенту о смене статуса заказа.
+     * Может быть использовано для переопределения текста письма или его дополнения
+     * (для этого обработчик события должен возвращать необходимый текст).
+     */
+    const SALE_STATUS_EMAIL = 'sale_status_email';
+
+    /**
+     * Вызывается перед отправкой письма о cмене статуса заказа, может быть использовано для модификации данных,
+     * изменения идентификатора типа почтового события, по которому будет осуществлена отправка,
+     * и отмены отправки письма.
+     */
+    const SALE_ORDER_STATUS_SEND_EMAIL = 'sale-order-status-send-email';
+
+    /**
+     * Вызывается перед отправкой письма о напоминании оплаты заказа, может быть использовано для модификации данных,
+     * изменения идентификатора типа почтового события, по которому будет осуществлена отправка,
+     * и отмены отправки письма.
+     */
+    const SALE_ORDER_REMIND_SEND_EMAIL = 'sale-order-remind-send-email';
+
+    /**
+     * Вызывается перед отправкой письма о добавлении заказа на продление подписки,
+     * может быть использовано для модификации данных, изменения идентификатора типа почтового события,
+     * по которому будет осуществлена отправка, и отмены отправки письма.
+     */
+    const SALE_ORDER_RECURRING_SEND_EMAIL = 'sale-order-recurring-send-email';
+
+    /**
+     * Вызывается перед отправкой письма об отмене заказа на продление подписки,
+     * может быть использовано для модификации данных, изменения идентификатора типа почтового события,
+     * по которому будет осуществлена отправка, и отмены отправки письма.
+     */
+    const SALE_ORDER_RECURRING_CANCEL_SEND_EMAIL = 'sale-order-recurring-cancel-send-email';
+
+    //---------------- События, связанные с компонентами -----------------//
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после формирования списка доступных типов плательщика,
+     * может быть использовано для модификации данных.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_PERSON_TYPE = 'sale-component-order-one-step-person-type';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после формирования списка доступных свойств заказа,
+     * может быть использовано для модификации данных.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_ORDER_PROPS = 'sale-component-order-one-step-order-props';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после формирования списка доступных служб доставки,
+     * может быть использовано для модификации данных.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_DELIVERY = 'sale-component-order-one-step-delivery';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после формирования списка доступных платежных систем,
+     * может быть использовано для модификации данных.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_PAY_SYSTEM = 'sale-component-order-one-step-pay-system';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после формирования всех данных компонента
+     * на этапе заполнения формы заказа, может быть использовано для модификации данных.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_PROCESS = 'sale-component-order-one-step-process';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после создания заказа и всех его параметров,
+     * после отправки письма, но до редиректа на страницу с информацией о созданном заказе и оплате заказа.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_COMPLETE = 'sale-component-order-one-step-complete';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax после создания заказа и всех его параметров,
+     * после отправки письма, перед выводом страницы об успешно созданном заказе и оплате заказа.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_FINAL = 'sale-component-order-one-step-final';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.full после создания заказа и всех его параметров.
+     */
+    const SALE_COMPONENT_ORDER_COMPLETE = 'sale-component-order-complete';
+
+    /**
+     * Вызывается в компоненте bitrix:sale.order.ajax перед подсчётом скидки при оформлении заказа.
+     * Можно использовать в том числе для присвоения/отъёма у пользователя купонов соответствующих скидок
+     * для расчёта индивидуальной скидки.
+     */
+    const SALE_COMPONENT_ORDER_ONE_STEP_DISCOUNT_BEFORE = 'sale-component-order-one-step-discount-before';
+
 
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
@@ -1028,6 +1184,32 @@ class EventType {
         self::SALE_BEFORE_BASKET_ADD => array('sale','OnBeforeBasketAdd'),
         self::SALE_BASKET_ADD => array('sale','OnBasketAdd'),
         self::SALE_BEFORE_BASKET_UPDATE => array('sale','OnBeforeBasketUpdate'),
+        self::SALE_BASKET_UPDATE => array('sale','OnBasketUpdate'),
+        self::SALE_BEFORE_BASKET_UPDATE_AFTER_CHECK => array('sale','OnBeforeBasketUpdateAfterCheck'),
+        self::SALE_BEFORE_BASKET_DELETE => array('sale','OnBeforeBasketDelete'),
+        self::SALE_BASKET_DELETE => array('sale','OnBasketDelete'),
+        self::SALE_SET_COUPON_LIST => array('sale','OnSetCouponList'),
+        self::SALE_CLEAR_COUPON_LIST => array('sale','OnClearCouponList'),
+        self::SALE_DELETE_COUPON_LIST => array('sale','OnDeleteCouponList'),
+
+        self::SALE_ORDER_NEW_SEND_EMAIL => array('sale','OnOrderNewSendEmail'),
+        self::SALE_ORDER_DELIVER_SEND_EMAIL => array('sale','OnOrderDeliverSendEmail'),
+        self::SALE_ORDER_PAY_SEND_EMAIL => array('sale','OnOrderPaySendEmail'),
+        self::SALE_ORDER_CANCEL_SEND_EMAIL => array('sale','OnOrderCancelSendEmail'),
+        self::SALE_STATUS_EMAIL => array('sale','OnSaleStatusEMail'),
+        self::SALE_ORDER_STATUS_SEND_EMAIL => array('sale','OnOrderStatusSendEmail'),
+        self::SALE_ORDER_REMIND_SEND_EMAIL => array('sale','OnOrderRemindSendEmail'),
+        self::SALE_ORDER_RECURRING_SEND_EMAIL => array('sale','OnOrderRecurringSendEmail'),
+        self::SALE_ORDER_RECURRING_CANCEL_SEND_EMAIL => array('sale','OnOrderRecurringCancelSendEmail'),
+
+        self::SALE_COMPONENT_ORDER_ONE_STEP_PERSON_TYPE => array('sale','OnSaleComponentOrderOneStepPersonType'),
+        self::SALE_COMPONENT_ORDER_ONE_STEP_ORDER_PROPS => array('sale','OnSaleComponentOrderOneStepOrderProps'),
+        self::SALE_COMPONENT_ORDER_ONE_STEP_DELIVERY => array('sale','OnSaleComponentOrderOneStepDelivery'),
+        self::SALE_COMPONENT_ORDER_ONE_STEP_PAY_SYSTEM => array('sale','OnSaleComponentOrderOneStepPaySystem'),
+        self::SALE_COMPONENT_ORDER_ONE_STEP_PROCESS => array('sale','OnSaleComponentOrderOneStepProcess'),
+        self::SALE_COMPONENT_ORDER_ONE_STEP_COMPLETE => array('sale','OnSaleComponentOrderOneStepComplete'),
+        self::SALE_COMPONENT_ORDER_ONE_STEP_FINAL => array('sale','OnSaleComponentOrderOneStepFinal'),
+        self::SALE_COMPONENT_ORDER_COMPLETE => array('sale','OnSaleComponentOrderComplete'),
 
     );
 
