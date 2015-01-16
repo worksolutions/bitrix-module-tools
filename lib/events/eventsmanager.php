@@ -10,13 +10,20 @@ use Bitrix\Main\EventManager;
 
 class EventsManager {
 
+    private $_calls = array();
+
     /**
      * @param EventType $eventType
      * @param $handler
      * @return int Handler Identifier
      */
     public function subscribe(EventType $eventType, $handler) {
-        return $this->vendorManager()->addEventHandler($eventType->getModule(), $eventType->getSubject(), $handler);
+        $self = $this;
+        $wrapper = function () use ($self, $eventType, $handler) {
+            $self->registerCall($eventType);
+            return call_user_func_array($handler, func_get_args());
+        };
+        return $this->vendorManager()->addEventHandler($eventType->getModule(), $eventType->getSubject(), $wrapper);
     }
 
     /**
@@ -36,6 +43,20 @@ class EventsManager {
      */
     public function getSubscribers(EventType $eventType) {
         return $this->vendorManager()->findEventHandlers($eventType->getModule(), $eventType->getSubject());
+    }
+
+    /**
+     * @return array
+     */
+    public function getCalls() {
+        return $this->_calls;
+    }
+
+    /**
+     * @param EventType $eventType
+     */
+    public function registerCall(EventType $eventType) {
+        $this->_calls[] = $eventType->getModule().' '.$eventType->getSubject();
     }
 
     /**
