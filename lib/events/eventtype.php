@@ -856,6 +856,160 @@ class EventType {
      */
     const SALE_BEFORE_BASKET_UPDATE = 'sale-before-basket-update';
 
+    /**
+     * Событие, вызываемое перед удалением записи о том, что инфоблок является торговым каталогом.
+     */
+    const CATALOG_BEFORE_CATALOG_DELETE = 'catalog-before-catalog-delete';
+
+    /**
+     * Событие, вызываемое перед добавлением склада.
+     */
+    const CATALOG_BEFORE_CATALOG_STORE_ADD = 'catalog-before-catalog-store-add';
+
+    /**
+     * Событие, вызываемое перед удалением склада.
+     */
+    const CATALOG_BEFORE_CATALOG_STORE_DELETE = 'catalog-before-catalog-store-delete';
+
+    /**
+     * Событие, вызываемое перед обновлением параметров склада.
+     */
+    const CATALOG_BEFORE_CATALOG_STORE_UPDATE = 'catalog-before-catalog-store-update';
+
+    /**
+     * Событие, вызываемое перед добавлением нового купона.
+     */
+    const CATALOG_BEFORE_COUPON_ADD = 'catalog-before-coupon-add';
+
+    /**
+     * Событие, вызываемое перед удалением купона.
+     */
+    const CATALOG_BEFORE_COUPON_DELETE = 'catalog-before-coupon-delete';
+
+    /**
+     * Событие, вызываемое перед обновлением купона.
+     */
+    const CATALOG_BEFORE_COUPON_UPDATE = 'catalog-before-coupon-update';
+
+    /**
+     * Событие, вызываемое перед добавлением новой скидки.
+     */
+    const CATALOG_BEFORE_DISCOUNT_ADD = 'catalog-before-discount-add';
+
+    /**
+     * Событие, вызываемое перед удалением скидки.
+     */
+    const CATALOG_BEFORE_DISCOUNT_DELETE = 'catalog-before-discount-delete';
+
+    /**
+     * Событие, перед обновлением скидки.
+     */
+    const CATALOG_BEFORE_DISCOUNT_UPDATE = 'catalog-before-discount-update';
+
+    /**
+     * Событие, вызываемое перед добавлением типа цены.
+     */
+    const CATALOG_BEFORE_GROUP_ADD = 'catalog-before-group-add';
+
+    /**
+     * Событие, вызываемое перед удалением типа цены.
+     */
+    const CATALOG_BEFORE_GROUP_DELETE = 'catalog-before-group-delete';
+
+    /**
+     * Событие, вызываемое перед обновлением типа цены.
+     */
+    const CATALOG_BEFORE_GROUP_UPDATE = 'catalog-before-group-update';
+
+    /**
+     * Событие, вызываемое перед добавлением новой цены товара.
+     */
+    const CATALOG_BEFORE_PRICE_ADD = 'catalog-before-price-add';
+
+    /**
+     * Событие, вызываемое перед удалением новой цены товара.
+     */
+    const CATALOG_BEFORE_PRICE_DELETE = 'catalog-before-price-delete';
+
+    /**
+     * Событие, вызываемое перед обновлением новой цены товара.
+     */
+    const CATALOG_BEFORE_PRICE_UPDATE = 'catalog-before-price-update';
+
+    /**
+     * Событие, вызываемое перед добавлением товара.
+     */
+    const CATALOG_BEFORE_PRODUCT_ADD = 'catalog-before-product-add';
+
+    /**
+     * Событие, вызываемое перед удалением существующих цен товара.
+     */
+    const CATALOG_BEFORE_PRODUCT_PRICE_DELETE = 'catalog-before-product-price-delete';
+
+    /**
+     * Событие, вызываемое перед обновлением параметров товара.
+     */
+    const CATALOG_BEFORE_PRODUCT_UPDATE = 'catalog-before-product-update';
+
+    /**
+     * Событие, вызываемое перед созданием новой записи о добавлении товара на склад.
+     */
+    const CATALOG_BEFORE_STORE_PRODUCT_ADD = 'catalog-before-product-update';
+
+    /**
+     * Событие, вызываемое перед удалением записи из таблицы остатков товара с кодом ID.
+     */
+    const CATALOG_BEFORE_STORE_PRODUCT_DELETE = 'catalog-before-product-delete';
+
+    /**
+     * Событие, вызываемое перед изменением записи в таблице остатков товара.
+     */
+    const CATALOG_BEFORE_STORE_PRODUCT_UPDATE = 'catalog-before-product-update';
+
+    /**
+     * Событие, вызываемое при удалении записи о том, что инфоблок является торговым каталогом.
+     */
+    const CATALOG_CATALOG_DELETE = 'catalog-catalog-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного добавления нового склада.
+     */
+    const CATALOG_CATALOG_STORE_ADD = 'catalog-catalog-store-add';
+
+    /**
+     * Событие, вызываемое при удалении существующего склада.
+     */
+    const CATALOG_CATALOG_STORE_DELETE = 'catalog-catalog-store-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного изменения параметров склада.
+     */
+    const CATALOG_CATALOG_STORE_UPDATE = 'catalog-catalog-store-update';
+
+    /**
+     * Событие, позволяет заменить стандартный метод вычисления цены, получающейся после применения цепочки скидок.
+     */
+    const CATALOG_COUNT_PRICE_WITH_DISCOUNT = 'catalog-count-price-with-discount';
+
+    /**
+     * Событие, вызываемое перед окончанием работы метода CCatalogProduct::CountPriceWithDiscount. Позволяет выполнить некоторые действия над полученным результатом работы этого метода.
+     */
+    const CATALOG_COUNT_PRICE_WITH_DISCOUNT_RESULT = 'catalog-count-price-with-discount-result';
+
+    /**
+     * Событие, вызываемое в случае успешного добавления купона.
+     */
+    const CATALOG_COUPON_ADD = 'catalog-coupon-add';
+
+    /**
+     * Событие, вызываемое при удалении существующего купона.
+     */
+    const CATALOG_COUPON_DELETE = 'catalog-coupon-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного изменения информации о купоне.
+     */
+    const CATALOG_COUPON_UPDATE = 'catalog-coupon-update';
 
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
@@ -1028,6 +1182,37 @@ class EventType {
         self::SALE_BEFORE_BASKET_ADD => array('sale','OnBeforeBasketAdd'),
         self::SALE_BASKET_ADD => array('sale','OnBasketAdd'),
         self::SALE_BEFORE_BASKET_UPDATE => array('sale','OnBeforeBasketUpdate'),
+
+        self::CATALOG_BEFORE_CATALOG_DELETE => array('catalog', 'OnBeforeCatalogDelete'),
+        self::CATALOG_BEFORE_CATALOG_STORE_ADD => array('catalog', 'OnBeforeCatalogStoreAdd'),
+        self::CATALOG_BEFORE_CATALOG_STORE_DELETE => array('catalog', 'OnBeforeCatalogStoreDelete'),
+        self::CATALOG_BEFORE_CATALOG_STORE_UPDATE => array('catalog', 'OnBeforeCatalogStoreUpdate'),
+        self::CATALOG_BEFORE_COUPON_ADD => array('catalog', 'OnBeforeCouponAdd'),
+        self::CATALOG_BEFORE_COUPON_DELETE => array('catalog', 'OnBeforeCouponDelete'),
+        self::CATALOG_BEFORE_COUPON_UPDATE => array('catalog', 'OnBeforeCouponUpdate'),
+        self::CATALOG_BEFORE_DISCOUNT_DELETE => array('catalog', 'OnBeforeDiscountDelete'),
+        self::CATALOG_BEFORE_DISCOUNT_UPDATE => array('catalog', 'OnBeforeDiscountUpdate'),
+        self::CATALOG_BEFORE_GROUP_ADD => array('catalog', 'OnBeforeGroupAdd'),
+        self::CATALOG_BEFORE_GROUP_DELETE => array('catalog', 'OnBeforeGroupDelete'),
+        self::CATALOG_BEFORE_GROUP_UPDATE => array('catalog', 'OnBeforeGroupUpdate'),
+        self::CATALOG_BEFORE_PRICE_ADD => array('catalog', 'OnBeforePriceAdd'),
+        self::CATALOG_BEFORE_PRICE_DELETE => array('catalog', 'OnBeforePriceDelete'),
+        self::CATALOG_BEFORE_PRICE_UPDATE => array('catalog', 'OnBeforePriceUpdate'),
+        self::CATALOG_BEFORE_PRODUCT_ADD => array('catalog', 'OnBeforeProductAdd'),
+        self::CATALOG_BEFORE_PRODUCT_PRICE_DELETE => array('catalog', 'OnBeforeProductPriceDelete'),
+        self::CATALOG_BEFORE_PRODUCT_UPDATE => array('catalog', 'OnBeforeProductUpdate'),
+        self::CATALOG_BEFORE_STORE_PRODUCT_ADD => array('catalog', 'OnBeforeStoreProductAdd'),
+        self::CATALOG_BEFORE_STORE_PRODUCT_DELETE => array('catalog', 'OnBeforeStoreProductDelete'),
+        self::CATALOG_BEFORE_STORE_PRODUCT_UPDATE => array('catalog', 'OnBeforeStoreProductUpdate'),
+        self::CATALOG_CATALOG_DELETE => array('catalog', 'OnCatalogDelete'),
+        self::CATALOG_CATALOG_STORE_ADD => array('catalog', 'OnCatalogStoreAdd'),
+        self::CATALOG_CATALOG_STORE_DELETE => array('catalog', 'OnCatalogStoreDelete'),
+        self::CATALOG_CATALOG_STORE_UPDATE => array('catalog', 'OnCatalogStoreUpdate'),
+        self::CATALOG_COUNT_PRICE_WITH_DISCOUNT => array('catalog', 'OnCountPriceWithDiscount'),
+        self::CATALOG_COUNT_PRICE_WITH_DISCOUNT_RESULT => array('catalog', 'OnCountPriceWithDiscountResult'),
+        self::CATALOG_COUPON_ADD => array('catalog', 'OnCouponAdd'),
+        self::CATALOG_COUPON_DELETE => array('catalog', 'OnCouponDelete'),
+        self::CATALOG_COUPON_UPDATE => array('catalog', 'OnCouponUpdate'),
 
     );
 
