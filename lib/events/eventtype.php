@@ -1222,6 +1222,83 @@ class EventType {
      */
     const CATALOG_GET_NEAREST_QUANTITY_PRICE_RESULT = 'catalog-get-nearest-quantity-price-result';
 
+    /**
+     * Событие, вызываемое в методе CCatalogProduct::GetOptimalPrice. Позволяет заменить стандартный метод
+     * выборки наименьшей цены для товара (использование этого обработчика для реализации алгоритмов,
+     * требующих информации о корзине, невозможно).
+     */
+    const CATALOG_GET_OPTIMAL_PRICE = 'catalog-get-optimal-price';
+
+    /**
+     * Событие, вызываемое перед окончанием работы метода CCatalogProduct::GetOptimalPrice.
+     * Позволяет выполнить некоторые действия над полученным результатом работы этого метода.
+     */
+    const CATALOG_GET_OPTIMAL_PRICE_RESULT = 'catalog-get-optimal-price-result';
+
+    /**
+     * Событие, вызываемое в случае успешного создания нового типа цены.
+     */
+    const CATALOG_GROUP_ADD = 'catalog-group-add';
+
+    /**
+     * Событие, вызываемое при удалении существующего типа цены в методе CCatalogGroup::Delete.
+     */
+    const CATALOG_GROUP_DELETE = 'catalog-group-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного изменения типа цены.
+     */
+    const CATALOG_GROUP_UPDATE = 'catalog-group-update';
+
+    /**
+     * Событие, вызываемое в случае успешного создания нового ценового предложения (новой цены) для товара.
+     */
+    const CATALOG_PRICE_ADD = 'catalog_price_add';
+
+    /**
+     * Событие, вызываемое при удалении существующей цены товара в методе CPrice::Delete().
+     * На вход получает ID цены товара (см. CPrice::Delete )
+     */
+    const CATALOG_PRICE_DELETE = 'catalog-price-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного изменения ценового предложения (цены) товара.
+     */
+    const CATALOG_PRICE_UPDATE = 'catalog-price-update';
+
+    /**
+     * Событие, вызываемое в случае успешного добавления параметров товара к элементу каталога.
+     */
+    const CATALOG_PRODUCT_ADD = 'catalog-product-add';
+
+    /**
+     * Событие, вызываемое в процессе удаления существующих цен товара в методе CPrice::DeleteByProduct().
+     * На вход получает ID товара и массив ID цен, не подлежащих удалению.
+     */
+    const CATALOG_PRODUCT_PRICE_DELETE = 'catalog-product-price-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного изменения параметров товара.
+     */
+    const CATALOG_PRODUCT_UPDATE = 'catalog-product-update';
+
+    /**
+     * Событие, вызываемое в случае успешного создания новой записи о добавлении товара на склад.
+     */
+    const CATALOG_STORE_PRODUCT_ADD = 'catalog-store-product-add';
+
+    /**
+     * Событие, вызываемое в случае успешного удаления записи из таблицы остатков товара на складе
+     * (метод CCatalogStoreProductAll::Delete).
+     */
+    const CATALOG_STORE_PRODUCT_DELETE = 'catalog-store-product-delete';
+
+    /**
+     * Событие, вызываемое в случае успешного изменения записи в таблице остатков товара
+     * с кодом ID в методе CCatalogStoreProductAll::Update.
+     */
+    const CATALOG_STORE_PRODUCT_UPDATE = 'catalog-store-product-update';
+
     static $params = array(
         self::MAIN_PAGE_START => array('main', 'OnPageStart'),
         self::MAIN_ADMIN_CONTEXT_MENU_SHOW => array('main', 'OnAdminContextMenuShow'),
@@ -1461,6 +1538,21 @@ class EventType {
         self::CATALOG_GET_DISCOUNT_RESULT => array('catalog', 'OnGetDiscountResult'),
         self::CATALOG_GET_NEAREST_QUANTITY_PRICE => array('catalog', 'OnGetNearestQuantityPrice'),
         self::CATALOG_GET_NEAREST_QUANTITY_PRICE_RESULT => array('catalog', 'OnGetNearestQuantityPriceResult'),
+        self::CATALOG_GET_OPTIMAL_PRICE => array('catalog', 'OnGetOptimalPrice'),
+        self::CATALOG_GET_OPTIMAL_PRICE_RESULT => array('catalog', 'OnGetOptimalPriceResult'),
+        self::CATALOG_GROUP_ADD => array('catalog', 'OnGroupAdd'),
+        self::CATALOG_GROUP_DELETE => array('catalog', 'OnGroupDelete'),
+        self::CATALOG_GROUP_UPDATE => array('catalog', 'OnGroupUpdate'),
+        self::CATALOG_PRICE_ADD => array('catalog', 'OnPriceAdd'),
+        self::CATALOG_PRICE_DELETE => array('catalog', 'OnPriceDelete'),
+        self::CATALOG_PRICE_UPDATE => array('catalog', 'OnPriceUpdate'),
+        self::CATALOG_PRODUCT_ADD => array('catalog', 'OnProductAdd'),
+        self::CATALOG_PRODUCT_PRICE_DELETE => array('catalog', 'OnProductPriceDelete'),
+        self::CATALOG_PRODUCT_UPDATE => array('catalog', 'OnProductUpdate'),
+        self::CATALOG_STORE_PRODUCT_ADD => array('catalog', 'OnStoreProductAdd'),
+        self::CATALOG_STORE_PRODUCT_DELETE => array('catalog', 'OnStoreProductDelete'),
+        self::CATALOG_STORE_PRODUCT_UPDATE => array('catalog', 'OnStoreProductUpdate'),
+
     );
 
     private $_module, $_subject;
