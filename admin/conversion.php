@@ -154,7 +154,7 @@ $jsParams['properties'] = array(
 );
 
 
-/** @var $localization \WS\Migrations\Localization */
+/** @var $localization \WS\Tools\Localization */
 $localization;
 
 ?>

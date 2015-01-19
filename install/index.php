@@ -1,8 +1,12 @@
 <?php
 use Bitrix\Main\Application;
 
-include __DIR__.'/../lib/localization.php';
-include __DIR__.'/../lib/options.php';
+if (!class_exists('\WS\Tools\Localization')) {
+    include __DIR__.'/../lib/localization.php';
+}
+if (!class_exists('\WS\Tools\Options')) {
+    include __DIR__ . '/../lib/options.php';
+}
 
 /**
  * @author Sabirov Ruslan <sabirov@worksolutions.ru>
