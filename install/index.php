@@ -9,12 +9,14 @@ include __DIR__.'/../lib/options.php';
  */
 
 class ws_tools extends CModule {
+    const MODULE_ID = 'ws.tools';
     var $MODULE_ID = 'ws.tools';
-    var $MODULE_NAME = 'Tools';
-    var $PARTNER_NAME = 'WorkSolutions';
-    var $PARTNER_URI = 'http://worksolutions.ru';
     var $MODULE_VERSION;
     var $MODULE_VERSION_DATE;
+    var $MODULE_NAME;
+    var $MODULE_DESCRIPTION;
+    var $MODULE_CSS;
+    var $strError = '';
 
     var $localization;
 
@@ -34,10 +36,13 @@ class ws_tools extends CModule {
         $this->MODULE_VERSION = $arModuleVersion["VERSION"];
         $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
 
+        $this->PARTNER_NAME = GetMessage("WS_TOOLS_PARTNER_NAME");
+
         $localization = $this->localization();
         $this->MODULE_NAME = $localization->getDataByPath("name");
         $this->MODULE_DESCRIPTION = $localization->getDataByPath("description");
         $this->PARTNER_NAME = $localization->getDataByPath("partner.name");
+        $this->PARTNER_URI = 'http://worksolutions.ru';
     }
 
     function InstallFiles() {

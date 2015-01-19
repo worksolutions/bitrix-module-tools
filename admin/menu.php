@@ -1,4 +1,5 @@
 <?php
+CModule::IncludeModule('ws.tools');
 /**
  * @author Sabirov Ruslan <sabirov@worksolutions.ru>
  */
