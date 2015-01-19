@@ -3,8 +3,6 @@
  * @author Sabirov Ruslan <sabirov@worksolutions.ru>
  */
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
-
 $conversionProperty = function ($idProperty, $idIBlock, $type) {
     $propertyValues = array();
     $result = CIBlockElement::GetList(array(), array('IBLOCK_ID' => $idIBlock), null, null, array('ID'));
@@ -95,14 +93,23 @@ if ($_POST['apply'] == 'Применить') {
     $iblockID = intval($_POST['selectIblocks']);
     $propertyID = intval($_POST['selectProperties']);
     $newTypeIBlock = $_POST['new-type-property-info-block'];
+    $conversionResult = $conversionProperty($propertyID, $iblockID, $newTypeIBlock);
 
-    $conversionProperty($propertyID, $iblockID, $newTypeIBlock) && CAdminNotify::Add(array(
+     $conversionResult && CAdminNotify::Add(array(
         'MESSAGE' => 'Конвертация прошла успешно',
         'TAG' => 'save_property_notify',
         'MODULE_ID' => 'ws.tools',
         'ENABLE_CLOSE' => 'Y',
-    ));;
+    ));
+    !$conversionResult && CAdminNotify::Error(array(
+        'MESSAGE' => 'Конвертация не прошла успешно',
+        'TAG' => 'save_property_notify_error',
+        'MODULE_ID' => 'ws.tools',
+        'ENABLE_CLOSE' => 'Y',
+    ));
 }
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
 
 $jsParams = array();
 
@@ -186,7 +193,6 @@ $form->Buttons(array('btnSave' => false));
 
 $form->EndCustomField('form');
 
-$form->EndTab();
 $form->Show();
 ?>
 </form>
