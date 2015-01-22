@@ -64,16 +64,21 @@ $conversionProperty = function ($idProperty, $idIBlock, $type) {
             }
 
             $iblockElement = new CIBlockElement();
+            $arPropertyId = array();
             foreach ($variants as $variant) {
                 $lastId = $list[$variant] = $iblockElement->Add(array(
                     "ACTIVE" => "Y",
                     'IBLOCK_ID' => $handbookIblockId,
-                    'NAME' => $variant
+                    'NAME' => $variant,
                 ));
+
                 if (!$lastId) {
                     throw new Exception($iblockElement->LAST_ERROR);
                 }
             }
+            $property = new CIBlockProperty();
+            $property->Update($idProperty, array('LINK_IBLOCK_ID' => $handbookIblockId));
+
             break;
 
     }
