@@ -22,6 +22,8 @@ $conversionProperty = function ($idProperty, $idIBlock, $type) {
 
     $variants = array_filter(array_unique($variants));
 
+    asort($variants);
+
     $prop = new CIBlockProperty();
     $prop->Update($idProperty, array('PROPERTY_TYPE' => $type));
     $propertyData = CIBlockProperty::GetByID($idProperty, $idIBlock)->Fetch();
@@ -93,7 +95,11 @@ if ($_POST['apply'] == 'Применить') {
     $iblockID = intval($_POST['selectIblocks']);
     $propertyID = intval($_POST['selectProperties']);
     $newTypeIBlock = $_POST['new-type-property-info-block'];
-    $conversionResult = $conversionProperty($propertyID, $iblockID, $newTypeIBlock);
+    $conversionResult = $conversionProperty(
+        $propertyID,
+        $iblockID,
+        $newTypeIBlock
+    );
 
      $conversionResult && CAdminNotify::Add(array(
         'MESSAGE' => 'Конвертация прошла успешно',
@@ -148,6 +154,7 @@ $properties = array();
         'USER_TYPE' => NULL
     )
 ));
+
 while ($property = $rsProperties->fetch()) {
     $properties[$property['ID']] = array(
         'name' => $property['NAME'],
@@ -169,6 +176,7 @@ $localization;
       action="<?= $APPLICATION->GetCurUri()?>"
       ENCTYPE="multipart/form-data"
       name="apply">
+
 <?php
 $form = new CAdminForm('ws_tools_conversion', array(
     array(
@@ -181,6 +189,7 @@ $form->Begin();
 
 $form->BeginNextFormTab();
 $form->BeginCustomField('form', '');
+
 $form->AddSection('section-source', 'Источник');
 $form->AddDropDownField('selectTypes', 'Тип Инфоблока', '', array());
 $form->AddDropDownField('selectIblocks', 'Инфоблок', '', array());
@@ -188,11 +197,17 @@ $form->AddDropDownField('selectProperties', 'Свойство Инфоблока
 
 $form->AddSection('section-appointment', 'Назначение');
 $form->AddDropDownField('new-type-property-info-block', 'Тип', '', array('L' => 'Список', 'E' => 'Привязка к эементам'));
+?>
+    <div class="adm-info-message">
+        <span class="required">
+            Внимание! Пока доступна только конвертация свойств типа 'строка' в тип 'список' и 'привязка к элементу'
+        </span>
+    </div>
 
+<?php
 $form->Buttons(array('btnSave' => false));
 
 $form->EndCustomField('form');
-
 $form->Show();
 ?>
 </form>
