@@ -110,6 +110,15 @@ class Module {
         return $this->getService('eventManager');
     }
 
+
+    /**
+     * @param $type
+     * @return Log
+     */
+    public function getLog($type) {
+        return new Log($type);
+    }
+
     /**
      * @param $name
      * @return mixed
