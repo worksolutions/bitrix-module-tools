@@ -288,6 +288,11 @@ class EventType {
      */
     const MAIN_USER_LOGIN_EXTERNAL = 'main-user-login-external';
 
+    /**
+     * Событие OnEventLogGetAuditTypes предназначено для добавления описания кода типа сообщения Журнала событий.
+     */
+    const MAIN_EVENT_LOG_GET_AUDIT_TYPES = 'main-event-log-get-audit-types';
+
     //--------------------------- Информационные блоки ------------------------------//
 
     /**
@@ -1349,6 +1354,7 @@ class EventType {
         self::MAIN_SITE_DELETE => array('main','OnSiteDelete'),
         self::MAIN_USER_DELETE => array('main','OnUserDelete'),
         self::MAIN_USER_LOGIN_EXTERNAL => array('main','OnUserLoginExternal'),
+        self::MAIN_EVENT_LOG_GET_AUDIT_TYPES => array('main','OnEventLogGetAuditTypes'),
 
         self::IBLOCK_AFTER_IBLOCK_ADD => array('iblock','OnAfterIBlockAdd'),
         self::IBLOCK_AFTER_IBLOCK_ELEMENT_ADD => array('iblock','OnAfterIBlockElementAdd'),
