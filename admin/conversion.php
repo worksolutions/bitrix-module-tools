@@ -3,8 +3,6 @@
  * @author Sabirov Ruslan <sabirov@worksolutions.ru>
  */
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
-
 $conversionProperty = function ($idProperty, $idIBlock, $type) {
     $propertyValues = array();
     $result = CIBlockElement::GetList(array(), array('IBLOCK_ID' => $idIBlock), null, null, array('ID'));
@@ -23,6 +21,8 @@ $conversionProperty = function ($idProperty, $idIBlock, $type) {
     }
 
     $variants = array_filter(array_unique($variants));
+
+    asort($variants);
 
     $prop = new CIBlockProperty();
     $prop->Update($idProperty, array('PROPERTY_TYPE' => $type));
@@ -64,16 +64,21 @@ $conversionProperty = function ($idProperty, $idIBlock, $type) {
             }
 
             $iblockElement = new CIBlockElement();
+            $arPropertyId = array();
             foreach ($variants as $variant) {
                 $lastId = $list[$variant] = $iblockElement->Add(array(
                     "ACTIVE" => "Y",
                     'IBLOCK_ID' => $handbookIblockId,
-                    'NAME' => $variant
+                    'NAME' => $variant,
                 ));
+
                 if (!$lastId) {
                     throw new Exception($iblockElement->LAST_ERROR);
                 }
             }
+            $property = new CIBlockProperty();
+            $property->Update($idProperty, array('LINK_IBLOCK_ID' => $handbookIblockId));
+
             break;
 
     }
@@ -95,14 +100,27 @@ if ($_POST['apply'] == 'Применить') {
     $iblockID = intval($_POST['selectIblocks']);
     $propertyID = intval($_POST['selectProperties']);
     $newTypeIBlock = $_POST['new-type-property-info-block'];
+    $conversionResult = $conversionProperty(
+        $propertyID,
+        $iblockID,
+        $newTypeIBlock
+    );
 
-    $conversionProperty($propertyID, $iblockID, $newTypeIBlock) && CAdminNotify::Add(array(
+     $conversionResult && CAdminNotify::Add(array(
         'MESSAGE' => 'Конвертация прошла успешно',
         'TAG' => 'save_property_notify',
         'MODULE_ID' => 'ws.tools',
         'ENABLE_CLOSE' => 'Y',
-    ));;
+    ));
+    !$conversionResult && CAdminNotify::Error(array(
+        'MESSAGE' => 'Конвертация не прошла успешно',
+        'TAG' => 'save_property_notify_error',
+        'MODULE_ID' => 'ws.tools',
+        'ENABLE_CLOSE' => 'Y',
+    ));
 }
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_after.php");
 
 $jsParams = array();
 
@@ -141,6 +159,7 @@ $properties = array();
         'USER_TYPE' => NULL
     )
 ));
+
 while ($property = $rsProperties->fetch()) {
     $properties[$property['ID']] = array(
         'name' => $property['NAME'],
@@ -154,7 +173,7 @@ $jsParams['properties'] = array(
 );
 
 
-/** @var $localization \WS\Migrations\Localization */
+/** @var $localization \WS\Tools\Localization */
 $localization;
 
 ?>
@@ -162,6 +181,7 @@ $localization;
       action="<?= $APPLICATION->GetCurUri()?>"
       ENCTYPE="multipart/form-data"
       name="apply">
+
 <?php
 $form = new CAdminForm('ws_tools_conversion', array(
     array(
@@ -174,6 +194,7 @@ $form->Begin();
 
 $form->BeginNextFormTab();
 $form->BeginCustomField('form', '');
+
 $form->AddSection('section-source', 'Источник');
 $form->AddDropDownField('selectTypes', 'Тип Инфоблока', '', array());
 $form->AddDropDownField('selectIblocks', 'Инфоблок', '', array());
@@ -181,12 +202,17 @@ $form->AddDropDownField('selectProperties', 'Свойство Инфоблока
 
 $form->AddSection('section-appointment', 'Назначение');
 $form->AddDropDownField('new-type-property-info-block', 'Тип', '', array('L' => 'Список', 'E' => 'Привязка к эементам'));
+?>
+    <div class="adm-info-message">
+        <span class="required">
+            Внимание! Пока доступна только конвертация свойств типа 'строка' в тип 'список' и 'привязка к элементу'
+        </span>
+    </div>
 
+<?php
 $form->Buttons(array('btnSave' => false));
 
 $form->EndCustomField('form');
-
-$form->EndTab();
 $form->Show();
 ?>
 </form>
