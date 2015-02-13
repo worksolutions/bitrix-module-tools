@@ -6,8 +6,11 @@
  * Time: 17:37
  */
 
-namespace WS\Tools;
+namespace WS\Tools\Cache;
 
+
+use Bitrix\Main\Application;
+use Bitrix\Main\Data\ICacheEngine;
 
 abstract class Cache {
     private
@@ -20,14 +23,16 @@ abstract class Cache {
         $_bxBaseDir;
 
     /**
-     * @param \Bitrix\Main\Data\Cache $original
+     * @param ICacheEngine $engine
      * @param $key
      * @param $timeLive
      */
-    public function __construct(\Bitrix\Main\Data\Cache $original, $key, $timeLive) {
-        $this->_original = $original;
-        $this->_key = $key;
+    public function __construct(ICacheEngine $engine, $key, $timeLive) {
+        $this->_original = $engine;
+        $un = md5($key);
+        $this->_key = "/".substr($un, 0, 2)."/".$un.".php";
         $this->_timeLive = $timeLive;
+        $this->_bxBaseDir = "cache";
     }
 
     /**
@@ -55,8 +60,25 @@ abstract class Cache {
         return $this->_original;
     }
 
-    protected function init() {
-        return $this->getOriginal()->initCache($this->_timeLive, $this->_key, $this->_bxInitDir, $this->_bxBaseDir);
+    private function _baseDir() {
+        $personalRoot = Application::getPersonalRoot();
+        return $personalRoot."/".$this->_bxBaseDir."/";
+    }
+
+    /**
+     * @return null
+     */
+    protected function read($isArray = false) {
+        $value = $isArray ? array() : null;
+        $this->_original->read($value, $this->_baseDir(), $this->_bxInitDir, $this->_key, $this->_timeLive);
+        return $value;
+    }
+
+    /**
+     * @param $value
+     */
+    protected function write($value) {
+        $this->_original->write($value, $this->_baseDir(), $this->_bxInitDir, $this->_key, $this->_timeLive);
     }
 
     /**
@@ -69,6 +91,6 @@ abstract class Cache {
     }
 
     public function isExpire() {
-        return !$this->init();
+        return !$this->read();
     }
 }

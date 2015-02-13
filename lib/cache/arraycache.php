@@ -6,7 +6,7 @@
  * Time: 17:41
  */
 
-namespace WS\Tools;
+namespace WS\Tools\Cache;
 
 
 class ArrayCache extends Cache {
@@ -15,8 +15,7 @@ class ArrayCache extends Cache {
      * @return array
      */
     public function get() {
-        $this->init();
-        $this->getOriginal()->getVars();
+        return $this->read(true);
     }
 
     /**
@@ -24,9 +23,7 @@ class ArrayCache extends Cache {
      * @return $this
      */
     public function set(array $value) {
-        $this->init();
-        $this->getOriginal()->startDataCache();
-        $this->getOriginal()->endDataCache($value);
+        $this->write($value);
         return $this;
     }
 }

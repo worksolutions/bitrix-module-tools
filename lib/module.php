@@ -5,6 +5,8 @@
 
 namespace WS\Tools;
 use Bitrix\Main\Application;
+use Bitrix\Main\Data\CacheEngineFiles;
+use WS\Tools\Cache\CacheManager;
 use WS\Tools\Events\EventsManager;
 
 /**
@@ -17,7 +19,7 @@ class Module {
 
     const MODULE_ID = 'ws.tools';
     const ITEMS_ID = 'ws_tools_menu';
-    const MODULE_NAME = ' ws.tools';
+    const MODULE_NAME = 'ws.tools';
 
     private $localizePath = null;
     private $localizations = array();
@@ -29,6 +31,9 @@ class Module {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
         $this->_services['eventManager'] = new EventsManager();
         $this->_services['classLoader'] = new ClassLoader();
+        $this->_services['cache'] = new CacheManager(array(
+            'engine' => new CacheEngineFiles()
+        ));
     }
 
     /**
@@ -117,6 +122,13 @@ class Module {
      */
     public function getLog($type) {
         return new Log($type);
+    }
+
+    /**
+     * @return CacheManager
+     */
+    public function cacheManager() {
+        return $this->getService('cache');
     }
 
     /**

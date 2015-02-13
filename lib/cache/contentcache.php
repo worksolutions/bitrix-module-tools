@@ -6,7 +6,7 @@
  * Time: 17:29
  */
 
-namespace WS\Tools;
+namespace WS\Tools\Cache;
 
 
 class ContentCache extends Cache {
@@ -15,8 +15,7 @@ class ContentCache extends Cache {
      * Start buffering data
      */
     public function record() {
-        $this->init();
-        $this->getOriginal()->startDataCache();
+        ob_start();
         return $this;
     }
 
@@ -24,7 +23,7 @@ class ContentCache extends Cache {
      * @return $this
      */
     public function abort() {
-        $this->getOriginal()->abortDataCache();
+        ob_end_flush();
         return $this;
 
     }
@@ -34,18 +33,16 @@ class ContentCache extends Cache {
      * @return string
      */
     public function save($output = true) {
-        $this->getOriginal()->endDataCache();
-        $output && $this->getOriginal()->output();
-        return $this->content();
+        $content = ob_get_clean();
+        $this->write($content);
+        $output && print $content;
+        return $content;
     }
 
     /**
      * @return string
      */
     public function content() {
-        $this->init();
-        ob_start();
-        $this->getOriginal()->output();
-        return ob_get_clean();
+        return (string) $this->read();
     }
 }
