@@ -32,7 +32,7 @@ class ContentCache extends Cache {
      * @param bool $output It will need to use by print output in a flow
      * @return string
      */
-    public function save($output = true) {
+    public function stop($output = false) {
         $content = ob_get_clean();
         $this->write($content);
         $output && print $content;
