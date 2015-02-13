@@ -54,12 +54,8 @@ abstract class Cache {
     }
 
     /**
-     * @return \Bitrix\Main\Data\Cache
+     * @return string
      */
-    protected function getOriginal() {
-        return $this->_original;
-    }
-
     private function _baseDir() {
         $personalRoot = Application::getPersonalRoot();
         return $personalRoot."/".$this->_bxBaseDir."/";
@@ -86,7 +82,7 @@ abstract class Cache {
      * @return $this
      */
     public function clear() {
-        $this->getOriginal()->clean($this->_key, $this->_bxInitDir, $this->_bxBaseDir);
+        $this->_original->clean($this->_baseDir(), $this->_bxInitDir, $this->_key);
         return $this;
     }
 
