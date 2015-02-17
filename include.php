@@ -1,4 +1,2 @@
 <?php
-/**
- * @author Sabirov Ruslan <sabirov@worksolutions.ru>
- */
+require __DIR__.'/vendor/autoload.php';
