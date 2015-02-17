@@ -480,7 +480,7 @@ $fileLog = $module->getService('myFileLog');
 $fileLog->put('error message');
 ```
 
-#### 3. Работа с объектом `createInstance($name, $params = array(), $depends = array())`
+#### 3. Работа с объектом `ServiceLocator`
 Работа с объектом `ServiceLocator` напрямую нужно использовать в основном для инициализации объектов-сирот, т.е. те объекты
 которые не будут доступны при последующих вызовов получения сервисов.
 
