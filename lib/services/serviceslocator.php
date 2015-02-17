@@ -10,6 +10,8 @@ class ServicesLocator {
     private $_config = array(),
         $_instances = array();
 
+    private $_waiting = array();
+
     public function __construct(array $config = array()) {
         $this->_config = $config;
     }
@@ -67,6 +69,8 @@ class ServicesLocator {
     /**
      * Create object. Object will create by each call
      * @param string $name
+     * @param array $params
+     * @param array $depends
      * @return mixed
      * @throws \Exception
      */
@@ -74,6 +78,11 @@ class ServicesLocator {
         if (!$this->_config[$name] && !class_exists($name)) {
             throw new \Exception("Instance of $name imposable");
         }
+
+        if (in_array($name, $this->_waiting)) {
+            throw new \Exception('Uses cycled dependency');
+        }
+        $this->_waiting[] = $name;
 
         $config = $this->_config[$name] ?: array();
 
@@ -114,6 +123,7 @@ class ServicesLocator {
             $property->setValue($object, $value);
             $property->isProtected() && $property->setAccessible(false);
         }
+        $this->_waiting = array_diff($this->_waiting, array($name));
         return $object;
     }
 }
