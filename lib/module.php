@@ -6,8 +6,12 @@
 namespace WS\Tools;
 use Bitrix\Main\Application;
 use Bitrix\Main\Data\CacheEngineFiles;
+use DI\Container;
+use DI\ContainerBuilder;
+use DI\Definition\Source\ArrayDefinitionSource;
 use WS\Tools\Cache\CacheManager;
 use WS\Tools\Events\EventsManager;
+use WS\Tools\Services\ServicesLocator;
 
 /**
  * Class Module
@@ -25,15 +29,47 @@ class Module {
     private $localizations = array();
     private static  $name = self::MODULE_NAME;
 
+    /**
+     * @var ServicesLocator
+     */
+    private $_servicesLocator;
+
     private $_services = array();
+
+    /**
+     * @var Container
+     */
+    private $_diContainer;
 
     private function __construct() {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
-        $this->_services['eventManager'] = new EventsManager();
-        $this->_services['classLoader'] = new ClassLoader();
-        $this->_services['cache'] = new CacheManager(array(
+        $this->_servicesLocator = new ServicesLocator();
+        $this->_servicesLocator->willUse('eventManager', new EventsManager());
+        $this->_servicesLocator->willUse('classLoader', new ClassLoader());
+        $this->_servicesLocator->willUse('cache', new CacheManager(array(
             'engine' => new CacheEngineFiles()
-        ));
+        )));
+    }
+
+    /**
+     * Setup params to configure module
+     * @param $params
+     */
+    public function config($params) {
+        foreach ($params as $name => $value) {
+            $this->configSection($name, $value);
+        }
+    }
+
+    /**
+     * Setup params section to configure
+     * @param $name
+     * @param $params
+     */
+    public function configSection($name, $params) {
+        if ($name == 'services') {
+            $this->_servicesLocator->configure($params);
+        }
     }
 
     /**
@@ -44,6 +80,7 @@ class Module {
     }
 
     /**
+     * Will get module facade
      * @return Module
      */
     public static function getInstance() {
@@ -55,6 +92,7 @@ class Module {
     }
 
     /**
+     * Works with i18n messages
      * @param $path
      * @throws \Exception
      * @return mixed
@@ -68,9 +106,7 @@ class Module {
 
             $data = include $realPath;
             $this->localizations[$path] = new Localization($data);
-
         }
-
         return $this->localizations[$path];
     }
 
@@ -95,10 +131,7 @@ class Module {
      * @return Object
      */
     public function getService($name) {
-        if (!$this->_services[$name]) {
-            $this->_services[$name] = $this->createService($name);
-        }
-        return $this->_services[$name];
+        return $this->_servicesLocator->get($name);
     }
 
     /**
@@ -132,12 +165,9 @@ class Module {
     }
 
     /**
-     * @param $name
-     * @return mixed
-     * @throws \Exception
+     * @return ServicesLocator
      */
-    private function createService($name) {
-        throw new \Exception('Method not realized');
-        return $service;
+    public function getServiceLocator() {
+        return $this->_servicesLocator;
     }
 }
