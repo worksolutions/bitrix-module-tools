@@ -582,7 +582,7 @@ $module->config($config);
 /* @var DateBase */
 $db = $module->getService('db');
 
-$db->getShell()->getRootDir(); // /var/www/project/local
+$db->getShell()->getRootDir(); // /var/www/project/local/root
 
 ```
 
