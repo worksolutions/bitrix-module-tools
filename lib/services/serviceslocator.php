@@ -82,6 +82,8 @@ class ServicesLocator {
         if (in_array($name, $this->_waiting)) {
             throw new \Exception('Uses cycled dependency');
         }
+
+        // this service is setting as wait status
         $this->_waiting[] = $name;
 
         $config = $this->_config[$name] ?: array();
@@ -98,7 +100,7 @@ class ServicesLocator {
         }
         $values = array_merge($params, $values);
 
-        // class discovery
+        // class discovery for constructor call
         $refClass = new \ReflectionClass($class);
         $constructParams = array();
         if ($refClass->hasMethod('__construct')) {
@@ -110,6 +112,7 @@ class ServicesLocator {
                 $constructParams[] = $cParamValue;
             }
         }
+        // object instance
         $object = $refClass->newInstanceArgs($constructParams);
 
         foreach ($refClass->getProperties() as $property) {
@@ -123,6 +126,7 @@ class ServicesLocator {
             $property->setValue($object, $value);
             $property->isProtected() && $property->setAccessible(false);
         }
+        // this service is setting as free status
         $this->_waiting = array_diff($this->_waiting, array($name));
         return $object;
     }

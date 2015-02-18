@@ -500,7 +500,90 @@ $log = $serviceLocator->createInstance('log');
 Объект не будет зарегистрирован в `ServiceLocator` для дальнешего использования. Но он может пльзоватся параметрами конфигурации при инициализации.
 
 #### Внедрение зависимостей
-Внедрение зависимостей является общий паттерн программирования который повышает уровень слабой связанности объектов приложения,
+Внедрение зависимостей являеются общим паттерном программирования который повышает уровень слабой связанности объектов приложения,
 облегчает замену компонентов и упрощает рефакторинг кода. Подробнее о пользе внедрения зависимостей можно прочитать в [статье](http://vladimirsblog.com/laravel-dependency-injection-for-beginners/).
 
 #### Как взаимосвязаны поля класса сервиса и параметры для подстановки в объект?
+При инициализации объекта `ServiceLocator` будет его наполнять параметрами и зависимыми сервисами по следующим признакам:
+1. При совпадении имени параметра или сервиса в конструкторе класса
+2. При совпадении класса сервиса в определении параметра конструктора класса
+3. При совпадении свойств класса. Свойства должны быть `protected` или `public`. В `private` свойства параметры не передаются
+
+Пример конфигурации для инициализации параметров:
+```php
+<?php
+
+// параметры для сервисов
+$config = array(
+    'services' => array(
+        'db' => array(
+            'class' => 'DateBase',
+            'params' => array(
+                'host' => 'localhost',
+                'user' => 'user',
+            ),
+            'depends' => array('shell')
+        ),
+        'shell' => array(
+            'class' => 'CommandLineShell',
+            'params' => array(
+                'rootDir' => __DIR__.'/../root'
+            )
+        )
+    )
+);
+
+// классы сервисов
+ 
+class DateBase {
+    
+    /**
+     * В это свойство будет записан объект CommandLineShell
+     * @var CommandLineShell
+     **/
+    protected $shell;
+    
+    /**
+     * В приватные свойства параметры не записываются
+     **/
+    private $connectionParams;
+    
+    public function __construct($host, $user) {
+        $this->_connectionParams = array(
+            'host' => $host,
+            'user' => $user
+        );
+    }
+    
+    /**
+     * Будет проинициализированно Shell объектом
+     **/
+    public function getShell() {
+        return $this->shell;
+    }
+}
+
+class CommandLineShell {
+
+    /**
+     * При инициализации наполнится параметром сомостоятельно
+     **/
+    protected $rootDir;
+    
+    public function getRootDir() {
+        return $this->rootDir;
+    }
+}
+
+CModule::IncludeModule('ws.tools');
+$module = \WS\Tools\Module::getInstance();
+$module->config($config);
+
+/* @var DateBase */
+$db = $module->getService('db');
+
+$db->getShell()->getRootDir(); // /var/www/project/local
+
+```
+
+Из примера выше видно, что сервисы инициализируются автоматически с зараниее указанными параметрами. 
