@@ -6,9 +6,6 @@
 namespace WS\Tools;
 use Bitrix\Main\Application;
 use Bitrix\Main\Data\CacheEngineFiles;
-use DI\Container;
-use DI\ContainerBuilder;
-use DI\Definition\Source\ArrayDefinitionSource;
 use WS\Tools\Cache\CacheManager;
 use WS\Tools\Events\EventsManager;
 use WS\Tools\Services\ServicesLocator;
@@ -33,13 +30,6 @@ class Module {
      * @var ServicesLocator
      */
     private $_servicesLocator;
-
-    private $_services = array();
-
-    /**
-     * @var Container
-     */
-    private $_diContainer;
 
     private function __construct() {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
