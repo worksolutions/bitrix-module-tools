@@ -50,7 +50,22 @@ $classLoader = $toolsModule->getService('classLoader');
  В процессе заполнения.
 
 ### Загрузка классов
-Автоматическая загрузка классов происходит после регистрации каталога хранения классов в загрузчике модуля. Для получения загрузчика есть специальный метод *classLoader*
+Автоматическая загрузка классов происходит после регистрации каталога хранения классов в загрузчике модуля. 
+Конфигрурация загрузчика классов. В параметрах с ключом `classFolder` указывается путь к каталогу классов.
+```php
+<?php
+$config = array(
+    'classFolder' => __DIR__.'/classes',
+    'services' => array(
+    // ...
+    )
+);
+
+CModule::IncludeModule('ws.tools');
+$toolsModule = WS\Tools\Module::getInstance();
+$toolsModule->config($config);
+```
+Для получения загрузчика есть специальный метод *classLoader*
 ```php
 <?php
 CModule::IncludeModule('ws.tools');

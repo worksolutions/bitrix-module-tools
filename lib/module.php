@@ -54,11 +54,14 @@ class Module {
     /**
      * Setup params section to configure
      * @param $name
-     * @param $params
+     * @param $value
      */
-    public function configSection($name, $params) {
+    public function configSection($name, $value) {
         if ($name == 'services') {
-            $this->_servicesLocator->configure($params);
+            $this->_servicesLocator->configure($value);
+        }
+        if ($name == 'classFolder') {
+            $this->classLoader()->registerFolder($value);
         }
     }
 
