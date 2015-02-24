@@ -68,7 +68,7 @@ class Module {
         if ($name == 'services') {
             $this->_servicesLocator->configure($value);
         }
-        if ($name == 'classFolder') {
+        if ($name == 'autoload') {
             $this->classLoader()->configure($value);
         }
     }
