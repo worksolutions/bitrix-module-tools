@@ -7,6 +7,9 @@ namespace WS\Tools;
 use Bitrix\Main\Application;
 use Bitrix\Main\Data\CacheEngineFiles;
 use WS\Tools\Cache\CacheManager;
+use WS\Tools\ClassLoader\ClassLoader;
+use WS\Tools\ClassLoader\PSR0ClassLoaderDriver;
+use WS\Tools\ClassLoader\PSR4ClassLoaderDriver;
 use WS\Tools\Events\EventsManager;
 use WS\Tools\Services\ServicesLocator;
 
@@ -35,7 +38,12 @@ class Module {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
         $this->_servicesLocator = new ServicesLocator();
         $this->_servicesLocator->willUse('eventManager', new EventsManager());
-        $this->_servicesLocator->willUse('classLoader', new ClassLoader());
+        $this->_servicesLocator->willUse('classLoader', new ClassLoader(array(
+            'drivers' => array(
+                "psr4" => new PSR4ClassLoaderDriver(),
+                "psr0" => new PSR0ClassLoaderDriver()
+            )
+        )));
         $this->_servicesLocator->willUse('cache', new CacheManager(array(
             'engine' => new CacheEngineFiles()
         )));
@@ -60,8 +68,8 @@ class Module {
         if ($name == 'services') {
             $this->_servicesLocator->configure($value);
         }
-        if ($name == 'classFolder') {
-            $this->classLoader()->registerFolder($value);
+        if ($name == 'autoload') {
+            $this->classLoader()->configure($value);
         }
     }
 

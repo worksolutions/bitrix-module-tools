@@ -51,12 +51,26 @@ $classLoader = $toolsModule->getService('classLoader');
 
 ### Загрузка классов
 Автоматическая загрузка классов происходит после регистрации каталога хранения классов в загрузчике модуля. 
-Конфигрурация загрузчика классов. В параметрах с ключом `classFolder` указывается путь к каталогу классов.
+Конфигурация загрузчика классов. В параметрах с ключом `autoload` указывается конфигурация для драйверов автозагрузки
+классов.
 ```php
 <?php
 $config = array(
-    'classFolder' => __DIR__.'/classes',
-    'services' => array(
+    "autoload" => array(
+        "psr4" => array(
+            "Local\\" => __DIR__ . DIRECTORY_SEPARATOR . "lib",
+            "Multiply\\Space\\Dirs\\" => array(
+                __DIR__ . "/lib2",
+                __DIR__ . "/lib3"
+            )
+            // ...
+        ),
+        "psr0" => array(
+            "Old\\Namespaces\\" => __DIR__ . "/vendor",
+            // ...
+        )
+    ),
+    "services" => array(
     // ...
     )
 );
@@ -71,15 +85,14 @@ $toolsModule->config($config);
 CModule::IncludeModule('ws.tools');
 $toolsModule = WS\Tools\Module::getInstance();
 $classLoader = $toolsModule->classLoader();
-$classLoader->registerFolder(__DIR__.'/classes');
+$classLoader->getDriver('psr4')->registerPathByNamespace(__DIR__ '/local/lib', "Local\\");
 ```
-Означает, что для поиска классов зарегистрирован каталог classes, находящийся в текущем каталоге файла
+Означает, что для поиска классов зарегистрирован каталог `__DIR__ . '/local/lib'`
 
-Классы подключаются по следующим правилам
-* namespace класса помечается как путь к каталогу класса
-* имя файла класса определяется как название
+На данный момент поддерживаются следующие драйверы для автозагрузки:
+* [PSR-0](http://www.php-fig.org/psr/psr-0/ru/)
+* [PSR-4](http://www.php-fig.org/psr/psr-4/ru/)
 
-Таким образом класс *Custom\Network\Model* должен находится по следующему пути: *__DIR__.'Custom\Network\Model.php'*, где *__DIR__* - зарегистрированный каталог подключения классов
 
 ###События. Обработка, вызов
 Поодержка событийной модели в системе очень удобный прием ее декомпозиции и облегчения разделения уровней логической схемы.
