@@ -85,7 +85,7 @@ $toolsModule->config($config);
 CModule::IncludeModule('ws.tools');
 $toolsModule = WS\Tools\Module::getInstance();
 $classLoader = $toolsModule->classLoader();
-$classLoader->getDriver('psr4')->registerPathByNamespace(__DIR__ '/local/lib', "Local\\");
+$classLoader->getDriver('psr4')->registerPathByNamespace(__DIR__ . '/local/lib', "Local\\");
 ```
 Означает, что для поиска классов зарегистрирован каталог `__DIR__ . '/local/lib'`
 
