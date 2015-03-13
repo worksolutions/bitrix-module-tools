@@ -10,8 +10,10 @@ abstract class AbstractEntity {
     private $_primary;
     private $_data = array();
 
-    public function __construct($data = array()) {
+    public function __construct($data = array(), $primary = null) {
         $this->_data = array();
+
+        $this->setPrimary($primary);
     }
 
     /**
