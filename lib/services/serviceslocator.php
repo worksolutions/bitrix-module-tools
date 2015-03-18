@@ -89,8 +89,8 @@ class ServicesLocator {
         $config = $this->_config[$name] ?: array();
 
         $class = $config['class'] ?: $name;
-        $params = $config['params'] ?: $params ?: array();
-        $depends = $config['depends'] ?: $depends ?: array();
+        $params = array_merge($config['params'] ?: array(), $params ?: array());
+        $depends = array_unique(array_merge($config['depends'] ?: array(), $depends ?: array()));
 
         $instances = array();
         $values = array();
