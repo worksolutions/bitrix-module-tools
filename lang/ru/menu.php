@@ -5,5 +5,5 @@
 
 return array(
     'title' => 'WS Tools',
-    'conversionPropertiesIB' => 'РљРѕРЅРІРµСЂС‚Р°С†РёСЏ СЃРІРѕР№СЃС‚РІ РР‘'
+    'conversionPropertiesIB' => 'Конвертация свойств ИБ'
 );

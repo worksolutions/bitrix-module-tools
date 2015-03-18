@@ -4,6 +4,6 @@
  */
 return array(
     'conversion' => array(
-        'title' => 'РљРѕРЅРІРµСЂС‚Р°С†РёСЏ'
+        'title' => 'Конвертация'
     ),
 );
