@@ -1568,8 +1568,8 @@ class EventType {
      * @param $subject
      * @throws \Exception
      */
-    private function __construct($module, $subject) {
-        if (!$module || !$subject) {
+    private function __construct($module = "", $subject) {
+        if (!$subject) {
             throw new \Exception("Params not exists");
         }
         $this->_module = $module;
