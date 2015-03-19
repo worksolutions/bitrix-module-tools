@@ -36,6 +36,7 @@ class EventsManager {
         };
 
         //processing reference params
+        $referenceParams = array();
         if (!$handlerType && is_string($handler) && function_exists($handler)) {
             $handlerType = 'function';
             $reflection = new \ReflectionFunction($handler);
@@ -64,7 +65,7 @@ class EventsManager {
             $self->registerCall($eventType);
             return call_user_func_array($handler, func_get_args());
         };
-        $wrapperLink = function (& $param0, & $param1, & $param2, & $param3, & $param4) use ($self, $eventType, $handler, $referenceParams) {
+        $referenceParams && $wrapperLink = function (& $param0, & $param1, & $param2, & $param3, & $param4) use ($self, $eventType, $handler, $referenceParams) {
             $self->registerCall($eventType);
             $args = func_get_args();
             $num = 0;
@@ -79,7 +80,7 @@ class EventsManager {
             }
             return call_user_func_array($handler, $params);
         };
-        return $this->vendorManager()->addEventHandler($eventType->getModule(), $eventType->getSubject(), $wrapperLink);
+        return $this->vendorManager()->addEventHandler($eventType->getModule(), $eventType->getSubject(), $wrapperLink ?: $wrapper);
     }
 
     /**
