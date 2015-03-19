@@ -23,39 +23,40 @@ class EventsManager {
 
         $handlerType = false;
         /**
-         * @param array $parameters
+         * @param \ReflectionParameter[] $parameters
          * @return bool|array of positions
          */
-        $functionParamsReference = function (array $parameters) {
+        $isReference = function (array $parameters) {
             $res = array();
-            /** @var \ReflectionParameter $param */
-            foreach ($parameters as $param) {
-                $param->isPassedByReference() && $res[] = $param->getPosition();
-            }
-            return $res ?: false;
+            $first = array_shift($parameters);
+            /** @var \ReflectionParameter $first */
+            return $first && $first->isPassedByReference() && $res[] = $param->getPosition();
         };
 
         //processing reference params
-        $referenceParams = array();
+        $reference = false;
         if (!$handlerType && is_string($handler) && function_exists($handler)) {
             $handlerType = 'function';
             $reflection = new \ReflectionFunction($handler);
-            $referenceParams = $functionParamsReference($reflection->getParameters());
+            $reference = $isReference($reflection->getParameters());
         }
         if (!$handlerType && $handler instanceof \Closure) {
             $handlerType = 'closure';
             $reflection = new \ReflectionFunction($handler);
-            $referenceParams = $functionParamsReference($reflection->getParameters());
+            $reference = $isReference($reflection->getParameters());
         }
-        if (!$handlerType && is_object($handler) && method_exists($handler, '__invoke')) {
-            $handlerType = 'invokable';
-            // for invoke
-            $referenceParams = array(0,1,2);
+        if (!$handlerType && is_object($handler) && method_exists($handler, 'processReference')) {
+            $handlerType = 'invoke reference';
+            $reference = true;
+        }
+        if (!$handlerType && is_object($handler)) {
+            $handlerType = 'invoke';
+            $reference = false;
         }
         if (!$handlerType && is_array($handler) && class_exists($handler[0]) && method_exists($handler[0], $handler[1])) {
             $handlerType = 'class static method';
             $reflection = new \ReflectionMethod($handler[0], $handler[1]);
-            $referenceParams = $functionParamsReference($reflection->getParameters());
+            $reference = $isReference($reflection->getParameters());
         }
         if (!$handlerType) {
             throw new \Exception("Subscribe by event " . $eventType->getSubject()." handler not correct");
@@ -65,21 +66,15 @@ class EventsManager {
             $self->registerCall($eventType);
             return call_user_func_array($handler, func_get_args());
         };
-        $referenceParams && $wrapperLink = function (& $param0, & $param1, & $param2, & $param3, & $param4) use ($self, $eventType, $handler, $referenceParams) {
+
+        $reference && $wrapperLink = function (& $linkParam) use ($self, $eventType, $handler, $reference) {
             $self->registerCall($eventType);
-            $args = func_get_args();
-            $num = 0;
-            $params = array();
-            foreach ($args as $arg) {
-                if (in_array($num, $referenceParams)) {
-                    $params[] = & ${'param'.$num};
-                } else {
-                    $params[] = $arg;
-                }
-                $num++;
-            }
+            $params = func_get_args();
+            array_shift($params);
+            array_unshift($params, $linkParam);
             return call_user_func_array($handler, $params);
         };
+
         return $this->vendorManager()->addEventHandler($eventType->getModule(), $eventType->getSubject(), $wrapperLink ?: $wrapper);
     }
 
