@@ -69,9 +69,12 @@ class EventsManager {
 
         $reference && $wrapperLink = function (& $linkParam) use ($self, $eventType, $handler, $reference) {
             $self->registerCall($eventType);
-            $params = func_get_args();
-            array_shift($params);
-            array_unshift($params, $linkParam);
+            $args = func_get_args();
+            array_shift($args);
+            $params[] = & $linkParam;
+            foreach ($args as $arg) {
+                $params[] = $arg;
+            }
             return call_user_func_array($handler, $params);
         };
 

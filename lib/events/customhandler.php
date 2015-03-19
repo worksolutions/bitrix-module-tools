@@ -64,6 +64,7 @@ abstract class CustomHandler {
     /**
      * Run hand
      * @return mixed
+     * @throws \Exception
      */
     public function process() {
         throw new \Exception('Need override this method or `processReference` '.__METHOD__);
