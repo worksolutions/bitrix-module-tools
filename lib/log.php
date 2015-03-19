@@ -135,11 +135,13 @@ class Log {
         if (is_object($value)) {
             $obj = new \ReflectionObject($value);
             $props = array_filter($obj->getProperties(), function (\ReflectionProperty $property) use ($obj) {
+                $property->setAccessible(true);
                 return !is_object($property->getValue($obj));
             });
             /** @var \ReflectionProperty $property */
             $value = array();
             foreach ($props as $property) {
+                $property->setAccessible(true);
                 $value[$property->getName()] = $property->getValue($obj);
             }
         }
