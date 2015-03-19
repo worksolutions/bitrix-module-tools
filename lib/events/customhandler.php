@@ -20,7 +20,7 @@ abstract class CustomHandler {
     public function __invoke(& $param0, & $param1, & $param2) {
         $this->addParams($args = func_get_args());
         if (!$this->identity()) {
-            return false;
+            return true;
         }
         if (method_exists($this, 'processReference')) {
             $reflection = new \ReflectionMethod($this, 'processReference');
