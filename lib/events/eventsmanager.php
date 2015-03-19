@@ -84,11 +84,12 @@ class EventsManager {
 
     /**
      * @param EventType $eventType
+     * @param array $params
      * @param null $sender
      * @return Event
      */
-    public function trigger(EventType $eventType, $sender = null) {
-        $event = new Event($eventType->getModule(), $eventType->getSubject());
+    public function trigger(EventType $eventType, $params, $sender = null) {
+        $event = new Event($eventType->getModule(), $eventType->getSubject(), $params);
         $event->send($sender);
         return $event;
     }
