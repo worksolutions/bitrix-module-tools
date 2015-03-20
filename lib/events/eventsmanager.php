@@ -27,10 +27,9 @@ class EventsManager {
          * @return bool|array of positions
          */
         $isReference = function (array $parameters) {
-            $res = array();
             $first = array_shift($parameters);
             /** @var \ReflectionParameter $first */
-            return $first && $first->isPassedByReference() && $res[] = $param->getPosition();
+            return $first && $first->isPassedByReference();
         };
 
         //processing reference params
