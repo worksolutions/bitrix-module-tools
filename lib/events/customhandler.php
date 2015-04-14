@@ -11,14 +11,16 @@ namespace WS\Tools\Events;
  * @method processReference()
  */
 abstract class CustomHandler {
-    private $_params = array();
+    private $_liveParams = array();
+
+    private $_processParams = array();
 
     public function __construct($params = array()) {
-        $this->_params = $params;
+        $this->_liveParams = $params;
     }
 
     public function __invoke(& $param0, & $param1, & $param2) {
-        $this->addParams($args = func_get_args());
+        $this->_processParams = $args = func_get_args();
         if (!$this->identity()) {
             return true;
         }
@@ -43,14 +45,36 @@ abstract class CustomHandler {
      * @return array
      */
     public function getParams() {
-        return $this->_params;
+        return $this->_processParams;
     }
 
     /**
      * @param array $params
      */
     public function addParams($params) {
-        $this->_params = array_merge($this->_params, $params);
+        $this->_processParams = array_merge($this->_processParams, $params);
+    }
+
+    /**
+     * @return array
+     */
+    public function getLiveParam($key) {
+        return $this->_liveParams[$key];
+    }
+
+    /**
+     * @return array
+     */
+    public function getLiveParams(){
+        return $this->_liveParams;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     */
+    public function addLiveParam($key, $value) {
+        $this->_liveParams[$key] = $value;
     }
 
     /**
@@ -70,4 +94,3 @@ abstract class CustomHandler {
         throw new \Exception('Need override this method or `processReference` '.__METHOD__);
     }
 }
-
