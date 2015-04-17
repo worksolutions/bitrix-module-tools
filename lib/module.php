@@ -11,6 +11,7 @@ use WS\Tools\ClassLoader\ClassLoader;
 use WS\Tools\ClassLoader\PSR0ClassLoaderDriver;
 use WS\Tools\ClassLoader\PSR4ClassLoaderDriver;
 use WS\Tools\Events\EventsManager;
+use WS\Tools\Mail\MailService;
 use WS\Tools\Services\ServicesLocator;
 
 /**
@@ -47,6 +48,7 @@ class Module {
         $this->_servicesLocator->willUse('cache', new CacheManager(array(
             'engine' => new CacheEngineFiles()
         )));
+        $this->_servicesLocator->willUse('mail', new MailService());
     }
 
     /**
@@ -163,6 +165,13 @@ class Module {
      */
     public function cacheManager() {
         return $this->getService('cache');
+    }
+
+    /**
+     * @return MailService
+     */
+    public function mail() {
+        return $this->getServiceLocator()->get('mail');
     }
 
     /**
