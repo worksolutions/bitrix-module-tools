@@ -11,10 +11,10 @@ class Localization {
     /**
      * @var Options
      */
-    private $_data;
+    private $data;
 
     public function __construct($data) {
-        $this->_data = new Options($data);
+        $this->data = new Options($data);
     }
 
     /**
@@ -22,18 +22,32 @@ class Localization {
      * @return array
      */
     public function getDataByPath($path) {
-        return $this->_getData()->get($path);
+        return $this->getData()->get($path);
     }
 
     /**
      * @return Options
      */
-    private function _getData() {
-        if(!$this->_data) {
-            $this->_data = new Options();
+    private function getData() {
+        if(!$this->data) {
+            $this->data = new Options();
         }
 
-        return $this->_data;
+        return $this->data;
+    }
+
+    /**
+     * @param string $path @see Options
+     * @param array $replace
+     * @return mixed
+     */
+    public function message($path, $replace = null) {
+        $m = $this->getData()->get($path, '');
+        $result = $m ?: $path;
+        if (is_array($replace)) {
+            $result = str_replace(array_keys($replace), array_values($replace), $m);
+        }
+        return $result;
     }
 
     /**
@@ -42,6 +56,6 @@ class Localization {
      * @throws \Bitrix\Main\DB\Exception
      */
     public function fork($path) {
-        return new static($this->_getData()->get($path));
+        return new static($this->getData()->get($path));
     }
 }
