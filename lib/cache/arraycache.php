@@ -26,4 +26,8 @@ class ArrayCache extends Cache {
         $this->write($value);
         return $this;
     }
+
+    public function isExpire() {
+        return !$this->get();
+    }
 }

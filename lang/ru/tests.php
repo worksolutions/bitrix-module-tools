@@ -12,9 +12,12 @@ return array(
             'name' => 'Тестирование функционала кэширования',
             'description' => '',
             'errors' => array(
-                'number of links to the information block and the information block entries must match' => 'Количество ссылок по инфоблокам и записей инфоблоков должно совпадать',
-                'number of links on the properties of information blocks and records must match' => 'Количество ссылок по свойствам инфоблоков и записей должно совпадать',
-                'number of links to information block sections and records must match' => 'Количество ссылок по разделам инфоблоков и записей должно совпадать',
+                'cache must be not expire' => 'Кэш должен быть не истекшим',
+                'cache must be not empty' => 'Кэш должен быть не пустым',
+                'bad stored data' => 'Хранимая информация не верна',
+                'cache must be expire' => 'Кэш должен быть истекшим',
+                'data must be empty' => 'Данные не должны быть пустыми',
+                'string not equals expected' => 'Строка контента не соответствует ожидаемой',
             )
         )
     )

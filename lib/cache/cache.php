@@ -13,14 +13,14 @@ use Bitrix\Main\Application;
 use Bitrix\Main\Data\ICacheEngine;
 
 abstract class Cache {
-    private
-        $_original,
-        $_timeLive,
-        $_key;
+
+    private $original;
+    private $timeLive;
+    private $key;
 
     private
-        $_bxInitDir,
-        $_bxBaseDir;
+        $bxInitDir,
+        $bxBaseDir;
 
     /**
      * @param ICacheEngine $engine
@@ -28,11 +28,11 @@ abstract class Cache {
      * @param $timeLive
      */
     public function __construct(ICacheEngine $engine, $key, $timeLive) {
-        $this->_original = $engine;
+        $this->original = $engine;
         $un = md5($key);
-        $this->_key = "/".substr($un, 0, 2)."/".$un.".php";
-        $this->_timeLive = $timeLive;
-        $this->_bxBaseDir = "cache";
+        $this->key = "/".substr($un, 0, 2)."/".$un.".php";
+        $this->timeLive = $timeLive;
+        $this->bxBaseDir = "cache";
     }
 
     /**
@@ -40,7 +40,7 @@ abstract class Cache {
      * @return $this
      */
     public function setBxInitDir($value) {
-        $this->_bxInitDir = $value;
+        $this->bxInitDir = $value;
         return $this;
     }
 
@@ -49,24 +49,25 @@ abstract class Cache {
      * @return $this
      */
     public function setBxBaseDir($value) {
-        $this->_bxBaseDir = $value;
+        $this->bxBaseDir = $value;
         return $this;
     }
 
     /**
      * @return string
      */
-    private function _baseDir() {
+    private function baseDir() {
         $personalRoot = Application::getPersonalRoot();
-        return $personalRoot."/".$this->_bxBaseDir."/";
+        return $personalRoot."/".$this->bxBaseDir."/";
     }
 
     /**
+     * @param bool $isArray
      * @return null
      */
     protected function read($isArray = false) {
         $value = $isArray ? array() : null;
-        $this->_original->read($value, $this->_baseDir(), $this->_bxInitDir, $this->_key, $this->_timeLive);
+        $this->timeLive && $this->original->read($value, $this->baseDir(), $this->bxInitDir, $this->key, $this->timeLive);
         return $value;
     }
 
@@ -74,7 +75,7 @@ abstract class Cache {
      * @param $value
      */
     protected function write($value) {
-        $this->_original->write($value, $this->_baseDir(), $this->_bxInitDir, $this->_key, $this->_timeLive);
+        $this->original->write($value, $this->baseDir(), $this->bxInitDir, $this->key, $this->timeLive);
     }
 
     /**
@@ -82,10 +83,13 @@ abstract class Cache {
      * @return $this
      */
     public function clear() {
-        $this->_original->clean($this->_baseDir(), $this->_bxInitDir, $this->_key);
+        $this->original->clean($this->baseDir(), $this->bxInitDir, $this->key);
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isExpire() {
         return !$this->read();
     }
