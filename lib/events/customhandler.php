@@ -5,22 +5,24 @@
 
 namespace WS\Tools\Events;
 
+use Bitrix\Main\Event;
+
 /**
  * Class CustomHandler
  * @package WS\Tools\Events
  * @method processReference()
  */
 abstract class CustomHandler {
-    private $_liveParams = array();
+    private $liveParams = array();
 
-    private $_processParams = array();
+    private $processParams = array();
 
     public function __construct($params = array()) {
-        $this->_liveParams = $params;
+        $this->liveParams = $params;
     }
 
     public function __invoke(& $param0, & $param1, & $param2) {
-        $this->_processParams = $args = func_get_args();
+        $this->processParams = $args = func_get_args();
         if (!$this->identity()) {
             return true;
         }
@@ -45,28 +47,28 @@ abstract class CustomHandler {
      * @return array
      */
     public function getParams() {
-        return $this->_processParams;
+        return $this->processParams;
     }
 
     /**
      * @param array $params
      */
     public function addParams($params) {
-        $this->_processParams = array_merge($this->_processParams, $params);
+        $this->processParams = array_merge($this->processParams, $params);
     }
 
     /**
      * @return array
      */
     public function getLiveParam($key) {
-        return $this->_liveParams[$key];
+        return $this->liveParams[$key];
     }
 
     /**
      * @return array
      */
     public function getLiveParams(){
-        return $this->_liveParams;
+        return $this->liveParams;
     }
 
     /**
@@ -74,7 +76,7 @@ abstract class CustomHandler {
      * @param $value
      */
     public function addLiveParam($key, $value) {
-        $this->_liveParams[$key] = $value;
+        $this->liveParams[$key] = $value;
     }
 
     /**
@@ -83,6 +85,35 @@ abstract class CustomHandler {
      */
     public function identity() {
         return true;
+    }
+
+    /**
+     * @return array|null
+     */
+    protected function eventParams() {
+        $event = $this->getEvent();
+        return $event ? $event->getParameters() : null;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function eventSender() {
+        $event = $this->getEvent();
+        return $event ? $event->getSender() : null;
+    }
+
+    /**
+     * @return Event|null
+     */
+    protected function getEvent() {
+        $params = $this->getParams();
+        foreach ($params as $param) {
+            if ($param instanceof Event) {
+                return $param;
+            }
+        }
+        return null;
     }
 
     /**

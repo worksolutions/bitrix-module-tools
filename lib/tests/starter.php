@@ -8,6 +8,7 @@ namespace WS\Tools\Tests;
 
 use WS\Tools\Module;
 use WS\Tools\Tests\Cases\CacheTestCase;
+use WS\Tools\Tests\Cases\EventManagerTestCase;
 
 class Starter {
 
@@ -27,6 +28,7 @@ class Starter {
     static public function cases() {
         return array(
             CacheTestCase::className(),
+            EventManagerTestCase::className(),
         );
     }
 

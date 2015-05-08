@@ -63,7 +63,20 @@ class EventsManager {
 
         $wrapper = function () use ($self, $eventType, $handler) {
             $self->registerCall($eventType);
-            return call_user_func_array($handler, func_get_args());
+            $args = func_get_args();
+            if ($handler instanceof \Closure) {
+                foreach ($args as $arg) {
+                    if ($arg instanceof Event) {
+                        $args = array($arg->getParameters());
+                        break;
+                    }
+                }
+            }
+            if (is_object($handler) && ! $handler instanceof \Closure) {
+                $refObject = new \ReflectionObject($handler);
+                return $refObject->getMethod('__invoke')->invokeArgs($handler, $args);
+            }
+            return call_user_func_array($handler, $args);
         };
 
         $reference && $wrapperLink = function (& $linkParam) use ($self, $eventType, $handler, $reference) {
@@ -73,6 +86,10 @@ class EventsManager {
             $params[] = & $linkParam;
             foreach ($args as $arg) {
                 $params[] = $arg;
+            }
+            if (is_object($handler) && ! $handler instanceof \Closure) {
+                $refObject = new \ReflectionObject($handler);
+                return $refObject->getMethod('__invoke')->invokeArgs($handler, $params);
             }
             return call_user_func_array($handler, $params);
         };

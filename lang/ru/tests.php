@@ -9,7 +9,7 @@ return array(
     ),
     'cases' => array(
         \WS\Tools\Tests\Cases\CacheTestCase::className() => array(
-            'name' => 'Тестирование функционала кэширования',
+            'name' => 'Функционал кэширования',
             'description' => '',
             'errors' => array(
                 'cache must be not expire' => 'Кэш должен быть не истекшим',
@@ -19,6 +19,13 @@ return array(
                 'data must be empty' => 'Данные не должны быть пустыми',
                 'string not equals expected' => 'Строка контента не соответствует ожидаемой',
             )
-        )
+        ),
+        \WS\Tools\Tests\Cases\EventManagerTestCase::className() => array(
+            'name' => 'Функционал обработки событий',
+            'description' => '',
+            'errors' => array(
+                'cache must be not expire' => 'Кэш должен быть не истекшим'
+            )
+        ),
     )
 );
