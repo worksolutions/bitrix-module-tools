@@ -21,26 +21,12 @@ abstract class CustomHandler {
         $this->liveParams = $params;
     }
 
-    public function __invoke(& $param0, & $param1, & $param2) {
+    public function __invoke() {
         $this->processParams = $args = func_get_args();
         if (!$this->identity()) {
             return true;
         }
-        if (method_exists($this, 'processReference')) {
-            $reflection = new \ReflectionMethod($this, 'processReference');
-            $refParams = array_filter($reflection->getParameters(), function (\ReflectionParameter $p) {
-                return $p->isPassedByReference();
-            });
-
-            /** @var \ReflectionParameter $refParam */
-            foreach ($refParams as $refParam) {
-                $args[$refParam->getPosition()] = & ${'param'.$refParam->getPosition()};
-            }
-            $res = call_user_func_array(array($this, 'processReference'), $args);
-        } else {
-            $res = $this->process();
-        }
-        return $res;
+        return $this->process();
     }
 
     /**

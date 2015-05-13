@@ -87,9 +87,12 @@ class EventsManager {
             foreach ($args as $arg) {
                 $params[] = $arg;
             }
-            if (is_object($handler) && ! $handler instanceof \Closure) {
+            if (is_object($handler) && $handler instanceof CustomHandler && method_exists($handler, 'processReference')) {
+                if (!$handler->identity()) {
+                    return true;
+                }
                 $refObject = new \ReflectionObject($handler);
-                return $refObject->getMethod('__invoke')->invokeArgs($handler, $params);
+                return $refObject->getMethod('processReference')->invokeArgs($handler, $params);
             }
             return call_user_func_array($handler, $params);
         };
