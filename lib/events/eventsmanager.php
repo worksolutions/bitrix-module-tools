@@ -88,6 +88,7 @@ class EventsManager {
                 $params[] = $arg;
             }
             if (is_object($handler) && $handler instanceof CustomHandler && method_exists($handler, 'processReference')) {
+                $handler->addParams($params);
                 if (!$handler->identity()) {
                     return true;
                 }
