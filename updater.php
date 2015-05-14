@@ -15,5 +15,3 @@ $fAddErrorMessage = function ($mess) use ($updater){
 
 $root = $_SERVER['DOCUMENT_ROOT'];
 
-DeleteDirFilesEx($root.'/bitrix/modules/ws.tools/.git');
-unlink($root.'/bitrix/modules/ws.tools/.gitignore');
