@@ -12,3 +12,8 @@ $fAddErrorMessage = function ($mess) use ($updater){
     $updater->errorMessage[] = $mess;
 };
 //=====================================================
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+
+DeleteDirFilesEx($root.'/bitrix/modules/ws.tools/.git');
+unlink($root.'/bitrix/modules/ws.tools/.gitignore');
