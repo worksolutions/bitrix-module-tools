@@ -27,5 +27,12 @@ return array(
                 'cache must be not expire' => 'Кэш должен быть не истекшим'
             )
         ),
+        \WS\Tools\Tests\Cases\AgentRunTestCase::className() => array(
+            'name' => 'Функционал работы с агентами',
+            'description' => '',
+            'errors' => array(
+                'cache must be not expire' => 'Кэш должен быть не истекшим'
+            )
+        ),
     )
 );

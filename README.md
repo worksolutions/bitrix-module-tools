@@ -629,12 +629,24 @@ $db->getShell()->getRootDir(); // /var/www/project/local/root
 
 class ProjectAgent extends WS\Tools\BaseAgent {
 
+    private $offset;
+    private $step;
+    
+    /**
+     * Именно в конструкторе определяется небходимый список параметров вызова 
+     *
+     **/
+    public function __construct($offset, $step) {
+        $this->offset = $offset;
+        $this->step = $step;
+    }
+
     /**
      * Реализация функционала агента
      **/
-    public function algorithm ($offset, $step) {
+    public function algorithm () {
         // аглоритм функционала
-        return array(100, 5); // возвращаются параметры следующего вызова
+        return array($this->offset * ($this->step + 1), $this->step + 1); // возвращаются параметры следующего вызова В ВИДЕ СПИСКА! ($offset, $step)
     }
 }
 

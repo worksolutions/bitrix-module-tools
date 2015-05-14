@@ -14,16 +14,17 @@ abstract class BaseAgent {
 
     /**
      * Run agent function
+     *
      * @return array Params next call
      */
-    abstract static public function algorithm();
+    abstract public function algorithm();
 
     /**
      * Returns string to agent call
      * @param array $params
      * @return string
      */
-    static public function executeString($params = array()) {
+    public static function executeString($params = array()) {
         $params = array_map(function ($param) {
             $res = $param;
             if (!is_scalar($param)) {
@@ -45,7 +46,10 @@ abstract class BaseAgent {
     static public function run() {
         try {
             $calledClass = get_called_class();
-            $params = $calledClass::algorithm(func_get_args()) ?: array();
+            $refClass = new \ReflectionClass($calledClass);
+            /** @var BaseAgent $agent */
+            $agent = $refClass->newInstanceArgs(func_get_args());
+            $params = $agent->algorithm(func_get_args());;
             return $calledClass::executeString($params);
         } catch (\Exception $e) {
             return '';
