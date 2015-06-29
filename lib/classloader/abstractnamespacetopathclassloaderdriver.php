@@ -11,8 +11,14 @@ use Bitrix\Main\LoaderException;
 abstract class AbstractNamespaceToPathClassLoaderDriver implements ClassLoaderDriverInterface{
     private $_namespacesToPaths = array();
 
+    const NAMESPACE_SEPARATOR = "\\";
+
     public function load($className) {
+        $className = self::NAMESPACE_SEPARATOR . ltrim($className, self::NAMESPACE_SEPARATOR);
+
         foreach ($this->_namespacesToPaths as $namespace => $paths) {
+            $namespace = self::NAMESPACE_SEPARATOR . ltrim($namespace, self::NAMESPACE_SEPARATOR);
+
             if (strpos($className, $namespace) !== 0) {
                 continue;
             }
@@ -31,8 +37,12 @@ abstract class AbstractNamespaceToPathClassLoaderDriver implements ClassLoaderDr
         return false;
     }
 
-    public function registerPathByNamespace($path, $namespace = "\\") {
-        if (substr($namespace, -1, 1) !== "\\") {
+    public function registerPathByNamespace($path, $namespace = null) {
+        if (is_null($namespace)) {
+            $namespace = self::NAMESPACE_SEPARATOR;
+        }
+
+        if (substr($namespace, -1, 1) !== self::NAMESPACE_SEPARATOR) {
             throw new LoaderException("namespace `$namespace` must be ends by \\");
         }
 
