@@ -1,5 +1,6 @@
 <?php
 use Bitrix\Main\Application;
+use WS\Tools\Module;
 
 if (!class_exists('\WS\Tools\Localization')) {
     include __DIR__.'/../lib/localization.php';
@@ -28,10 +29,7 @@ class ws_tools extends CModule {
      * @return \WS\Tools\Localization
      */
     private function localization() {
-        if (!$this->localization) {
-            $this->localization = new \WS\Tools\Localization(include __DIR__.'/../lang/'.LANGUAGE_ID.'/info.php');
-        }
-        return $this->localization;
+        return Module::getInstance()->getLocalization('info.php');
     }
 
     public function __construct() {
