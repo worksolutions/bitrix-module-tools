@@ -29,7 +29,7 @@ class ws_tools extends CModule {
      * @return \WS\Tools\Localization
      */
     private function localization() {
-        return Module::getInstance()->getLocalization('info.php');
+        return Module::getInstance()->getLocalization('info');
     }
 
     public function __construct() {
