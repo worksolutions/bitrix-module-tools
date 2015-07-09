@@ -25,7 +25,7 @@ class Module {
     const MODULE_ID = 'ws.tools';
     const ITEMS_ID = 'ws_tools_menu';
     const MODULE_NAME = 'ws.tools';
-    const FALLBACK_LOCALE = 'en';
+    const FALLBACK_LOCALE = 'ru';
 
     private $localizePath = null;
     private $localizations = array();
