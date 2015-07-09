@@ -14,6 +14,7 @@ if (!class_exists('\WS\Tools\Options')) {
  */
 
 class ws_tools extends CModule {
+    const FALLBACK_LOCALE = 'ru';
     const MODULE_ID = 'ws.tools';
     var $MODULE_ID = 'ws.tools';
     var $MODULE_VERSION;
@@ -29,7 +30,13 @@ class ws_tools extends CModule {
      * @return \WS\Tools\Localization
      */
     private function localization() {
-        return Module::getInstance()->getLocalization('info');
+        $localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
+
+        if (!file_exists($localizePath)) {
+            $localizePath = __DIR__.'/../lang/'.self::FALLBACK_LOCALE;
+        }
+
+        return new \WS\Tools\Localization(require $localizePath.'/info.php');
     }
 
     public function __construct() {
