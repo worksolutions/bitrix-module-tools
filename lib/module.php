@@ -25,6 +25,7 @@ class Module {
     const MODULE_ID = 'ws.tools';
     const ITEMS_ID = 'ws_tools_menu';
     const MODULE_NAME = 'ws.tools';
+    const FALLBACK_LOCALE = 'en';
 
     private $localizePath = null;
     private $localizations = array();
@@ -37,6 +38,11 @@ class Module {
 
     private function __construct() {
         $this->localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
+
+        if (!file_exists($this->localizePath)) {
+            $this->localizePath = __DIR__.'/../lang/'.self::FALLBACK_LOCALE;
+        }
+
         $this->_servicesLocator = new ServicesLocator();
         $this->_servicesLocator->willUse('eventManager', new EventsManager());
         $this->_servicesLocator->willUse('classLoader', new ClassLoader(array(
