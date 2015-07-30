@@ -12,6 +12,3 @@ $fAddErrorMessage = function ($mess) use ($updater){
     $updater->errorMessage[] = $mess;
 };
 //=====================================================
-
-$root = $_SERVER['DOCUMENT_ROOT'];
-

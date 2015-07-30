@@ -1,5 +1,6 @@
 <?php
 use Bitrix\Main\Application;
+use WS\Tools\Module;
 
 if (!class_exists('\WS\Tools\Localization')) {
     include __DIR__.'/../lib/localization.php';
@@ -13,6 +14,7 @@ if (!class_exists('\WS\Tools\Options')) {
  */
 
 class ws_tools extends CModule {
+    const FALLBACK_LOCALE = 'ru';
     const MODULE_ID = 'ws.tools';
     var $MODULE_ID = 'ws.tools';
     var $MODULE_VERSION;
@@ -28,10 +30,13 @@ class ws_tools extends CModule {
      * @return \WS\Tools\Localization
      */
     private function localization() {
-        if (!$this->localization) {
-            $this->localization = new \WS\Tools\Localization(include __DIR__.'/../lang/'.LANGUAGE_ID.'/info.php');
+        $localizePath = __DIR__.'/../lang/'.LANGUAGE_ID;
+
+        if (!file_exists($localizePath)) {
+            $localizePath = __DIR__.'/../lang/'.self::FALLBACK_LOCALE;
         }
-        return $this->localization;
+
+        return new \WS\Tools\Localization(require $localizePath.'/info.php');
     }
 
     public function __construct() {
