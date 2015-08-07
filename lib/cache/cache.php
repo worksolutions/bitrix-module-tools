@@ -67,6 +67,9 @@ abstract class Cache {
      */
     protected function read($isArray = false) {
         $value = $isArray ? array() : null;
+        if (\Bitrix\Main\Data\Cache::shouldClearCache()) {
+            $this->clear();
+        }
         $this->timeLive && $this->original->read($value, $this->baseDir(), $this->bxInitDir, $this->key, $this->timeLive);
         return $value;
     }
