@@ -23,6 +23,11 @@ abstract class Cache {
         $bxBaseDir;
 
     /**
+     * @var bool
+     */
+    private $beenWrite;
+
+    /**
      * @param ICacheEngine $engine
      * @param $key
      * @param $timeLive
@@ -67,7 +72,7 @@ abstract class Cache {
      */
     protected function read($isArray = false) {
         $value = $isArray ? array() : null;
-        if (\Bitrix\Main\Data\Cache::shouldClearCache()) {
+        if (!$this->beenWrite && \Bitrix\Main\Data\Cache::shouldClearCache()) {
             $this->clear();
         }
         $this->timeLive && $this->original->read($value, $this->baseDir(), $this->bxInitDir, $this->key, $this->timeLive);
@@ -78,6 +83,7 @@ abstract class Cache {
      * @param $value
      */
     protected function write($value) {
+        $this->beenWrite = true;
         $this->original->write($value, $this->baseDir(), $this->bxInitDir, $this->key, $this->timeLive);
     }
 
