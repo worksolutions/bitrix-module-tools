@@ -107,7 +107,7 @@ class ServicesLocator {
             $constructor = $refClass->getMethod('__construct');
             foreach ($constructor->getParameters() as $cParameter) {
                 $cParamValue = null;
-                $cParameter->getDeclaringClass() && $cParamValue = $instances[$cParameter->getDeclaringClass()->getName()];
+                $cParameter->getClass() && $cParamValue = $instances[$cParameter->getClass()->getName()];2
                 $values[$cParameter->getName()] && $cParamValue = $values[$cParameter->getName()];
                 $constructParams[] = $cParamValue;
             }
