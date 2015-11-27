@@ -6,6 +6,6 @@
 $fileName = __DIR__.'/version.php';
 
 $arModuleVersion = array(
-    'VERSION' => '1.2.16',
+    'VERSION' => '1.2.17',
     'VERSION_DATE' => '2015-07-09'
 );
