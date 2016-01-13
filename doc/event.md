@@ -1,4 +1,4 @@
-## [Главная страница](../README.md)
+#### [Главная страница](../README.md)
 
 ## События. Обработка, вызов
 Поодержка событийной модели в системе очень удобный прием ее декомпозиции и облегчения разделения уровней логической схемы.
@@ -168,4 +168,4 @@ $eventManager = $toolsModule->eventManager();
 $eventType = \WS\Tools\Events\EventType::create(\WS\Tools\Events\EventType::MAIN_PROLOG);
 $eventManager->trigger($eventType);
 ```
-## [Главная страница](../README.md)
+#### [Главная страница](../README.md)

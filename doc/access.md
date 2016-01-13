@@ -1,4 +1,4 @@
-## [Главная страница](../README.md)
+#### [Главная страница](../README.md)
 
 ## Менеджер доступов
 
@@ -103,4 +103,4 @@ $access->can('delete') && print("can delete");
 $access->can('add') && print("can add");
 ```
 
-## [Главная страница](../README.md)
+#### [Главная страница](../README.md)
