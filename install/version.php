@@ -1,11 +1,6 @@
 <?php
-/**
- * @author Sabirov Ruslan <sabirov@worksolutions.ru>
- */
-
-$fileName = __DIR__.'/version.php';
 
 $arModuleVersion = array(
-    'VERSION' => '1.3.0',
-    'VERSION_DATE' => '2015-12-22'
+    'VERSION' => '1.3.1',
+    'VERSION_DATE' => '2016-01-12'
 );
