@@ -80,6 +80,10 @@ abstract class Gateway {
      * @return Gateway
      */
     protected function getGatewayByEntityClass($entityClass) {
+        $currentGateway = ltrim($this->getEntityClass(), '\\') == ltrim($entityClass, '\\');
+        if ($currentGateway) {
+            return $this;
+        }
         return $this->dbManager->getGateway($entityClass);
     }
 

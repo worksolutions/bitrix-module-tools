@@ -4,6 +4,7 @@
  */
 
 namespace WS\Tools;
+
 use Bitrix\Main\Application;
 use Bitrix\Main\Data\CacheEngineFiles;
 use WS\Tools\Cache\CacheManager;
@@ -12,6 +13,7 @@ use WS\Tools\ClassLoader\PSR0ClassLoaderDriver;
 use WS\Tools\ClassLoader\PSR4ClassLoaderDriver;
 use WS\Tools\Events\EventsManager;
 use WS\Tools\Mail\MailService;
+use WS\Tools\ORM\Db\Manager;
 use WS\Tools\Services\ServicesLocator;
 
 /**
@@ -178,6 +180,13 @@ class Module {
      */
     public function mail() {
         return $this->getServiceLocator()->get('mail');
+    }
+
+    /**
+     * @return Manager
+     */
+    public function orm() {
+        return $this->getServiceLocator()->get('orm');
     }
 
     /**
