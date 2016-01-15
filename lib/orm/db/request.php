@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM\Db;
 
 /**
- * Описание DbRequest
+ * DbRequest definition
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 abstract class Request {
     
@@ -30,11 +30,11 @@ abstract class Request {
     }
     
     /**
-     * Самостоятельная установка фильтра, на свой страх и риск.
+     * Self filter installation, on your own risk.
      * 
-     * Если установлен фильтр в виде массива, 
-     * то методы запроса относящиеся к фильтрации
-     * перестают работать.
+     * If filter is array,
+     * then query methods related to filtration
+     * cease to work.
      * 
      * @param Filter|array $filter
      * @return Request
@@ -45,7 +45,7 @@ abstract class Request {
     }
     
     /**
-     * Получение массива фильтра для классов потомков.
+     * Getting filter array for child classes.
      * @return array
      */
     protected function getFilter() {
@@ -86,7 +86,7 @@ abstract class Request {
     }
 
     /**
-     * Метод выполнения запроса, результат зависит от типа запроса
+     * The method for execute query, the result depends on the type of request
      */
     abstract public function execute();
 }

@@ -8,11 +8,11 @@ use WS\Tools\ORM\Db\Gateway;
 use Exception;
 
 /**
- * Базовый класс шлюзов информационных блоков. 
+ * Base iblock gateway.
  * 
- * Присутствует интеграция с торговым каталогом (гидротация объектов цен)
+ * There is integration with the bitrix catalog (hydration of objects prices)
  * 
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class IblockElement extends Gateway {
 
@@ -74,7 +74,7 @@ class IblockElement extends Gateway {
             throw new \Exception("Diasable `".$this->analyzer->getClass()."` as iblock");
         }
 
-        // установка типов свойств
+        // Set Property types
         if ($this->propertyParams = $this->analyzer->getData('propertyParams', array())) {
             $this->fileProperties = $this->analyzer->getData('fileProperties', array());
             return ;
@@ -133,7 +133,7 @@ class IblockElement extends Gateway {
         }
         $arSelected = array_merge(self::$mainFields, $relations ?: array());
         foreach ($this->getFieldsAssoc() as $attr => $field) {
-            // Цены и связи уже установлены
+            // Price and relations already set
             if ($this->isPriceRelation($attr)) {
                 continue;
             }
@@ -155,9 +155,9 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Добавление строки условия в фильтр битрикса
-     * @param array $filterParams параметры фильтра для элемента
-     * @param array $arFilter     фильтр битрикса (по ссылке)
+     * Adding row conditions in the filter Bitrix
+     * @param array $filterParams filter parameters
+     * @param array $arFilter     Bitrix filter (by reference)
      */
     protected function addConditionToBxFilter($filterParams, & $arFilter) {
         if (!isset($filterParams['logic']) || $filterParams['logic'] != 'or') {
@@ -192,7 +192,7 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Преобразование имени поля для подстановки в фильтр битрикса ('PROPERTY_')
+     * Converting a field to insert into the filter Bitrix ('PROPERTY_')
      * @param string $field
      * @return string
      */
@@ -209,7 +209,7 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Признак того что аттрибут сущности является элементом цены торгового каталога
+     * Attribute is Price of Bitrix catalog
      * @param string $attr 
      * 
      * @return boolean
@@ -234,8 +234,8 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Используется в запросе на выборку определенных полей
-     * (необходим при синхронизации с торговым каталогом)
+     * It is used in the select query of certain fields
+     * (required for synchronization with the bitrix module catalog)
      *
      * @param string $attr
      * @return string
@@ -248,7 +248,7 @@ class IblockElement extends Gateway {
     }
     
     protected function fieldByAttrForRequestOrder($attr) {
-        // необходима проверка того, что аттрибут является ценой
+        // needed to check that the attribute is the price
         list($relAttr, $attrProperty) = $this->explodeRelation($attr);
         if (!is_null($attrProperty) && $this->isPriceRelation($relAttr)) {
             $priceField = '';
@@ -295,7 +295,7 @@ class IblockElement extends Gateway {
     }
     
     protected function fieldByAttrForHydrate($attr) {
-        // Возможно придется учитывать типы полей для правильного приобразования.
+        // You may need to take into field types for correct convert.
         $parentConvert = strtoupper($resConvert = parent::fieldByAttrForHydrate($attr));
         if (in_array($parentConvert, self::$mainFields)) {
             return $parentConvert;
@@ -323,7 +323,7 @@ class IblockElement extends Gateway {
 
     
     /**
-     * Возвращает идентификатор инфоблока.
+     * Return iblock identifier.
      * @return integer
      */
     public function iblockId() {
@@ -331,7 +331,7 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Обновление полей бд
+     * Update database row
      *
      * @param $id
      * @param $fields
@@ -353,7 +353,7 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Вставка полей в базу данных
+     * Insert database row
      *
      * @param $fields
      * @return mixed
@@ -506,8 +506,8 @@ class IblockElement extends Gateway {
     }
 
     /**
-     * Преобразование ценпочки обращения состоящую из аттрибутов (по связям)
-     * в цепочку состоящую из полей api (для запроса)
+     * Convert attribute chain (by relations)
+     * to api fields chain (for query)
      *
      * @param string $attrsChain
      * @return string

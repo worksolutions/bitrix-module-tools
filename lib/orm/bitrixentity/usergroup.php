@@ -7,15 +7,15 @@ namespace WS\Tools\ORM\BitrixEntity;
 
 use WS\Tools\ORM\Entity;
 /**
- * Сущность "Пользователь"
+ * Entity "UserGroup"
  *
- * @property integer                 $id          ID            Идентификатор
- * @property \WS\Tools\ORM\DateTime  $date        TIMESTAMP_X   Дата измнения
- * @property string                  $active      ACTIVE        Активность
- * @property string                  $name        NAME          Наименование группы
- * @property string                  $description DESCRIPTION   Описание
- * @property string                  $sort        C_SORT        Индекс сортировки
- * @property string                  $code        STRING_ID     Символьный код
+ * @property integer                 $id          ID            Identifier
+ * @property \WS\Tools\ORM\DateTime  $date        TIMESTAMP_X   Update date
+ * @property string                  $active      ACTIVE        Activity
+ * @property string                  $name        NAME          Name
+ * @property string                  $description DESCRIPTION   Description
+ * @property string                  $sort        C_SORT        Sort index
+ * @property string                  $code        STRING_ID     String identifier
  *
  * @gateway user
  * @bitrixClass CGroup

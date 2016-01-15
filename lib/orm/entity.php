@@ -3,13 +3,13 @@
 namespace WS\Tools\ORM;
 
 /**
- * Базовый класс сущьности, производит работу с аттрибутами, связями.
+ * Base entity class, works with attributes and relations.
  * 
- * Производит нормализацию сущьности (возможно будет заниматься валидацией)
+ * Performs normalization of entity (maybe will make validation)
  *
  * @property int $id
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  * 
  */
 abstract class Entity {
@@ -68,7 +68,7 @@ abstract class Entity {
     }
     
     /**
-     * Получение значения аттрибута без использования геттера.
+     * Get property value without getter.
      * @param string $name
      * @return mixed 
      */
@@ -77,7 +77,7 @@ abstract class Entity {
     }
     
     /**
-     * Установка значения аттрибута без использования сеттера.
+     * Get property value without setter.
      * @param string $name
      * @param mixed $value
      * @return mixed 

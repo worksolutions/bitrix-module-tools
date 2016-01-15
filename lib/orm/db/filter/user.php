@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM\Db\Filter;
 
 /**
- * Фильтр выбора элементов списка.
+ * Filter selection list items.
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class User extends Common {
     

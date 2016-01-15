@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM;
 
 /**
- * Коллекция сущностей определенного типа.
+ * A collection of entities particular type
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class EntityCollection extends Collection {
 
@@ -19,7 +19,7 @@ class EntityCollection extends Collection {
             throw new \Exception("Class `$entityClass` not exists");
         }
         $this->_entityClass = $entityClass;
-        // Проверка правильности класса ожидаемой сущности
+        // Check class of expected entity
         if (is_null($items)) {
             return ;
         }
@@ -36,10 +36,10 @@ class EntityCollection extends Collection {
     }
 
     /**
-     * Добавление сущности к коллекции.
+     * Adding entity to collection.
      *
-     * @param Entity $entity Объект сущности
-     * @param string $key ключ
+     * @param Entity $entity Entity object
+     * @param string $key key
      * @return Entity
      * @throws \Exception
      */

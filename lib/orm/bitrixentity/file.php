@@ -5,23 +5,23 @@ namespace WS\Tools\ORM\BitrixEntity;
 use WS\Tools\ORM\Entity;
 
 /**
- * Сущность типа File
+ * File entity
  *
- * @property integer     $id                ID              Идентификатор
- * @property string      $name              FILE_NAME       Имя на диске сервера
- * @property string      $description       DESCRIPTION     Описание
- * @property string      $originalName      ORIGINAL_NAME   Имя до момента загрузки на сервер
- * @property \DateTime   $modificationDate  TIMESTAMP_X     Дата изменения
- * @property integer     $height            HEIGHT          Высота (если графический)
- * @property integer     $width             WIDTH           Ширина (если графический)
- * @property integer     $size              FILE_SIZE       Размер в байтах
- * @property string      $type              CONTENT_TYPE MIME тип
- * @property string      $subdir            SUBDIR          Подкаталог в котором находится файл на диске
+ * @property integer     $id                ID              Identifier
+ * @property string      $name              FILE_NAME       File name
+ * @property string      $description       DESCRIPTION     Description
+ * @property string      $originalName      ORIGINAL_NAME   Original name(before upload)
+ * @property \DateTime   $modificationDate  TIMESTAMP_X     Update date
+ * @property integer     $height            HEIGHT          Height (if picture)
+ * @property integer     $width             WIDTH           Width (if pictture)
+ * @property integer     $size              FILE_SIZE       File size(bites)
+ * @property string      $type              CONTENT_TYPE MIME mime type
+ * @property string      $subdir            SUBDIR          subdir(includes file)
  *
  * @gateway file
  * @bitrixClass CFile
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class File extends Entity {
 
