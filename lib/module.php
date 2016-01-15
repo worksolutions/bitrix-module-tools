@@ -57,6 +57,7 @@ class Module {
             'engine' => new CacheEngineFiles()
         )));
         $this->_servicesLocator->willUse('mail', new MailService());
+        $this->_servicesLocator->willUse('orm', new Manager($this->cacheManager()));
     }
 
     /**
