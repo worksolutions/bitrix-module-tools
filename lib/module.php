@@ -60,15 +60,14 @@ class Module {
         $this->_servicesLocator->willUse('mail', new MailService());
         $this->_servicesLocator->willUse(
             'orm',
-            new Manager($this->cacheManager()),
-            array(
+            new Manager($this->cacheManager(), array(
                 'iblockElement' => Gateway\IblockElement::className(),
                 'common' => Gateway\Common::className(),
                 'list' => Gateway\Enum::className(),
                 'file' => Gateway\File::className(),
                 'user' => Gateway\User::className(),
                 'bitrixOrmElement' => Gateway\BitrixOrmElement::className(),
-            )
+            ))
         );
     }
 
