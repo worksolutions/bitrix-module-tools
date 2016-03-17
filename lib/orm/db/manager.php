@@ -13,9 +13,9 @@ use WS\Tools\ORM\Entity;
 use WS\Tools\Cache\CacheManager;
 
 /**
- * Менеджер работы с базой данных;
+ * Database manager;
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Manager {
 
@@ -51,9 +51,9 @@ class Manager {
     }
 
     /**
-     * Получение экземпляра шлюза сущности
+     * Getting gateway object for entity
      *
-     * @param string $entityClass класс сущности
+     * @param string $entityClass
      * @return Gateway
      * @throws \Exception
      */
@@ -71,7 +71,7 @@ class Manager {
         $engines = self::engines();
         $gatewayClass = $engines[$entityAnalyzer->gateway()];
         if (!$gatewayClass || !class_exists($gatewayClass)) {
-            throw new \Exception('Для сущьности `'.$entityClass.'` не определен шлюз данных');
+            throw new \Exception('Not found data gateway for entity `'.$entityClass.'`');
         }
         $this->gateways[$entityClass] = new $gatewayClass($this, $entityAnalyzer);
         return $this->gateways[$entityClass];

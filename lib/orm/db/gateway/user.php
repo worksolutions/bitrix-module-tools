@@ -5,9 +5,9 @@ namespace WS\Tools\ORM\Db\Gateway;
 use WS\Tools\ORM\BitrixEntity\PropEnumElement;
 
 /**
- * Движок шлюза сущности User
+ * User entity gateway
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class User extends Common {
 

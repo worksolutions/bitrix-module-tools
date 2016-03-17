@@ -5,11 +5,11 @@ namespace WS\Tools\ORM\Db\Gateway;
 use WS\Tools\ORM\Db\Gateway;
 
 /**
- * Наиболее распространенный движок работы шлюза.
+ * Common gateway engine
  * 
- * В конфигурации необходимо указать класс битрикса.
+ * In the configuration you must specify the Bitrix class.
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Common extends Gateway {
 
@@ -27,7 +27,7 @@ class Common extends Gateway {
     }
 
     /**
-     * Обновление полей бд
+     * Update database row
      *
      * @param $id
      * @param $fields
@@ -43,7 +43,7 @@ class Common extends Gateway {
     }
 
     /**
-     * Вставка полей в базу данных
+     * Insert database row
      *
      * @param $fields
      * @return mixed

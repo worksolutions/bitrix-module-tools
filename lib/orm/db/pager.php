@@ -3,18 +3,18 @@
 namespace WS\Tools\ORM\Db;
 
 /**
- * Класс работы с постраничной навигацией.
+ * Class for work with pagination
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  * 
- * @property-read integer $curPage Текущая страница
- * @property-read integer $elementsInPage Количество элементов на странице
- * @property-read integer $countElements Общее количество элементов
- * @property-read integer $next Номер следующей страницы
- * @property-read integer $prev Номер предидущей страницы
- * @property-read integer $first Номер первой страницы
- * @property-read integer $last Номер постедней страницы
- * @property-read integer $count Общее число страниц
+ * @property-read integer $curPage Current Page
+ * @property-read integer $elementsInPage Count elements per page
+ * @property-read integer $countElements Total amount of elements
+ * @property-read integer $next Next page number
+ * @property-read integer $prev Previous page number
+ * @property-read integer $first First page number
+ * @property-read integer $last Last page number
+ * @property-read integer $count Total amount of pages
  */
 class Pager {
 
@@ -23,9 +23,9 @@ class Pager {
     private $_next, $_prev, $_count, $_first, $_last;
 
     /**
-     * @param integer $curPage        Текущая страница
-     * @param integer $elementsInPage Количество элементов на странице
-     * @param string $tableId Строковый идентификатор таблицы
+     * @param integer $curPage        Current Page
+     * @param integer $elementsInPage Count elements per page
+     * @param string $tableId Table string identifier
      */
     public function __construct($curPage, $elementsInPage, $tableId = false) {
         $this->_curPage = (int)$curPage;
@@ -36,7 +36,7 @@ class Pager {
     }
     
     /**
-     * Признак возможности получения результата работы постранички.
+     * Can get the result of the work pagination
      * @return boolean 
      */
     public function isResulted() {
@@ -44,7 +44,7 @@ class Pager {
     }
 
     /**
-     * Проверка на непустоту свойстваю
+     * Checking the $prop for non-empty
      *
      * @param string $prop
      * @return bool

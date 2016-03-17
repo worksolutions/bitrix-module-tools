@@ -5,9 +5,9 @@ namespace WS\Tools\ORM\Db\Filter;
 use WS\Tools\ORM\Db\Filter;
 
 /**
- * Описание Extended
+ * Extended definition
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Common extends Filter {
     

@@ -3,12 +3,12 @@
 namespace WS\Tools\ORM\Db;
 
 /**
- * Интерфейс использования фильтра запроса.
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * Query filter interface.
+ * @author my.sokolovsky@gmail.com
  */
 interface IFilter {
     /**
-     * Аттрибут $attr, равен $value
+     * Attribute $attr, equal $value
      * @param string $attr
      * @param mixed $value
      * @return IFilter
@@ -16,7 +16,7 @@ interface IFilter {
     public function equal($attr, $value);
     
     /**
-     * Аттрибут $attr, не равен $value
+     * Attribute $attr, not equl $value
      * @param string $attr
      * @param mixed $value
      * @return IFilter
@@ -24,7 +24,7 @@ interface IFilter {
     public function notEqual($attr, $value);
 
     /**
-     * Аттрибут $attr, меньше $value
+     * Attribute $attr, less $value
      * @param string $attr
      * @param mixed $value
      * @return IFilter
@@ -32,7 +32,7 @@ interface IFilter {
     public function less($attr, $value);
 
     /**
-     * Аттрибут $attr, больше $value
+     * Attribute $attr, more $value
      * @param string $attr
      * @param mixed $value
      * @return IFilter
@@ -40,7 +40,7 @@ interface IFilter {
     public function more($attr, $value);
 
     /**
-     * Аттрибут $attr, больше или равен $value
+     * Attribute $attr, less or equal $value
      * @param string $attr
      * @param mixed $value
      * @return IFilter
@@ -48,7 +48,7 @@ interface IFilter {
     public function lessOrEqual($attr, $value);
 
     /**
-     * Аттрибут $attr, меньше или равен $value
+     * Attribute $attr, more or equal $value
      * @param string $attr
      * @param mixed $value
      * @return IFilter
@@ -56,7 +56,7 @@ interface IFilter {
     public function moreOrEqual($attr, $value);
 
     /**
-     * Аттрибут $attr, находится во множестве $values
+     * Attribute $attr, in $values
      * @param string $attr
      * @param array $values
      * @return IFilter
@@ -64,7 +64,7 @@ interface IFilter {
     public function in($attr, $values);
 
     /**
-     * Аттрибут $attr, не находится во множестве $values
+     * Attribute $attr, not in $values
      * @param string $attr
      * @param array $values
      * @return IFilter
@@ -72,7 +72,7 @@ interface IFilter {
     public function notIn($attr, $values);
 
     /**
-     * Аттрибут $attr, нахадоится в диапозоне от $from до $to
+     * Attribute $attr, in range $from - $to
      * @param string $attr
      * @param mixed $from
      * @param mixed $to
@@ -81,7 +81,7 @@ interface IFilter {
     public function inRange($attr, $from, $to);
 
     /**
-     * Аттрибут $attr, не нахадоится в диапозоне от $from до $to
+     * Attribute $attr, not in range $from - $to
      * @param string $attr
      * @param mixed $from
      * @param mixed $to

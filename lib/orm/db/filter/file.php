@@ -5,9 +5,9 @@ namespace WS\Tools\ORM\Db\Filter;
 use WS\Tools\ORM\Db\Filter;
 
 /**
- * Фильтр применяемый для отбора сущности BitrixEntity_File
+ * Filter for BitrixEntity_File
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class File extends Filter {
 

@@ -5,13 +5,13 @@ namespace WS\Tools\ORM\BitrixEntity;
 use WS\Tools\ORM\Entity;
 
 /**
- * Описание Price
+ * Price definition
  *
  * @property integer $id
- * @property string  $currency Валюта
- * @property float   $value    Значение цены
+ * @property string  $currency Currency
+ * @property float   $value    Price value
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Price extends Entity {
 }

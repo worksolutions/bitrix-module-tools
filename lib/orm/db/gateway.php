@@ -11,11 +11,11 @@ use WS\Tools\ORM\EntityCollection;
 use Exception;
 
 /**
- * Базовый класс шлюза использования api Битрикса
+ * Base gateway class over bitrix api
  * 
- * хранить хэши от фильтров (обязательно сериализация массива) чтоб уметь делать постраничку (ТОЛЬКО в Инфоблоке)
+ * store filter hashes (necessarily serialization array) to be able to do pagination (Only InfoBlocks)
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 abstract class Gateway {
 
@@ -35,7 +35,7 @@ abstract class Gateway {
     private $dbManager;
 
     /**
-     * Ассоциация аттрибутов связей и их шлюзов.
+     * The association attributes and relationships of gateways.
      * @var array
      */
     private $relationAttrs = array();
@@ -75,7 +75,7 @@ abstract class Gateway {
     }
 
     /**
-     * Получение шлюза по классу сущности
+     * Getting gateway by entity class
      * @param string $entityClass 
      * @return Gateway
      */
@@ -112,7 +112,7 @@ abstract class Gateway {
     }
 
     /**
-     * Конструктор для дочерних классов (хук).
+     * Constructor for subclasses (feature).
      */
     protected function construct() {}
 
@@ -137,7 +137,7 @@ abstract class Gateway {
     }
     
     /**
-     * Признак аттрибута связи.
+     * Attribute is relation.
      *
      * @param string $attr
      * @return bool
@@ -151,7 +151,7 @@ abstract class Gateway {
     }
 
     /**
-     * Получение шлюза связи по имени аттрибута.
+     * Getting relation gateway by attribute name.
      *
      * @param string $attr
      * @return Gateway
@@ -166,13 +166,13 @@ abstract class Gateway {
     }
 
     /**
-     * Установка класса фильтра для текущего шлюза.
+     * Set filter class for current gateway.
      * @return string|null
      */
     abstract protected function setupFilterClass();
 
     /**
-     * Создание нового фильтра, который будет использован для текущего шлюза.
+     * Create new filter, to be used for current gateway.
      *
      * @return Filter
      * @throws \Exception
@@ -194,7 +194,7 @@ abstract class Gateway {
     }
 
     /**
-     * Разбивает параметр фильтра на связь и дальнейший путь.
+     * Splits filter parameter to relation and way forward.
      * @param string $relationString
      * @return array
      */
@@ -203,7 +203,7 @@ abstract class Gateway {
     }
 
     /**
-     * Перевод названия аттрибута сущности в название поля шлюза.
+     * Convert entity attribute name to gateway field name.
      *
      * @param string $attr
      * @return string
@@ -219,8 +219,8 @@ abstract class Gateway {
     }
     
     /**
-     * Преобразования имени аттрибута в имя поля api для этого аттрибута, 
-     * которое будет использовано в фильтре запроса.
+     * Convert attribute name to api field name,
+     * for filter in query.
      * 
      * @param string $attr
      * @return string
@@ -230,8 +230,8 @@ abstract class Gateway {
     }
     
     /**
-     * Преобразование имени аттрибута в имя поля для подстановки в сортировку при
-     * запрсе.
+     * Convert attribute name to field name for sorting
+     * in query.
      * @param string $attr
      * @return string
      */
@@ -240,7 +240,7 @@ abstract class Gateway {
     }
 
     /**
-     * Конвертирование имени аттрибута сущности в имя поля инфоблока в момент составления фильтра (общее).
+     * Convert entity attribute name to infoblock field name when filter makes (common).
      *
      * @param string $attr
      * @return string
@@ -250,8 +250,8 @@ abstract class Gateway {
     }
     
     /**
-     * Конвертирование имени аттрибута сущности в имя поля инфоблока 
-     * (имя ключа возвращенного результата CDBResult) для гидротации.
+     * Convert entity attribute name to infoblock field name
+     * (key name returned result CDBResult) for Hydrate.
      * @param string $attr
      * @return string
      */
@@ -260,8 +260,8 @@ abstract class Gateway {
     }
 
     /**
-     * Преобразование ценпочки обращения состоящую из аттрибутов (по связям)
-     * в цепочку состоящую из полей api (для запроса)
+     * Convert attribute chain (by relations)
+     * to api fields chain (for query)
      *
      * @param string $attrsChain
      * @return string
@@ -288,21 +288,21 @@ abstract class Gateway {
     }
     
     /**
-     * Добавление строки условия в фильтр битрикса
-     * @param array $filterParams параметры фильтра для элемента
-     * @param array $arFilter     фильтр битрикса (по ссылке)
+     * Add condition to bitrix filter
+     * @param array $filterParams filter parameters
+     * @param array $arFilter     bitrix filter (by reference)
      */
     protected function addConditionToBxFilter($filterParams, & $arFilter) {
         $attr = $filterParams['attr'];
         $operator = $filterParams['operator'];
         $value = $filterParams['value'];
         $bxCond = $operator.$this->fieldByAttrForRequestFilter($attr);
-        // @todo возможна обработка значения по типу
+        // @todo values ??can be processed by type
         $arFilter[$bxCond] = $value;
     }
 
     /**
-     * Добавление фильтрации для связей в процессе обработки фильтра.
+     * Add condition for relations in filter.
      * @param array $filterParams
      * @param string $attr
      * @param string $relationPath
@@ -314,7 +314,7 @@ abstract class Gateway {
     }
 
     /**
-     * Подготовка фильтра для вставки в битриксовый getList
+     * Prepare filter for bitrix getList
      *
      * @param array $filter
      * @return array
@@ -335,15 +335,15 @@ abstract class Gateway {
                     $this->addConditionToBxFilter($filterItem, $arFilter);
                     continue;
                 }
-                // Составление фильтра по связи
+                // Make filter by relations
                 if ($this->addRelationConditionToFilter($filterItem, $itemAttr, $relPath, $arFilter)) {
                     continue;
                 }
                 $this->addConditionToRelationFilter($filterItem, $itemAttr, $relPath, $arRelations);
             }
             if (!empty ($arRelations)) {
-                // проход по связям с поддключением сторонних шлюзов с выборкой
-                // соответствующих идентификаторов
+                // cycle by relations, uses third-party gateways sample
+                // identificators
                 foreach ($arRelations as $itemAttr => $filter) {
                     $bxCond = $this->fieldByAttrForRequestFilter($itemAttr);
                     $arFilter[$bxCond] = $this->getGatewayByRelAttr($itemAttr)->getKeys($filter);
@@ -371,7 +371,7 @@ abstract class Gateway {
     }
     
     /**
-     * Преобразование элементов цепочки аттрибутов по связям в цепочку по полям.
+     * Convert relations by attributes to relations by fields
      * @param array $rels
      * @return array
      */
@@ -384,7 +384,7 @@ abstract class Gateway {
     }
 
     /**
-     * Подготовка (конвертация) параметров для поиска.
+     * Prepare (convert) search parameters.
      *
      * @param array $filter
      * @param array $relations
@@ -417,7 +417,7 @@ abstract class Gateway {
             return $collection;
         }
         if (!is_null($pager)) {
-            // @todo Продумать работу постанички через CDBResult
+            // @todo Make pagination for CDBResult
             $arPager = array($pager->curPage, $pager->elementsInPage);
             $pager->setCountElements($this->count($filter));
             $arParams[] = $arPager;
@@ -463,7 +463,7 @@ abstract class Gateway {
     }
 
     /**
-     * Поиск сущностей по идентификаторам.
+     * Search entities by identifiers.
      * @param array $ids [integer]
      * @return EntityCollection
      * @throws Exception
@@ -488,7 +488,7 @@ abstract class Gateway {
     }
 
     /**
-     * Поисковый движок шлюза.
+     * find Engine.
      * @param array $arFilter
      * @param array $arOrder
      * @param array $relations
@@ -519,7 +519,7 @@ abstract class Gateway {
     }
 
     /**
-     * Получение ассоциаций полей модели к шлюзу (точаная копия конфигурации).
+     * Getting association model fields to the gateway (a replica of the configuration).
      * @return array
      */
     protected function getFieldsAssoc() {
@@ -527,7 +527,7 @@ abstract class Gateway {
     }
 
     /**
-     * Наполнение сущностей связей (ТОЛЬКО ПОСЛЕ ГИДРОТАЦИИ).
+     * Filling the entity relationships (ONLY AFTER hydration).
      */
     protected function fillRelationProxy() {
         while (!empty($this->usesGatewaysInGydrate)) {
@@ -538,7 +538,7 @@ abstract class Gateway {
     }
 
     /**
-     * Наполнение объектов-заглушек в текущем шлюзе.
+     * Filling objects plugs in the current gateway.
      */
     protected function fillProxy() {
         if (!$this->proxy->isEmpty()) {
@@ -548,9 +548,9 @@ abstract class Gateway {
     }
 
     /**
-     * Обработка результата (уместно для нелогичного поведения битрикса)
-     * @param string $field - поле, которое установлено в настройках синхронизации
-     * @param string $value - значение которое вернул битрикс по этому полю
+     * Processing results (appropriate for illogical Bitrix behavior)
+     * @param string $field - field, which is set in the sync
+     * @param string $value - Bitrix value is returned on this field
      * @return mixed
      */
     protected function processingFieldResultValue($field, $value) {
@@ -558,9 +558,9 @@ abstract class Gateway {
     }
     
     /**
-     * Получение значения для аттрибута наполняемой сущности
-     * @param string $attr имя аттрибута
-     * @param array  $gwAssoc  массив результата выборки для экземпляра сущности
+     * Getting attribute values ??for the entity
+     * @param string $attr attibute name
+     * @param array  $gwAssoc  an array of the result set to an instance of the entity
      * @return mixed 
      */
     protected function getAttrValue($attr, $gwAssoc) {
@@ -570,18 +570,18 @@ abstract class Gateway {
             return null;
         }
         $value = $gwAssoc[$field];
-        // Конвертация значения из-за неоднозначного поведения списка
+        // Converting values ??of the ambiguous behavior of the list
         $value = $this->processingFieldResultValue($this->getFieldByAttr($attr), $value);
-        // Наполнение с учетом связей
+        // Fill with relations
         if (!$this->isRelation($attr)) {
-            // дата время
+            // date time
             if (ltrim($type, '\\') == DateTime::className()) {
                 $value && $value = new $type($value);
             }
             return $value;
         } else {
             $this->usesGatewaysInGydrate[$attr] = $relGw = $this->getGatewayByRelAttr($attr);
-            // Просмотр множественная/одиночная
+            // single or multiply
             if ($this->isSingleRelation($attr)) {
                 return $relGw->createProxy(array('ID' => $value));
             } else {
@@ -595,11 +595,12 @@ abstract class Gateway {
     }
 
     /**
-     * Гидротация (перевод массива в объект).
-     * У массива обязательно должен быть идентификатор ID, id.
-     * Подразумвается что будет наполняться дочерняя связь без шлюза
+     * Hydration (translated into an object array).
+     * An array must be an identifier ID, id.
+     * It is intended that the subsidiary
+     * will be filled without communication gateway
      *
-     * @param array $gwAssoc Массив ассоциаций полей шлюза и значений БД.
+     * @param array $gwAssoc An array of associations gateway fields and database values.
      * @return Entity
      * @throws Exception
      */
@@ -670,7 +671,7 @@ abstract class Gateway {
     }
 
     /**
-     * Получение количества элементов по фильтру.
+     * Get the number of elements of the filter.
      * @param array $filter
      * 
      * @return array
@@ -680,7 +681,7 @@ abstract class Gateway {
     }
 
     /**
-     * Сохранение сущности
+     * Save entity
      *
      * @param Entity $entity
      * @throws Exception
@@ -697,7 +698,7 @@ abstract class Gateway {
     }
 
     /**
-     * Получение первичных ключей (идентификаторов) сущности.
+     * Get primary keys (identifiers) of entity.
      * @return array
      */
     public function getKeys(array $filter = array()) {
@@ -787,7 +788,7 @@ abstract class Gateway {
     }
 
     /**
-     * Обновление полей бд
+     * Update database row
      * @param $id
      * @param $fields
      * @return mixed
@@ -795,7 +796,7 @@ abstract class Gateway {
     abstract protected function updateRow($id, $fields);
 
     /**
-     * Вставка полей в базу данных
+     * Add database row
      *
      * @param $fields
      * @return mixed

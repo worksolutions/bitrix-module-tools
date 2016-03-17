@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM\Db\Gateway;
 
 /**
- * Описание List
+ * List definition
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Enum extends Common {
 

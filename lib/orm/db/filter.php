@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM\Db;
 
 /**
- * Базовый класс использования фильтров в базе данных
+ * Base class to use filters in the database
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 abstract class Filter implements IFilter {
 
@@ -16,10 +16,10 @@ abstract class Filter implements IFilter {
     }
 
     /**
-     * Добавление условия в фильтр
-     * @param string $attr     Имя аттрибута (или путь из аттрибутов)
-     * @param string $operator Оперетов (в формате битрикса)
-     * @param mixed $value     Значение фильтра
+     * Adding conditions to the filter
+     * @param string $attr     Name attribute (or attributes of the path)
+     * @param string $operator The operator (in the format of Bitrix)
+     * @param mixed $value     filter value
      * @return Filter
      */
     protected function addCondition($attr, $operator, $value) {

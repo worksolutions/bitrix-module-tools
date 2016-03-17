@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM;
 
 /**
- * –асширенный класс работы с датой/временем (использование приемуществ битрикса)
+ * Extends DateTime class (uses bitrix benefits)
  *
- * @author ћаксим —околовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class DateTime extends \DateTime {
 
@@ -14,7 +14,7 @@ class DateTime extends \DateTime {
     }
 
     /**
-     * ¬ывод даты в формате $format, возможно использование установки текущей метки времени.
+     * Format date to $format, can set current timestamp.
      * @link http://dev.1c-bitrix.ru/api_help/main/functions/date/formatdate.php
      */
     public function bxFormat($format, $now = false) {

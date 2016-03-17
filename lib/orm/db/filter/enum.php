@@ -3,16 +3,16 @@
 namespace WS\Tools\ORM\Db\Filter;
 
 /**
- * Фильтр выбора элементов списка.
+ * Filter for enum elements.
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Enum extends Common {
     
     /**
-     * Условия фильтра - (Выбрать все возможные варианты для поля сущности)
-     * @param string $entityClass  Класс сущности
-     * @param string $attribute    Имя свойства сущности
+     * Conditions - (Select all options for the field of entity)
+     * @param string $entityClass  Entity Class
+     * @param string $attribute    Property name
      * @return Enum
      */
     public function forEntityProperty($entityClass, $attribute) {

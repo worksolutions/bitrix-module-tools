@@ -35,7 +35,7 @@ class BitrixOrmElement extends Gateway {
     }
 
     /**
-     * Обновление полей бд
+     * Update database row
      *
      * @param $id
      * @param $fields
@@ -53,7 +53,7 @@ class BitrixOrmElement extends Gateway {
     }
 
     /**
-     * Вставка полей в базу данных
+     * Insert database row
      *
      * @param $fields
      * @return mixed
@@ -104,8 +104,8 @@ class BitrixOrmElement extends Gateway {
     }
 
     /**
-     * Преобразование ценпочки обращения состоящую из аттрибутов (по связям)
-     * в цепочку состоящую из полей api (для запроса)
+     * Convert attribute chain (by relations)
+     * to api fields chain (for query)
      *
      * @param string $attrsChain
      * @return string
