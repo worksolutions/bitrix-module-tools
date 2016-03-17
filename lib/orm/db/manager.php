@@ -2,12 +2,6 @@
 
 namespace WS\Tools\ORM\Db;
 
-use WS\Tools\ORM\Db\Gateway\BitrixOrmElement;
-use WS\Tools\ORM\Db\Gateway\Common;
-use WS\Tools\ORM\Db\Gateway\Enum;
-use WS\Tools\ORM\Db\Gateway\File;
-use WS\Tools\ORM\Db\Gateway\IblockElement;
-use WS\Tools\ORM\Db\Gateway\User;
 use WS\Tools\ORM\Db\Request\Select;
 use WS\Tools\ORM\Entity;
 use WS\Tools\Cache\CacheManager;
@@ -24,20 +18,7 @@ class Manager {
      * @var CacheManager
      */
     private $cacheManager;
-
-    /**
-     * @return array
-     */
-    private function engines() {
-        return array(
-            'iblockElement' => IblockElement::className(),
-            'common' => Common::className(),
-            'list' => Enum::className(),
-            'file' => File::className(),
-            'user' => User::className(),
-            'bitrixOrmElement' => BitrixOrmElement::className(),
-        );
-    }
+    private $engines = array();
 
     public static function className() {
         return get_called_class();
@@ -45,9 +26,11 @@ class Manager {
 
     /**
      * @param CacheManager $cache
+     * @param array $engines
      */
-    public function __construct(CacheManager $cache) {
+    public function __construct(CacheManager $cache, array $engines) {
         $this->cacheManager = $cache;
+        $this->engines = $engines;
     }
 
     /**
@@ -68,8 +51,7 @@ class Manager {
             $this->cacheManager->getArrayCache('meta_'.get_class($this).'_'.$entityClass, 86400)
         );
 
-        $engines = self::engines();
-        $gatewayClass = $engines[$entityAnalyzer->gateway()];
+        $gatewayClass = $this->engines[$entityAnalyzer->gateway()];
         if (!$gatewayClass || !class_exists($gatewayClass)) {
             throw new \Exception('Для сущьности `'.$entityClass.'` не определен шлюз данных');
         }
@@ -160,5 +142,22 @@ class Manager {
     public function createProxy($entityClass, $id) {
         $gw = $this->getGateway($entityClass);
         return $gw->getProxy($id);
+    }
+
+    /**
+     * @param string $code
+     * @param string $className
+     * @throws \Exception
+     */
+    public function addEngine($code, $className) {
+        if (empty($code)) {
+            throw new \Exception("Не верный аргумент аргумент code");
+        }
+
+        if (empty($className)) {
+            throw new \Exception("Не верный аргумент className");
+        }
+
+        $this->engines[$code] = $className;
     }
 }
