@@ -8,9 +8,9 @@ use WS\Tools\ORM\Entity;
 use WS\Tools\ORM\EntityCollection;
 
 /**
- * Описание Select
+ * Select definititon
  * 
- * реализация сортировки и помтранички
+ * implementation of sorting and pagination
  *
  * @method Select equal(string $attr, mixed $value)
  * @method Select notEqual(string $attr, mixed $value)
@@ -25,7 +25,7 @@ use WS\Tools\ORM\EntityCollection;
  * @method Select notIn(string $attr, mixed $values)
  * @method Select logicOr(array $first, array $second)
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Select extends Request {
     /**
@@ -46,10 +46,10 @@ class Select extends Request {
     private $excludeRepo = false;
 
     /**
-     * Добавление параметров сортировки
+     * Adding collation
      *
-     * @param string $path Путь к сортируемому полю.
-     * @param string $direction направление сортировки (asc, desc)
+     * @param string $path Path to field.
+     * @param string $direction sort direction (asc, desc)
      * @return Select
      * @throws \Exception
      */
@@ -83,7 +83,7 @@ class Select extends Request {
     }
     
     /**
-     * Получение коллекции сущностей.
+     * Getting a collection of entities.
      * @return EntityCollection
      */
     public function getCollection() {
@@ -97,7 +97,7 @@ class Select extends Request {
     }
 
     /**
-     * Получение одного экземпляра сущности.
+     * Getting one entity.
      * @return Entity|null
      */
     public function getOne() {
@@ -105,16 +105,16 @@ class Select extends Request {
     }
 
     /**
-     * В запросе предпологается наличие связей
+     * The request is expected the relations
      *
-     * @param array $rels массив вида:
+     * @param array $rels array like:
      * array(
      *      'rel1' => array('subRelation', 'subRelation2' => array('subSubRel')),
      *      'rel2' => 'subRelation',
      *      'rel3'
      * )
      *
-     * В ДАННЫЙ МОМЕНТ СПИСОК СВЯЗЕЙ!!!
+     * At the moment the list of RELATIONS!!!
      * @return $this
      */
     public function withRelations(array $rels) {

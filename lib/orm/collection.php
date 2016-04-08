@@ -3,9 +3,9 @@
 namespace WS\Tools\ORM;
 
 /**
- * Коллекция значений.
+ * Items collection.
  *
- * @author nomadhacker@gmail.com, Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author nomadhacker@gmail.com, my.sokolovsky@gmail.com
  */
 class Collection implements \IteratorAggregate, \Countable {
     /** hold the collection of items in an array */

@@ -5,11 +5,11 @@ namespace WS\Tools\ORM\Db\Filter;
 use WS\Tools\ORM\Db\Filter;
 
 /**
- * Фильтр элементов информационных блоков.
+ * Iblock Elmenets filter
  * 
- * В данный момент не поддерживается сложная логика.
+ * Currently not supported by complex logic.
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class IblockElement extends Filter {
 

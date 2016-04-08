@@ -3,16 +3,16 @@
 namespace WS\Tools\ORM\Db\Gateway;
 
 /**
- * Репозитарий хранения сущностей
+ * Entity Storage Repository
  *
- * @author Максим Соколовский (my.sokolovsky@gmail.com)
+ * @author my.sokolovsky@gmail.com
  */
 class Repo {
     
     private $collection = array();
 
     /**
-     * Добавление объекта в репозитарий.
+     * Add to repository.
      *
      * @param string $key
      * @param mixed $object
@@ -26,7 +26,7 @@ class Repo {
     }
 
     /**
-     * Получение объекта из репозитария.
+     * Get from repository.
      *
      * @param string $key
      * @return mixed
@@ -40,7 +40,7 @@ class Repo {
     }
 
     /**
-     * Удаление объекта из репозитария.
+     * Remove from repository.
      *
      * @param string $key
      * @throws \Exception
@@ -53,7 +53,7 @@ class Repo {
     }
     
     /**
-     * Признак существования объекта в репозитарии.
+     * Check exists in repository.
      * @param string $key
      * @return boolean
      */
