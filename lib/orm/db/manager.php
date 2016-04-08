@@ -151,11 +151,11 @@ class Manager {
      */
     public function addEngine($code, $className) {
         if (empty($code)) {
-            throw new \Exception("Не верный аргумент аргумент code");
+            throw new \Exception("Invalid argument code");
         }
 
         if (empty($className)) {
-            throw new \Exception("Не верный аргумент className");
+            throw new \Exception("Invalid argument className");
         }
 
         $this->engines[$code] = $className;
