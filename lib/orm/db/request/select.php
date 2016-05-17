@@ -18,6 +18,7 @@ use WS\Tools\ORM\EntityCollection;
  * @method Select notInRange(string $attr, mixed $from, mixed $to)
  * @method Select hasSubstr(string $attr, mixed $value)
  * @method Select less(string $attr, mixed $value)
+ * @method Select like(string $attr, mixed $value)
  * @method Select more(string $attr, mixed $value)
  * @method Select lessOrEqual(string $attr, mixed $value)
  * @method Select moreOrEqual(string $attr, mixed $value)
