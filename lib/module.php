@@ -13,6 +13,7 @@ use WS\Tools\ClassLoader\PSR0ClassLoaderDriver;
 use WS\Tools\ClassLoader\PSR4ClassLoaderDriver;
 use WS\Tools\Events\EventsManager;
 use WS\Tools\Mail\MailService;
+use WS\Tools\ORM\Db\Gateway;
 use WS\Tools\ORM\Db\Manager;
 use WS\Tools\Services\ServicesLocator;
 
@@ -57,6 +58,17 @@ class Module {
             'engine' => new CacheEngineFiles()
         )));
         $this->_servicesLocator->willUse('mail', new MailService());
+        $this->_servicesLocator->willUse(
+            'orm',
+            new Manager($this->cacheManager(), array(
+                'iblockElement' => Gateway\IblockElement::className(),
+                'common' => Gateway\Common::className(),
+                'list' => Gateway\Enum::className(),
+                'file' => Gateway\File::className(),
+                'user' => Gateway\User::className(),
+                'bitrixOrmElement' => Gateway\BitrixOrmElement::className(),
+            ))
+        );
     }
 
     /**

@@ -88,5 +88,13 @@ interface IFilter {
      * @return IFilter
      */
     public function notInRange($attr, $from, $to);
-
+    
+    /**
+     * Attribute $attr, like $value
+     * $value can be used with %, e.g. 'mos%', '%mos'
+     * @param string $attr
+     * @param string $value
+     * @return IFilter
+     */
+    public function like($attr, $value);
 }
