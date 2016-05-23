@@ -8,18 +8,18 @@ namespace WS\Tools\ORM\Db;
  * @author my.sokolovsky@gmail.com
  */
 abstract class Request {
-    
+
     private static $filterMethods = array(
         'less', 'more', 'inRange', 'in', 'notIn',
         'equal', 'notEqual', 'moreOrEqual', 'lessOrEqual',
-        'hasSubstr', 'forEntityProperty', 'logicOr'
+        'hasSubstr', 'forEntityProperty', 'logicOr', 'like'
     );
 
     /**
      * @var Gateway
      */
     protected $gateway;
-    
+
     /**
      * @var Filter
      */
@@ -28,14 +28,14 @@ abstract class Request {
     public function __construct(Gateway $gateway) {
         $this->gateway = $gateway;
     }
-    
+
     /**
      * Self filter installation, on your own risk.
-     * 
+     *
      * If filter is array,
      * then query methods related to filtration
      * cease to work.
-     * 
+     *
      * @param Filter|array $filter
      * @return Request
      */
@@ -43,7 +43,7 @@ abstract class Request {
         $this->filter = $filter;
         return $this;
     }
-    
+
     /**
      * Getting filter array for child classes.
      * @return array
@@ -54,7 +54,7 @@ abstract class Request {
         }
         return $this->_getFilter();
     }
-    
+
     /**
      * @return Filter
      */
@@ -64,7 +64,7 @@ abstract class Request {
         }
         return $this->filter;
     }
-    
+
     /**
      * @param string $name
      * @return boolean
@@ -73,7 +73,7 @@ abstract class Request {
         $methods = array_flip(self::$filterMethods);
         return isset($methods[$name]);
     }
-    
+
     public function __call($methName, $arguments) {
         if ($this->isFilterMethod($methName) && is_object($this->_getFilter()) && $this->_getFilter() instanceof Filter) {
             if (method_exists($this->_getFilter(), $methName)) {
