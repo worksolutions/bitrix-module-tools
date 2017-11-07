@@ -33,6 +33,42 @@ class BitrixOrmElement extends Gateway {
     protected function setupFilterClass() {
         return \WS\Tools\ORM\Db\Filter\Common::className();
     }
+    
+    protected function hydrateWithRepo(array $gwAssoc) {
+        $keyPrimary = $this->getPrimaryKey();
+        $key = !empty($gwAssoc[$keyPrimary]) ? $gwAssoc[$keyPrimary] : $gwAssoc['id'];
+        if ($this->repo->exist($key)) {
+            return $this->repo->get($key);
+        }
+        if ($this->proxy->exist($key)) {
+            $entity = $this->proxy->get($key);
+            $this->proxy->remove($key);
+        } else {
+            $entityClass = $this->getEntityClass();
+            /** @var $entity Entity **/
+            $entity = new $entityClass;
+        }
+        $this->hydrateRaw($gwAssoc, $entity);
+        $this->repo->add($key, $entity);
+        return $entity;
+    }
+
+    private function getPrimaryKey() {
+        $bxClass = $this->analyzer->getParam('bitrixClass', 1);
+        $bxObject = new $bxClass;
+        foreach ($bxObject->getMap() as $key => $item) {
+            if ($item instanceof ScalarField) {
+                if ($item->isPrimary()) {
+                    return $item->getName();
+                }
+            } else {
+                if ($item['primary']) {
+                    return $key;
+                }
+            }
+        }
+        return 'ID';
+    }
 
     /**
      * Update database row
