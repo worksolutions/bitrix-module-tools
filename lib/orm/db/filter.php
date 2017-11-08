@@ -63,6 +63,10 @@ abstract class Filter implements IFilter {
         return $this->notEqual($attr, $values);
     }
 
+    public function hasSubstr($attr, $value) {
+        return $this->addCondition($attr, '%', $value);
+    }
+
     public function toArray() {
         return $this->data;
     }
