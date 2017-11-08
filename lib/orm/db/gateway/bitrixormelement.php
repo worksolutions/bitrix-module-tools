@@ -7,6 +7,7 @@ use Bitrix\Main\Entity\AddResult;
 use Bitrix\Main\Entity\DataManager;
 use Bitrix\Main\Entity\UpdateResult;
 use Bitrix\Main\Type\Date;
+use Bitrix\Main\Entity\ScalarField;
 use WS\Tools\ORM\Db\Gateway;
 use Exception;
 
