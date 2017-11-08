@@ -117,26 +117,68 @@ class BitrixOrmElement extends Gateway {
     }
 
     /**
-     * @param $bxObject DataManager
+     * @param DataManager $bxObject
      * @param $fields
      * @return array
      */
     private function prepareFields($bxObject, $fields) {
-        $map = $bxObject->getMap();
+        $map = $this->getFieldsMap($bxObject);
         $fieldsForSave = array();
         foreach ($fields as $code => $value) {
             if (!isset($map[$code])) {
                 continue;
             }
-            if (!empty($value) && $map[$code]['data_type'] == 'date') {
-                if (!($value instanceof Date) && strtotime($value)) {
-                    $value = new Date($value);
-                }
+            if ($this->isDate($value) && $this->isDateField($map[$code])) {
+                $value = new Date($value);
             }
             $fieldsForSave[$code] = $value;
         }
 
         return $fieldsForSave;
+    }
+
+    /**
+     * @param DataManager $bxObject
+     *
+     * @return array
+     */
+    private function getFieldsMap($bxObject) {
+        $map = $bxObject::getMap();
+        $fieldsMap = [];
+        foreach ($map as $key => $field) {
+            if ($field instanceof Field) {
+                $fieldsMap[$field->getName()] = $field;
+                continue;
+            }
+            $fieldsMap[$key] = $field;
+        }
+
+        return $fieldsMap;
+    }
+
+    /**
+     * @param $field
+     *
+     * @return bool
+     */
+    private function isDateField($field) {
+        if (is_array($field)) {
+            return $field['data_type'] === 'date';
+        }
+
+        return $field instanceof Date;
+    }
+
+    /**
+     * @param $value
+     *
+     * @return bool
+     */
+    private function isDate($value) {
+        if (empty($value)) {
+            return false;
+        }
+        return !($value instanceof Date) && strtotime($value);
     }
 
     /**
