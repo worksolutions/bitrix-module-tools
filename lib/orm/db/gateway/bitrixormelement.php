@@ -5,10 +5,12 @@ namespace WS\Tools\ORM\Db\Gateway;
 use Bitrix\Main\DB\Result;
 use Bitrix\Main\Entity\AddResult;
 use Bitrix\Main\Entity\DataManager;
+use Bitrix\Main\Entity\DateField;
 use Bitrix\Main\Entity\UpdateResult;
 use Bitrix\Main\Type\Date;
 use Bitrix\Main\Entity\ScalarField;
 use Bitrix\Main\Entity\Field;
+use WS\Tools\ORM\DateTime;
 use WS\Tools\ORM\Db\Gateway;
 use Exception;
 use WS\Tools\ORM\Entity;
@@ -36,7 +38,7 @@ class BitrixOrmElement extends Gateway {
     protected function setupFilterClass() {
         return \WS\Tools\ORM\Db\Filter\Common::className();
     }
-    
+
     protected function hydrateWithRepo(array $gwAssoc) {
         $keyPrimary = $this->getPrimaryKey();
         $key = !empty($gwAssoc[$keyPrimary]) ? $gwAssoc[$keyPrimary] : $gwAssoc['id'];
@@ -166,10 +168,10 @@ class BitrixOrmElement extends Gateway {
      */
     private function isDateField($field) {
         if (is_array($field)) {
-            return $field['data_type'] === 'date';
+            return $field['data_type'] === 'date' || $field['data_type'] === 'datetime';
         }
 
-        return $field instanceof Date;
+        return $field instanceof DateField;
     }
 
     /**
@@ -181,7 +183,7 @@ class BitrixOrmElement extends Gateway {
         if (empty($value)) {
             return false;
         }
-        return !($value instanceof Date) && strtotime($value);
+        return ($value instanceof DateTime) || strtotime($value);
     }
 
     /**
