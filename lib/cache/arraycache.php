@@ -10,11 +10,21 @@ namespace WS\Tools\Cache;
 
 
 class ArrayCache extends Cache {
+    
+    private $fastData;
+    private $useFastData = false;
+
+    public function useFastData() {
+        $this->useFastData = true;
+    }
 
     /**
      * @return array
      */
     public function get() {
+        if ($this->useFastData) {
+            return $this->fastData;
+        }
         return $this->read(true);
     }
 
@@ -23,6 +33,9 @@ class ArrayCache extends Cache {
      * @return $this
      */
     public function set(array $value) {
+        if ($this->useFastData) {
+            $this->fastData = $value;
+        }
         $this->write($value);
         return $this;
     }
