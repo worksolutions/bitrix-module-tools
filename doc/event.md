@@ -18,7 +18,7 @@ $eventManager = $toolsModule->eventManager();
 ```
 Реализована возможность работы с данными по ссылке (модификация данных)
 
-####1. Типы событий
+#### 1. Типы событий
 Тип события определяется классом *\WS\Tools\Events\EventType*.
 Типы событий главного модуля, инфоблоков и интернет магазина определены в виде констант, к примеру `\WS\Tools\Events\EventType::MAIN_PROLOG`  
 ```php
@@ -37,7 +37,7 @@ $eventManager->subscribe($eventType, function ($arg1) {
 });
 ```
 
-####2. Обработчики
+#### 2. Обработчики
 Следующий код регистрирует обработчика события "OnProlog" модуля "main"
 ```php
 <?php
@@ -52,7 +52,7 @@ $eventManager->subscribe($eventType, function ($arg1) {
 
 Для удобной поддержки проекта можно использовать следующие типы обработчиков
 
-######1. Регистрация объявленной функции
+###### 1. Регистрация объявленной функции
 ```php
 <?php
 $eventManager = $toolsModule->eventManager();
@@ -64,7 +64,7 @@ function __callWs(& $content) {
 $em->subscribe($eventType, '__callWs');
 ```
 
-######2. Регистрация безымянной функции
+###### 2. Регистрация безымянной функции
 ```php
 <?php
 $eventManager = $toolsModule->eventManager();
@@ -75,7 +75,7 @@ $em->subscribe($eventType, function (& $content) {
 }));
 ```
 
-######3. Регистрация статического метода класса
+###### 3. Регистрация статического метода класса
 ```php
 <?php
 $eventManager = $toolsModule->eventManager();
@@ -89,7 +89,7 @@ abstract class SomeClass {
 $em->subscribe($eventType, array('SomeClass', 'callWs'));
 ```
 
-######4. Регистрация объекта специального класса обработчика
+###### 4. Регистрация объекта специального класса обработчика
 ```php
 <?php
 $eventManager = $toolsModule->eventManager();
@@ -160,7 +160,7 @@ class MyHandler extends \WS\Tools\Events\CustomHandler {
 
 ```Замечание: по ссылке возможно принимать только первый параметр в методе processReference, при этом метод processReference обязательно необходимо объявить с получением первого параметра по ссылке```
 
-####3. Вызов события
+#### 3. Вызов события
 Вызов события "OnProlog" модуля "main", так же будут вызваны все обработчики зарегистрированные не через модуль `WS\Tools`
 ```php
 <?php
