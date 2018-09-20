@@ -24,6 +24,10 @@ class AccessManager extends Base {
     public function __construct() {
         global $USER;
         $this->currentUser = $USER;
+
+        if (!($this->currentUser instanceof \CUser)) {
+            $this->currentUser = null;
+        }
     }
 
     /**
@@ -39,7 +43,7 @@ class AccessManager extends Base {
                 return $access;
             }
         }
-        $access = new $type($this->currentUser, $this->actions[$type] ?: array(), $resource);
+        $access = new $type($this->actions[$type] ?: array(), $this->currentUser, $resource);
         $this->accessList[$type][] = $access;
         return $access;
     }
