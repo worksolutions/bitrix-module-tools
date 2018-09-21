@@ -6,8 +6,10 @@ use Bitrix\Main\DB\Result;
 use Bitrix\Main\Entity\AddResult;
 use Bitrix\Main\Entity\DataManager;
 use Bitrix\Main\Entity\DateField;
+use Bitrix\Main\Entity\DatetimeField;
 use Bitrix\Main\Entity\UpdateResult;
-use Bitrix\Main\Type\Date;
+use Bitrix\Main\Type\Date as BitrixDate;
+use Bitrix\Main\Type\DateTime as BitrixDateTime;
 use Bitrix\Main\Entity\ScalarField;
 use Bitrix\Main\Entity\Field;
 use WS\Tools\ORM\DateTime;
@@ -89,7 +91,7 @@ class BitrixOrmElement extends Gateway {
         /** @var UpdateResult $res */
         $res = $bxObject->Update($id, $fields);
         if (!$res->isSuccess()) {
-            throw new SaveException($res->getErrorMessages());
+            throw new SaveException(implode("\n", $res->getErrorMessages()));
         }
     }
 
@@ -106,7 +108,7 @@ class BitrixOrmElement extends Gateway {
         /** @var AddResult $res */
         $res = $bxObject->Add($fields);
         if (!$res->isSuccess()) {
-            throw new SaveException($res->getErrorMessages());
+            throw new SaveException(implode("\n", $res->getErrorMessages()));
         }
         return $res->getId();
     }
@@ -134,7 +136,10 @@ class BitrixOrmElement extends Gateway {
                 continue;
             }
             if ($this->isDate($value) && $this->isDateField($map[$code])) {
-                $value = new Date($value);
+                $value = new BitrixDate($value);
+            }
+            if ($this->isDate($value) && $this->isDateTimeField($map[$code])) {
+                $value = new BitrixDateTime($value);
             }
             $fieldsForSave[$code] = $value;
         }
@@ -171,7 +176,20 @@ class BitrixOrmElement extends Gateway {
             return $field['data_type'] === 'date' || $field['data_type'] === 'datetime';
         }
 
-        return $field instanceof DateField;
+        return $field instanceof DateField && !($field instanceof DatetimeField);
+    }
+
+    /**
+     * @param $field
+     *
+     * @return bool
+     */
+    private function isDateTimeField($field) {
+        if (is_array($field)) {
+            return $field['data_type'] === 'datetime';
+        }
+
+        return $field instanceof DatetimeField;
     }
 
     /**
