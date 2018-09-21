@@ -43,7 +43,7 @@ class AccessManager extends Base {
                 return $access;
             }
         }
-        $access = new $type($this->actions[$type] ?: array(), $this->currentUser, $resource);
+        $access = new $type($this->currentUser, $this->actions[$type] ?: array(), $resource);
         $this->accessList[$type][] = $access;
         return $access;
     }

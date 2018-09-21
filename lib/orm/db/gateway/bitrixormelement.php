@@ -173,7 +173,7 @@ class BitrixOrmElement extends Gateway {
      */
     private function isDateField($field) {
         if (is_array($field)) {
-            return $field['data_type'] === 'date' || $field['data_type'] === 'datetime';
+            return $field['data_type'] === 'date';
         }
 
         return $field instanceof DateField && !($field instanceof DatetimeField);
