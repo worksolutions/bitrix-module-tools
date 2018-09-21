@@ -24,6 +24,10 @@ class AccessManager extends Base {
     public function __construct() {
         global $USER;
         $this->currentUser = $USER;
+
+        if (!($this->currentUser instanceof \CUser)) {
+            $this->currentUser = null;
+        }
     }
 
     /**
