@@ -9,9 +9,9 @@ use Exception;
 
 /**
  * Base iblock gateway.
- * 
+ *
  * There is integration with the bitrix catalog (hydration of objects prices)
- * 
+ *
  * @author my.sokolovsky@gmail.com
  */
 class IblockElement extends Gateway {
@@ -214,7 +214,7 @@ class IblockElement extends Gateway {
      * 
      * @return boolean
      */
-    private function isPriceRelation($attr) {
+    protected function isPriceRelation($attr) {
         $attrConfig = parent::getFieldByAttr($attr);
         return is_array($attrConfig) && $attrConfig['type'] == 'price';
     }

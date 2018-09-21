@@ -14,7 +14,7 @@ class Enum extends Common {
             $entityClass = $filterParams['attr'];
             $entityAttr = $filterParams['value'];
             $entityGw = $this->getGatewayByEntityClass($entityClass);
-            if (! $entityGw instanceof IblockElement) {
+            if (! $entityGw instanceof IblockElement || ! $entityGw instanceof IblockWfElement) {
                 throw new \Exception("Entity `$entityClass` is not support list elements because they are not iblock");
             }
             $map = $entityGw->getFieldsAssoc();
