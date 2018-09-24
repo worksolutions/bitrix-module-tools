@@ -33,7 +33,7 @@ abstract class Access extends Base {
      * @param array $actions
      * @param mixed|null $resource
      */
-    public function __construct(\CUser $user, $actions, $resource = null) {
+    public function __construct(\CUser $user = null, $actions = array(), $resource = null) {
         $this->user = $user;
         foreach ($actions ?: array() as $itemActions => $roles) {
             $itemActions = explode(',', $itemActions);

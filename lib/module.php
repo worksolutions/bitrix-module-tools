@@ -62,6 +62,7 @@ class Module {
             'orm',
             new Manager($this->cacheManager(), array(
                 'iblockElement' => Gateway\IblockElement::className(),
+                'iblockWfElement' => Gateway\IblockWfElement::className(),
                 'common' => Gateway\Common::className(),
                 'list' => Gateway\Enum::className(),
                 'file' => Gateway\File::className(),
