@@ -44,7 +44,7 @@ abstract class Gateway {
     
     private $filters = array();
 
-    private $usesGatewaysInGydrate = array();
+    private $usesGatewaysInHydrate = array();
 
     private $inCriticalArea = false;
 
@@ -123,6 +123,8 @@ abstract class Gateway {
     public function __construct(Manager $dbManager, EntityAnalyzer $analyzer) {
         $this->dbManager = $dbManager;
         $this->analyzer = $analyzer;
+
+        $this->dbManager->setGatewayLink($analyzer->getClass(), $this);
 
         foreach ($this->analyzer->getParam('property') as $propertyData) {
             $name = ltrim($propertyData[1], '$');
@@ -530,9 +532,9 @@ abstract class Gateway {
      * Filling the entity relationships (ONLY AFTER hydration).
      */
     protected function fillRelationProxy() {
-        while (!empty($this->usesGatewaysInGydrate)) {
+        while (!empty($this->usesGatewaysInHydrate)) {
             /** @var Gateway $gwRel */
-            $gwRel = array_shift($this->usesGatewaysInGydrate);
+            $gwRel = array_shift($this->usesGatewaysInHydrate);
             $gwRel->fillProxy();
         }
     }
@@ -580,7 +582,7 @@ abstract class Gateway {
             }
             return $value;
         } else {
-            $this->usesGatewaysInGydrate[$attr] = $relGw = $this->getGatewayByRelAttr($attr);
+            $this->usesGatewaysInHydrate[$attr] = $relGw = $this->getGatewayByRelAttr($attr);
             // single or multiply
             if ($this->isSingleRelation($attr)) {
                 return $relGw->createProxy(array('ID' => $value));

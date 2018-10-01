@@ -13,11 +13,27 @@ use WS\Tools\Cache\CacheManager;
  */
 class Manager {
 
+    /**
+     * Links for temporary store and avoiding of circular dependency loop
+     * @var array
+     */
+    private $gatewayLinks = array();
+
+    /**
+     * Store for instances of gateways
+     * @var array
+     */
     private $gateways = array();
+
     /**
      * @var CacheManager
      */
     private $cacheManager;
+
+    /**
+     * Classes of registered gateways
+     * @var array
+     */
     private $engines = array();
 
     public static function className() {
@@ -45,6 +61,9 @@ class Manager {
         if ($this->gateways[$entityClass]) {
             return $this->gateways[$entityClass];
         }
+        if ($this->gatewayLinks[$entityClass]) {
+            return $this->gatewayLinks[$entityClass];
+        }
 
         $entityAnalyzer = new EntityAnalyzer(
             $entityClass,
@@ -55,8 +74,12 @@ class Manager {
         if (!$gatewayClass || !class_exists($gatewayClass)) {
             throw new \Exception('Not found data gateway for entity `'.$entityClass.'`');
         }
-        $this->gateways[$entityClass] = new $gatewayClass($this, $entityAnalyzer);
-        return $this->gateways[$entityClass];
+        $gatewayObject = new $gatewayClass($this, $entityAnalyzer);
+        if ($this->gatewayLinks[$entityClass]) {
+            unset($this->gatewayLinks[$entityClass]);
+        }
+        $this->gateways[$entityClass] = $gatewayObject;
+        return $gatewayObject;
     }
 
     /**
@@ -159,5 +182,17 @@ class Manager {
         }
 
         $this->engines[$code] = $className;
+    }
+
+    /**
+     * @param string $entityClass
+     * @param Gateway $gateway
+     * @return void
+     */
+    public function setGatewayLink($entityClass, Gateway $gateway) {
+        if ($this->gateways[$entityClass]) {
+            return;
+        }
+        $this->gatewayLinks[$entityClass] = $gateway;
     }
 }
