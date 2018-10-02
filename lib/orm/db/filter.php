@@ -72,6 +72,6 @@ abstract class Filter implements IFilter {
     }
     
     public function like($attr, $value) {
-        return $this->addCondition($attr, '', $value);
+        return $this->addCondition($attr, '', '%' . $value . '%');
     }
 }

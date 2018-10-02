@@ -12,7 +12,7 @@ abstract class Request {
     private static $filterMethods = array(
         'less', 'more', 'inRange', 'in', 'notIn',
         'equal', 'notEqual', 'moreOrEqual', 'lessOrEqual',
-        'hasSubstr', 'forEntityProperty', 'logicOr'
+        'hasSubstr', 'forEntityProperty', 'logicOr', 'like'
     );
 
     /**
